@@ -1,0 +1,25 @@
+---
+- name: install nginx container app
+  sudo: yes
+  docker:
+    name: nginx
+    image: nginx:1.9.5
+    state: started
+    ports:
+      - "80:80"
+    links:
+      - php
+    volumes:
+      - /var/deployments/badges-io/releases/1/src:/var/deployments/badges-io/releases/1/src
+
+- name: config nginx container
+  sudo: yes
+  shell: docker cp /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/nginx/conf/sites-enabled nginx:/etc/nginx/
+
+- name: config nginx container
+  sudo: yes
+  shell: docker cp /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/nginx/conf/nginx.conf nginx:/etc/nginx/
+
+- name: restart nginx container
+  sudo: yes
+  shell: docker restart nginx

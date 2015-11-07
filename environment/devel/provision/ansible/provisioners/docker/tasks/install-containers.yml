@@ -1,0 +1,6 @@
+---
+- include: containers/php/main.yml
+
+- include: containers/apache/main.yml
+
+- include: containers/nginx/main.yml

@@ -1,0 +1,17 @@
+---
+- name: install php container app
+  sudo: yes
+  docker:
+    name: php
+    image: php:5.6.14-fpm
+    state: started
+    volumes:
+      - /var/deployments/badges-io/releases/1/src:/var/deployments/badges-io/releases/1/src
+
+- name: config badges-io-dev site
+  sudo: yes
+  shell: docker cp /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/php/conf/php-fpm.conf php:/usr/local/etc
+
+- name: restart php container
+  sudo: yes
+  shell: docker restart php

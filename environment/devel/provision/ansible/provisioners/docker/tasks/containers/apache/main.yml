@@ -1,0 +1,21 @@
+---
+- name: install apache container app
+  sudo: yes
+  docker:
+     name: apache
+     image: httpd:2.4.17
+     state: started
+     ports:
+      - "8080:80"
+     links:
+       - php
+     volumes:
+       - /var/deployments/badges-io/releases/1/src:/var/deployments/badges-io/releases/1/src
+
+- name: config apache container
+  sudo: yes
+  shell: docker cp /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/apache/conf/httpd.conf apache:/usr/local/apache2/conf
+
+- name: restart apache container
+  sudo: yes
+  shell: docker restart apache

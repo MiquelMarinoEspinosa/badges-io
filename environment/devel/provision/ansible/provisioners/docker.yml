@@ -1,0 +1,5 @@
+---
+- name: Docker Playbook
+  hosts: badges-io-dev
+  roles:
+    - docker
