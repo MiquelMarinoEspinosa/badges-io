@@ -30,6 +30,7 @@
             <directory>./src</directory>
             <exclude>
                 <directory>src/Test/</directory>
+                <directory>src/Infrastructure/</directory>
             </exclude>
         </whitelist>
     </filter>
