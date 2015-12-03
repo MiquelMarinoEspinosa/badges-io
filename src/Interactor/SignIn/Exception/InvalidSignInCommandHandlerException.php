@@ -9,6 +9,9 @@ class InvalidSignInCommandHandlerException extends BaseException
     public function __construct($statusCode)
     {
         switch ($statusCode) {
+            case InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED:
+                $this->userNotCreated();
+                break;
             case InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_EMAIL_ALREADY_EXISTS:
                 $this->emailAlreadyExists();
                 break;
@@ -18,6 +21,17 @@ class InvalidSignInCommandHandlerException extends BaseException
         }
 
         parent::__construct($this->message(), $this->code());
+    }
+
+    /**
+     * @return InvalidSignInCommandHandlerException
+     */
+    private function userNotCreated()
+    {
+        $this->setCode(InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED)
+            ->setMessage(InvalidSignInCommandHandlerExceptionCode::MESSAGE_CODE_USER_NOT_CREATED);
+
+        return $this;
     }
 
     /**

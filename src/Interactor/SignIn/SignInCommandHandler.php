@@ -45,7 +45,7 @@ class SignInCommandHandler implements CommandHandler
     {
         $this->validate($command);
         $user = $this->buildUser($command);
-        $this->userRepository->persist($user);
+        $this->tryToPersistUser($user);
 
         return $this->userDataTransformer->transform($user);
     }
@@ -69,9 +69,15 @@ class SignInCommandHandler implements CommandHandler
     private function checkNoUserExistsWithThisEmail($email)
     {
         $aNullUser  = null;
-        $user       = $this->userRepository->findByEmail($email);
+        try {
+            $user  = $this->userRepository->findByEmail($email);
+        } catch (\Exception $exception) {
+            $user = null;
+            $this->throwUserNotCreatedException();
+        }
+
         if ($aNullUser !== $user) {
-            throw new InvalidSignInCommandHandlerException(
+            throw $this->buildInvalidSigInCommandHandlerException(
                 InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_EMAIL_ALREADY_EXISTS
             );
         }
@@ -85,9 +91,15 @@ class SignInCommandHandler implements CommandHandler
     private function checkNoUserExistsWithThisUserName($userName)
     {
         $aNullUser  = null;
-        $user       = $this->userRepository->findByUserName($userName);
+        try {
+            $user = $this->userRepository->findByUserName($userName);
+        } catch (\Exception $exception) {
+            $user = null;
+            $this->throwUserNotCreatedException();
+        }
+
         if ($aNullUser !== $user) {
-            throw new InvalidSignInCommandHandlerException(
+            throw $this->buildInvalidSigInCommandHandlerException(
                 InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USERNAME_ALREADY_EXISTS
             );
         }
@@ -105,6 +117,40 @@ class SignInCommandHandler implements CommandHandler
             $command->email(),
             $command->userName(),
             $command->passWord()
+        );
+    }
+
+    /**
+     * @param User $user
+     */
+    private function tryToPersistUser($user)
+    {
+        try {
+            $this->userRepository->persist($user);
+        } catch (\Exception $exception) {
+            $this->throwUserNotCreatedException();
+        }
+    }
+
+    /**
+     * @throws InvalidSignInCommandHandlerException
+     */
+    private function throwUserNotCreatedException()
+    {
+        throw $this->buildInvalidSigInCommandHandlerException(
+            InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED
+        );
+    }
+
+    /**
+     * @param int $statusCode
+     *
+     * @return InvalidSignInCommandHandlerException
+     */
+    private function buildInvalidSigInCommandHandlerException($statusCode)
+    {
+        return new InvalidSignInCommandHandlerException(
+            $statusCode
         );
     }
 }
