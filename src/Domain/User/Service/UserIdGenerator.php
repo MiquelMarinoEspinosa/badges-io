@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\User;
+namespace Domain\User\Service;
 
 interface UserIdGenerator
 {

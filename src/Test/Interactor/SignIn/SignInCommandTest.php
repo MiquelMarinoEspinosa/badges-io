@@ -3,6 +3,7 @@
 namespace Test\Interactor\SignIn;
 
 use Interactor\SignIn\Exception\InvalidSignInCommandException;
+use Interactor\SignIn\Exception\InvalidSignInCommandExceptionCode;
 use Interactor\SignIn\SignInCommand;
 
 class SignInCommandTest extends \PHPUnit_Framework_TestCase
@@ -27,7 +28,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidSignInCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandException::STATUS_CODE_EMAIL_NOT_PROVIDED,
+                InvalidSignInCommandExceptionCode::STATUS_CODE_EMAIL_NOT_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -45,7 +46,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidSignInCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandException::STATUS_CODE_EMAIL_NOT_VALID_PROVIDED,
+                InvalidSignInCommandExceptionCode::STATUS_CODE_EMAIL_NOT_VALID_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -63,7 +64,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidSignInCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandException::STATUS_CODE_USERNAME_NOT_PROVIDED,
+                InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -84,7 +85,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidSignInCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandException::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED,
+                InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -105,7 +106,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidSignInCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandException::STATUS_CODE_PASSWORD_NOT_PROVIDED,
+                InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -124,7 +125,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
             );
         } catch (InvalidSignInCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandException::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED,
+                InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED,
                 $invalidCommandException->code()
             );
         }

@@ -2,6 +2,8 @@
 
 namespace Domain\User;
 
+use Domain\User\Validator\UserValidator;
+
 class User
 {
     /** @var  string */
@@ -18,7 +20,8 @@ class User
         $this->setId($id)
              ->setEmail($email)
              ->setUserName($userName)
-             ->setPassWord($passWord);
+             ->setPassWord($passWord)
+             ->validateParams();
     }
 
     /**
@@ -99,5 +102,18 @@ class User
         $this->passWord = $passWord;
 
         return $this;
+    }
+
+    private function validateParams()
+    {
+        $this->buildValidator()->validate();
+    }
+
+    /**
+     * @return UserValidator
+     */
+    private function buildValidator()
+    {
+        return new UserValidator($this);
     }
 }

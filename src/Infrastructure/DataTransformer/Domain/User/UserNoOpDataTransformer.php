@@ -1,6 +1,6 @@
 <?php
 
-namespace Infrastructure\DataTransformer\Domain;
+namespace Infrastructure\DataTransformer\Domain\User;
 
 use Domain\User\User;
 use Domain\User\UserDataTransformer;

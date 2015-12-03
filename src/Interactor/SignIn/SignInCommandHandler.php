@@ -2,12 +2,13 @@
 
 namespace Interactor\SignIn;
 
+use Domain\User\Service\UserIdGenerator;
 use Domain\User\User;
 use Domain\User\UserDataTransformer;
-use Domain\User\UserIdGenerator;
 use Domain\User\UserRepository;
 use Interactor\CommandHandler;
 use Interactor\SignIn\Exception\InvalidSignInCommandHandlerException;
+use Interactor\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
 
 class SignInCommandHandler implements CommandHandler
 {
@@ -71,7 +72,7 @@ class SignInCommandHandler implements CommandHandler
         $user       = $this->userRepository->findByEmail($email);
         if ($aNullUser !== $user) {
             throw new InvalidSignInCommandHandlerException(
-                InvalidSignInCommandHandlerException::STATUS_CODE_EMAIL_ALREADY_EXISTS
+                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_EMAIL_ALREADY_EXISTS
             );
         }
     }
@@ -87,7 +88,7 @@ class SignInCommandHandler implements CommandHandler
         $user       = $this->userRepository->findByUserName($userName);
         if ($aNullUser !== $user) {
             throw new InvalidSignInCommandHandlerException(
-                InvalidSignInCommandHandlerException::STATUS_CODE_USERNAME_ALREADY_EXISTS
+                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USERNAME_ALREADY_EXISTS
             );
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Test\Domain\User;
 
-use Domain\User\UserIdGenerator;
+use Domain\User\Service\UserIdGenerator;
 
 class FakeUserIdGenerator implements UserIdGenerator
 {

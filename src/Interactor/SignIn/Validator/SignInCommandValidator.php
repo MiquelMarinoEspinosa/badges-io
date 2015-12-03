@@ -3,6 +3,7 @@
 namespace Interactor\SignIn\Validator;
 
 use Interactor\SignIn\Exception\InvalidSignInCommandException;
+use Interactor\SignIn\Exception\InvalidSignInCommandExceptionCode;
 use Interactor\SignIn\SignInCommand;
 
 class SignInCommandValidator
@@ -40,7 +41,9 @@ class SignInCommandValidator
     {
         $aNullEmail = null;
         if ($aNullEmail === $this->singInCommand->email()) {
-            throw $this->buildInvalidCommandException(InvalidSignInCommandException::STATUS_CODE_EMAIL_NOT_PROVIDED);
+            throw $this->buildInvalidCommandException(
+                InvalidSignInCommandExceptionCode::STATUS_CODE_EMAIL_NOT_PROVIDED
+            );
         }
     }
 
@@ -51,7 +54,7 @@ class SignInCommandValidator
     {
         if ($this->notValidEmailFormat($this->singInCommand->email())) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandException::STATUS_CODE_EMAIL_NOT_VALID_PROVIDED
+                InvalidSignInCommandExceptionCode::STATUS_CODE_EMAIL_NOT_VALID_PROVIDED
             );
         }
     }
@@ -83,7 +86,7 @@ class SignInCommandValidator
         $aNullUserName = null;
         if ($aNullUserName === $this->singInCommand->userName()) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandException::STATUS_CODE_USERNAME_NOT_PROVIDED
+                InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_PROVIDED
             );
         }
     }
@@ -95,16 +98,24 @@ class SignInCommandValidator
     {
         if ($this->notValidUserNameFormat($this->singInCommand->userName())) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandException::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED
+                InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED
             );
         }
     }
 
+    /**
+     * @param string $userName
+     *
+     * @return bool
+     */
     private function notValidUserNameFormat($userName)
     {
         return "" === $userName;
     }
 
+    /**
+     * @throws InvalidSignInCommandException
+     */
     private function validatePassWord()
     {
         $this->validatePassWordNotNull();
@@ -119,7 +130,7 @@ class SignInCommandValidator
         $aNullPassWord = null;
         if ($aNullPassWord === $this->singInCommand->passWord()) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandException::STATUS_CODE_PASSWORD_NOT_PROVIDED
+                InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_PROVIDED
             );
         }
     }
@@ -131,7 +142,7 @@ class SignInCommandValidator
     {
         if ($this->notValidPassWordFormat($this->singInCommand->passWord())) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandException::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED
+                InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED
             );
         }
     }

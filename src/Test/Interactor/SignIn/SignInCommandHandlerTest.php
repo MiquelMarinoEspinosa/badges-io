@@ -2,12 +2,14 @@
 
 namespace Test\Interactor\SignIn;
 
+use Domain\User\Service\UserIdGenerator;
 use Domain\User\User;
-use Domain\User\UserIdGenerator;
+use Domain\User\UserDataTransformer;
 use Domain\User\UserRepository;
-use Infrastructure\DataTransformer\Domain\UserNoOpDataTransformer;
-use Infrastructure\InMemory\InMemoryUserRepository;
+use Infrastructure\DataTransformer\Domain\User\UserNoOpDataTransformer;
+use Infrastructure\InMemory\User\InMemoryUserRepository;
 use Interactor\SignIn\Exception\InvalidSignInCommandHandlerException;
+use Interactor\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
 use Interactor\SignIn\SignInCommand;
 use Interactor\SignIn\SignInCommandHandler;
 use Test\Domain\User\FakeUserBuilder;
@@ -46,7 +48,7 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidSignInCommandHandlerException $invalidSignInCommandHandlerException) {
             $this->assertEquals(
-                InvalidSignInCommandHandlerException::STATUS_CODE_EMAIL_ALREADY_EXISTS,
+                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_EMAIL_ALREADY_EXISTS,
                 $invalidSignInCommandHandlerException->code()
             );
         }
@@ -76,7 +78,7 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidSignInCommandHandlerException $invalidSignInCommandHandlerException) {
             $this->assertEquals(
-                InvalidSignInCommandHandlerException::STATUS_CODE_USERNAME_ALREADY_EXISTS,
+                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USERNAME_ALREADY_EXISTS,
                 $invalidSignInCommandHandlerException->code()
             );
         }
@@ -151,7 +153,7 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return UserNoOpDataTransformer
+     * @return UserDataTransformer
      */
     private function buildUserDataTransformer()
     {
