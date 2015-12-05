@@ -8,12 +8,15 @@ use Domain\User\User;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
+    const ID_NOT_VALID_INT                  = 1;
     const ID_NOT_VALID_EMPTY                = '';
     const ID_VALID_1234                     = '1234';
     const EMAIL_NOT_VALID_TEST              = 'test';
     const EMAIL_VALID_TEST_BADGES_IO_COM    = 'test@badges-io.com';
+    const USERNAME_NOT_VALID_FLOAT          = 2.4;
     const USERNAME_NOT_VALID_EMPTY          = '';
     const USERNAME_VALID_BADGES_USER        = 'badgesUser';
+    const PASSWORD_NOT_VALID_INT            = 1;
     const PASSWORD_NOT_VALID_EMPTY          = '';
     const PASSWORD_VALID_BE_FREE            = 'B3FR33';
 
@@ -47,6 +50,25 @@ class UserTest extends \PHPUnit_Framework_TestCase
             $aNullUserName  = null;
             $aNullPassWord  = null;
             $this->buildUser(static::ID_NOT_VALID_EMPTY, $aNullEmail, $aNullUserName, $aNullPassWord);
+            $this->thisTestFails();
+        } catch (InvalidUserException $invalidCommandException) {
+            $this->assertEquals(
+                InvalidUserExceptionCode::STATUS_CODE_ID_NOT_VALID_PROVIDED,
+                $invalidCommandException->code()
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function commandWithNotValidIdTypeShouldThrowInvalidCommandExceptionWithIDNotValidProvidedStatus()
+    {
+        try {
+            $aNullEmail     = null;
+            $aNullUserName  = null;
+            $aNullPassWord  = null;
+            $this->buildUser(static::ID_NOT_VALID_INT, $aNullEmail, $aNullUserName, $aNullPassWord);
             $this->thisTestFails();
         } catch (InvalidUserException $invalidCommandException) {
             $this->assertEquals(
@@ -141,6 +163,28 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function commandNotValidUserNameTypeShouldThrowInvalidCommandExceptionWithUserNameNotValidProvidedStatus()
+    {
+        try {
+            $aNullPassWord = null;
+            $this->buildUser(
+                static::ID_VALID_1234,
+                static::EMAIL_VALID_TEST_BADGES_IO_COM,
+                static::USERNAME_NOT_VALID_FLOAT,
+                $aNullPassWord
+            );
+            $this->thisTestFails();
+        } catch (InvalidUserException $invalidCommandException) {
+            $this->assertEquals(
+                InvalidUserExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED,
+                $invalidCommandException->code()
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
     public function commandWithoutPassWordShouldThrowInvalidCommandExceptionWithPassWordNotProvidedStatus()
     {
         try {
@@ -172,6 +216,28 @@ class UserTest extends \PHPUnit_Framework_TestCase
                 static::USERNAME_VALID_BADGES_USER,
                 static::PASSWORD_NOT_VALID_EMPTY
             );
+            $this->thisTestFails();
+        } catch (InvalidUserException $invalidCommandException) {
+            $this->assertEquals(
+                InvalidUserExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED,
+                $invalidCommandException->code()
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function commandNotValidPassWordTypeShouldThrowInvalidCommandExceptionWithPassWordNotValidProvidedStatus()
+    {
+        try {
+            $this->buildUser(
+                static::ID_VALID_1234,
+                static::EMAIL_VALID_TEST_BADGES_IO_COM,
+                static::USERNAME_VALID_BADGES_USER,
+                static::PASSWORD_NOT_VALID_INT
+            );
+            $this->thisTestFails();
         } catch (InvalidUserException $invalidCommandException) {
             $this->assertEquals(
                 InvalidUserExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED,

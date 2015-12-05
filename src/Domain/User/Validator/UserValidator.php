@@ -5,8 +5,9 @@ namespace Domain\User\Validator;
 use Domain\User\Exception\InvalidUserException;
 use Domain\User\Exception\InvalidUserExceptionCode;
 use Domain\User\User;
+use Validator\Validator;
 
-class UserValidator
+class UserValidator implements Validator
 {
     /**
      * @var User
@@ -20,22 +21,27 @@ class UserValidator
 
     public function validate()
     {
-        $this->validateId();
-        $this->validateEmail();
-        $this->validateUserName();
-        $this->validatePassWord();
+        $this->validateId()
+             ->validateEmail()
+             ->validateUserName()
+             ->validatePassWord();
     }
 
     /**
      * @throws InvalidUserException
+     *
+     * @return UserValidator
      */
     private function validateId()
     {
-        $this->checkIdNotNull();
-        $this->checkIdFormat();
+        $this->checkIdNotNull()
+             ->checkIdFormat();
+
+        return $this;
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function checkIdNotNull()
@@ -44,9 +50,12 @@ class UserValidator
         if ($aNullId === $this->user->id()) {
             throw $this->buildInvalidUserException(InvalidUserExceptionCode::STATUS_CODE_ID_NOT_PROVIDED);
         }
+
+        return $this;
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function checkIdFormat()
@@ -56,6 +65,8 @@ class UserValidator
                 InvalidUserExceptionCode::STATUS_CODE_ID_NOT_VALID_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
@@ -65,19 +76,23 @@ class UserValidator
      */
     private function notValidIdFormat($id)
     {
-        return "" === $id;
+        return !is_string($id) || "" === trim($id);
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function validateEmail()
     {
-        $this->checkEmailNotNull();
-        $this->checkEmailFormat();
+        $this->checkEmailNotNull()
+             ->checkEmailFormat();
+
+        return $this;
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function checkEmailNotNull()
@@ -86,9 +101,12 @@ class UserValidator
         if ($aNullEmail === $this->user->email()) {
             throw $this->buildInvalidUserException(InvalidUserExceptionCode::STATUS_CODE_EMAIL_NOT_PROVIDED);
         }
+
+        return $this;
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function checkEmailFormat()
@@ -98,6 +116,8 @@ class UserValidator
                 InvalidUserExceptionCode::STATUS_CODE_EMAIL_NOT_VALID_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
@@ -111,15 +131,19 @@ class UserValidator
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function validateUserName()
     {
-        $this->checkUserNameNotNull();
-        $this->checkUserNameFormat();
+        $this->checkUserNameNotNull()
+             ->checkUserNameFormat();
+
+        return $this;
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function checkUserNameNotNull()
@@ -130,9 +154,12 @@ class UserValidator
                 InvalidUserExceptionCode::STATUS_CODE_USERNAME_NOT_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function checkUserNameFormat()
@@ -142,6 +169,8 @@ class UserValidator
                 InvalidUserExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
@@ -151,19 +180,23 @@ class UserValidator
      */
     private function notValidUserNameFormat($userName)
     {
-        return "" === $userName;
+        return  !is_string($userName) || "" === trim($userName);
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function validatePassWord()
     {
-        $this->validatePassWordNotNull();
-        $this->validatePassWordFormat();
+        $this->validatePassWordNotNull()
+             ->validatePassWordFormat();
+
+        return $this;
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function validatePassWordNotNull()
@@ -174,9 +207,12 @@ class UserValidator
                 InvalidUserExceptionCode::STATUS_CODE_PASSWORD_NOT_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
+     * @return UserValidator
      * @throws InvalidUserException
      */
     private function validatePassWordFormat()
@@ -186,6 +222,8 @@ class UserValidator
                 InvalidUserExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
@@ -195,7 +233,7 @@ class UserValidator
      */
     private function notValidPassWordFormat($passWord)
     {
-        return  "" === $passWord;
+        return  !is_string($passWord) || "" === trim($passWord);
     }
 
     /**

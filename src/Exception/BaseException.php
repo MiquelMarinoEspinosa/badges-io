@@ -2,7 +2,7 @@
 
 namespace Exception;
 
-abstract class BaseException extends \Exception
+class BaseException extends \Exception
 {
     /**
      * @param int $code

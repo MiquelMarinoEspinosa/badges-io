@@ -21,7 +21,7 @@ class User
              ->setEmail($email)
              ->setUserName($userName)
              ->setPassWord($passWord)
-             ->validateParams();
+             ->validate();
     }
 
     /**
@@ -104,9 +104,14 @@ class User
         return $this;
     }
 
-    private function validateParams()
+    /**
+     * @return User
+     */
+    private function validate()
     {
         $this->buildValidator()->validate();
+
+        return $this;
     }
 
     /**

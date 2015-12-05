@@ -10,15 +10,17 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
 {
     const EMAIL_NOT_VALID_TEST              = 'test';
     const EMAIL_VALID_TEST_BADGES_IO_COM    = 'test@badges-io.com';
+    const USERNAME_NOT_VALID_INT            = 1;
     const USERNAME_NOT_VALID_EMPTY          = '';
     const USERNAME_VALID_BADGES_USER        = 'badgesUser';
+    const PASSWORD_NOT_VALID_FLOAT          = 3.4;
     const PASSWORD_NOT_VALID_EMPTY          = '';
     const PASSWORD_VALID_BE_FREE            = 'B3FR33';
 
     /**
      * @test
      */
-    public function commandWithoutEmailShouldThrowInvalidCommandExceptionWithEmailNotProvidedStatus()
+    public function commandWithoutEmailShouldThrowExceptionWithEmailNotProvidedStatusCode()
     {
         try {
             $aNullEmail = null;
@@ -37,7 +39,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidEmailShouldThrowInvalidCommandExceptionWithEmailNotValidProvidedStatus()
+    public function commandWithNotValidEmailShouldThrowExceptionWithEmailNotValidProvidedStatusCode()
     {
         try {
             $aNullUserName = null;
@@ -55,7 +57,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutUserNameShouldThrowInvalidCommandExceptionWithUsernameNotProvidedStatus()
+    public function commandWithoutUserNameShouldThrowExceptionWithUsernameNotProvidedStatusCode()
     {
         try {
             $aNullUserName = null;
@@ -73,7 +75,28 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidUserNameShouldThrowInvalidCommandExceptionWithUserNameNotValidProvidedStatus()
+    public function commandWithNotValidUserNameTypeShouldThrowExceptionWithUserNameNotValidProvidedStatusCode()
+    {
+        try {
+            $aNullPassWord = null;
+            $this->buildCommand(
+                static::EMAIL_VALID_TEST_BADGES_IO_COM,
+                static::USERNAME_NOT_VALID_INT,
+                $aNullPassWord
+            );
+            $this->thisTestFails();
+        } catch (InvalidSignInCommandException $invalidCommandException) {
+            $this->assertEquals(
+                InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED,
+                $invalidCommandException->code()
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function commandWithNotValidUserNameShouldThrowExceptionWithUserNameNotValidProvidedStatusCode()
     {
         try {
             $aNullPassWord = null;
@@ -94,7 +117,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutPassWordShouldThrowInvalidCommandExceptionWithPassWordNotProvidedStatus()
+    public function commandWithoutPassWordShouldThrowExceptionWithPassWordNotProvidedStatusCode()
     {
         try {
             $aNullPassWord = null;
@@ -115,13 +138,32 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidPassWordShouldThrowInvalidCommandExceptionWithPassWordNotValidProvidedStatus()
+    public function commandWithNotValidPassWordShouldThrowExceptionWithPassWordNotValidProvidedStatusCode()
     {
         try {
             $this->buildCommand(
                 static::EMAIL_VALID_TEST_BADGES_IO_COM,
                 static::USERNAME_VALID_BADGES_USER,
                 static::PASSWORD_NOT_VALID_EMPTY
+            );
+        } catch (InvalidSignInCommandException $invalidCommandException) {
+            $this->assertEquals(
+                InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED,
+                $invalidCommandException->code()
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function commandWithNotValidPassWordTypeShouldThrowExceptionWithPassWordNotValidProvidedStatusCode()
+    {
+        try {
+            $this->buildCommand(
+                static::EMAIL_VALID_TEST_BADGES_IO_COM,
+                static::USERNAME_VALID_BADGES_USER,
+                static::PASSWORD_NOT_VALID_FLOAT
             );
         } catch (InvalidSignInCommandException $invalidCommandException) {
             $this->assertEquals(

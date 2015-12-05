@@ -24,7 +24,7 @@ class SignInCommand implements Command
         $this->setMail($email)
              ->setUserName($userName)
              ->setPassWord($passWord)
-             ->validateParams();
+             ->validate();
     }
 
     /**
@@ -87,9 +87,14 @@ class SignInCommand implements Command
         return $this->passWord;
     }
 
-    private function validateParams()
+    /**
+     * @return SignInCommand
+     */
+    private function validate()
     {
         $this->buildValidator()->validate();
+
+        return $this;
     }
 
     /**

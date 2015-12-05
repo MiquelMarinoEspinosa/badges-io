@@ -28,7 +28,7 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function emailAlreadyExistsShouldThrowExceptionEmailAlreadyExistsCode()
+    public function emailAlreadyExistsShouldThrowExceptionEmailAlreadyExistsStatusCode()
     {
         try {
             $commandHandler = $this->buildCommandHandler(
@@ -58,7 +58,7 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function userNameAlreadyExistsShouldThrowExceptionEmailAlreadyExistsCode()
+    public function userNameAlreadyExistsShouldThrowExceptionEmailAlreadyExistsStatusCode()
     {
         try {
             $commandHandler = $this->buildCommandHandler(

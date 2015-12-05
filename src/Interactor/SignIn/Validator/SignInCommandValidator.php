@@ -5,8 +5,9 @@ namespace Interactor\SignIn\Validator;
 use Interactor\SignIn\Exception\InvalidSignInCommandException;
 use Interactor\SignIn\Exception\InvalidSignInCommandExceptionCode;
 use Interactor\SignIn\SignInCommand;
+use Validator\Validator;
 
-class SignInCommandValidator
+class SignInCommandValidator implements Validator
 {
     /**
      * @var SignInCommand
@@ -20,21 +21,25 @@ class SignInCommandValidator
 
     public function validate()
     {
-        $this->validateEmail();
-        $this->validateUserName();
-        $this->validatePassWord();
+        $this->validateEmail()
+             ->validateUserName()
+             ->validatePassWord();
     }
 
     /**
+     * @return SignInCommandValidator
      * @throws InvalidSignInCommandException
      */
     private function validateEmail()
     {
-        $this->checkEmailNotNull();
-        $this->checkEmailFormat();
+        $this->checkEmailNotNull()
+             ->checkEmailFormat();
+
+        return $this;
     }
 
     /**
+     * @return SignInCommandValidator
      * @throws InvalidSignInCommandException
      */
     private function checkEmailNotNull()
@@ -45,9 +50,12 @@ class SignInCommandValidator
                 InvalidSignInCommandExceptionCode::STATUS_CODE_EMAIL_NOT_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
+     * @return SignInCommandValidator
      * @throws InvalidSignInCommandException
      */
     private function checkEmailFormat()
@@ -57,6 +65,8 @@ class SignInCommandValidator
                 InvalidSignInCommandExceptionCode::STATUS_CODE_EMAIL_NOT_VALID_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
@@ -70,15 +80,19 @@ class SignInCommandValidator
     }
 
     /**
+     * @return SignInCommandValidator
      * @throws InvalidSignInCommandException
      */
     private function validateUserName()
     {
-        $this->checkUserNameNotNull();
-        $this->checkUserNameFormat();
+        $this->checkUserNameNotNull()
+             ->checkUserNameFormat();
+
+        return $this;
     }
 
     /**
+     * @return SignInCommandValidator
      * @throws InvalidSignInCommandException
      */
     private function checkUserNameNotNull()
@@ -89,9 +103,12 @@ class SignInCommandValidator
                 InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
+     * @return SignInCommandValidator
      * @throws InvalidSignInCommandException
      */
     private function checkUserNameFormat()
@@ -101,6 +118,8 @@ class SignInCommandValidator
                 InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
@@ -110,19 +129,23 @@ class SignInCommandValidator
      */
     private function notValidUserNameFormat($userName)
     {
-        return "" === $userName;
+        return !is_string($userName) || "" === trim($userName);
     }
 
     /**
+     * @return SignInCommandValidator
      * @throws InvalidSignInCommandException
      */
     private function validatePassWord()
     {
-        $this->validatePassWordNotNull();
-        $this->validatePassWordFormat();
+        $this->validatePassWordNotNull()
+             ->validatePassWordFormat();
+
+        return $this;
     }
 
     /**
+     * @return SignInCommandValidator
      * @throws InvalidSignInCommandException
      */
     private function validatePassWordNotNull()
@@ -133,9 +156,12 @@ class SignInCommandValidator
                 InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
+     * @return SignInCommandValidator
      * @throws InvalidSignInCommandException
      */
     private function validatePassWordFormat()
@@ -145,6 +171,8 @@ class SignInCommandValidator
                 InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED
             );
         }
+
+        return $this;
     }
 
     /**
@@ -154,7 +182,7 @@ class SignInCommandValidator
      */
     private function notValidPassWordFormat($passWord)
     {
-        return  "" === $passWord;
+        return  !is_string($passWord) || "" === trim($passWord);
     }
 
     /**

@@ -6,6 +6,9 @@ use Exception\BaseException;
 
 class InvalidSignInCommandHandlerException extends BaseException
 {
+    /**
+     * @param int $statusCode
+     */
     public function __construct($statusCode)
     {
         switch ($statusCode) {
