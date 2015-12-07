@@ -13,11 +13,11 @@ class ImageData
     /** @var  string */
     private $format;
 
-    public function __construct($imageName, $imageWidth, $imageHeight, $format)
+    public function __construct($name, $width, $height, $format)
     {
-        $this->setName($imageName)
-             ->setWidth($imageWidth)
-             ->setHeight($imageHeight)
+        $this->setName($name)
+             ->setWidth($width)
+             ->setHeight($height)
              ->setFormat($format);
     }
 

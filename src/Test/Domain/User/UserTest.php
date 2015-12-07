@@ -23,7 +23,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutIdShouldThrowInvalidCommandExceptionWithIdNotProvidedStatus()
+    public function idIsNullShouldThrowInvalidUserExceptionWithIdNotProvidedStatus()
     {
         try {
             $aNullId        = null;
@@ -43,7 +43,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidIdShouldThrowInvalidCommandExceptionWithIDNotValidProvidedStatus()
+    public function notValidIdShouldThrowInvalidUserExceptionWithIdNotValidProvidedStatus()
     {
         try {
             $aNullEmail     = null;
@@ -62,7 +62,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidIdTypeShouldThrowInvalidCommandExceptionWithIDNotValidProvidedStatus()
+    public function notValidIdTypeShouldThrowInvalidUserExceptionWithIdNotValidProvidedStatus()
     {
         try {
             $aNullEmail     = null;
@@ -81,7 +81,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutEmailShouldThrowInvalidCommandExceptionWithEmailNotProvidedStatus()
+    public function nullEmailShouldThrowInvalidUserExceptionWithEmailNotProvidedStatus()
     {
         try {
             $aNullEmail     = null;
@@ -100,7 +100,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidEmailShouldThrowInvalidCommandExceptionWithEmailNotValidProvidedStatus()
+    public function notValidEmailShouldThrowInvalidUserExceptionWithEmailNotValidProvidedStatus()
     {
         try {
             $aNullUserName = null;
@@ -118,7 +118,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutUserNameShouldThrowInvalidCommandExceptionWithUsernameNotProvidedStatus()
+    public function nullUserNameShouldThrowInvalidUserExceptionWithUsernameNotProvidedStatus()
     {
         try {
             $aNullUserName = null;
@@ -141,7 +141,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidUserNameShouldThrowInvalidCommandExceptionWithUserNameNotValidProvidedStatus()
+    public function notValidUserNameShouldThrowInvalidUserExceptionWithUserNameNotValidProvidedStatus()
     {
         try {
             $aNullPassWord = null;
@@ -163,7 +163,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandNotValidUserNameTypeShouldThrowInvalidCommandExceptionWithUserNameNotValidProvidedStatus()
+    public function notValidUserNameTypeShouldThrowInvalidUserExceptionWithUserNameNotValidProvidedStatus()
     {
         try {
             $aNullPassWord = null;
@@ -185,7 +185,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutPassWordShouldThrowInvalidCommandExceptionWithPassWordNotProvidedStatus()
+    public function nullPassWordShouldThrowInvalidUSerExceptionWithPassWordNotProvidedStatus()
     {
         try {
             $aNullPassWord = null;
@@ -207,7 +207,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidPassWordShouldThrowInvalidCommandExceptionWithPassWordNotValidProvidedStatus()
+    public function notValidPassWordShouldThrowInvalidUserExceptionWithPassWordNotValidProvidedStatus()
     {
         try {
             $this->buildUser(
@@ -228,7 +228,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandNotValidPassWordTypeShouldThrowInvalidCommandExceptionWithPassWordNotValidProvidedStatus()
+    public function notValidPassWordTypeShouldThrowInvalidUserExceptionWithPassWordNotValidProvidedStatus()
     {
         try {
             $this->buildUser(
@@ -249,7 +249,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithAllTheParamsValidShouldReturnTheCommand()
+    public function userWithAllTheParamsValidShouldReturnTheUser()
     {
         $user = $this->buildUser(
             static::ID_VALID_1234,

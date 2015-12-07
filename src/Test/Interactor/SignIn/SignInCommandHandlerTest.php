@@ -2,7 +2,7 @@
 
 namespace Test\Interactor\SignIn;
 
-use Domain\User\Service\UserIdGenerator;
+use Domain\Service\IdGenerator;
 use Domain\User\User;
 use Domain\User\UserDataTransformer;
 use Domain\User\UserRepository;
@@ -12,8 +12,8 @@ use Interactor\SignIn\Exception\InvalidSignInCommandHandlerException;
 use Interactor\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
 use Interactor\SignIn\SignInCommand;
 use Interactor\SignIn\SignInCommandHandler;
+use Test\Domain\Service\FakeIdGenerator;
 use Test\Domain\User\FakeUserBuilder;
-use Test\Domain\User\FakeUserIdGenerator;
 use Test\Domain\User\FakeUserRepositoryThrownException;
 
 class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
@@ -229,7 +229,7 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
         return new SignInCommandHandler(
             $userRepository,
             $this->buildUserDataTransformer(),
-            $this->buildUserIdGenerator()
+            $this->buildIdGenerator()
         );
     }
 
@@ -272,11 +272,11 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return UserIdGenerator
+     * @return IdGenerator
      */
-    private function buildUserIdGenerator()
+    private function buildIdGenerator()
     {
-        return new FakeUserIdGenerator();
+        return new FakeIdGenerator();
     }
 
     private function thisTestFails()

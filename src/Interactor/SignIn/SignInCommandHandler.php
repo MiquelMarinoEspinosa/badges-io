@@ -2,6 +2,7 @@
 
 namespace Interactor\SignIn;
 
+use Domain\Service\IdGenerator;
 use Domain\User\Service\UserIdGenerator;
 use Domain\User\User;
 use Domain\User\UserDataTransformer;
@@ -28,7 +29,7 @@ class SignInCommandHandler implements CommandHandler
     public function __construct(
         UserRepository $userRepository,
         UserDataTransformer $userDataTransformer,
-        UserIdGenerator $userIdGenerator
+        IdGenerator $userIdGenerator
     ) {
         $this->userRepository       = $userRepository;
         $this->userDataTransformer  = $userDataTransformer;

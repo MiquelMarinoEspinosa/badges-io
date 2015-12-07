@@ -152,6 +152,22 @@ class CreateBadgeCommandValidator implements Validator
      * @return CreateBadgeCommandValidator
      * @throws InvalidCreateBadgeCommandException
      */
+    private function checkIsMultiTenantNotNull()
+    {
+        $aNullIsMultiTenant = null;
+        if ($this->createBadgeCommand->isMultiTenant() === $aNullIsMultiTenant) {
+            throw $this->buildInvalidCreateCommandException(
+                InvalidCreateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return CreateBadgeCommandValidator
+     * @throws InvalidCreateBadgeCommandException
+     */
     private function checkIsMultiTenantFormat()
     {
         if ($this->notValidIsMultiTenantFormat($this->createBadgeCommand->isMultiTenant())) {
@@ -171,22 +187,6 @@ class CreateBadgeCommandValidator implements Validator
     private function notValidIsMultiTenantFormat($isMultiTenant)
     {
         return !is_bool($isMultiTenant);
-    }
-
-    /**
-     * @return CreateBadgeCommandValidator
-     * @throws InvalidCreateBadgeCommandException
-     */
-    private function checkIsMultiTenantNotNull()
-    {
-        $aNullIsMultiTenant = null;
-        if ($this->createBadgeCommand->isMultiTenant() === $aNullIsMultiTenant) {
-            throw $this->buildInvalidCreateCommandException(
-                InvalidCreateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED
-            );
-        }
-
-        return $this;
     }
 
     /**
