@@ -1,20 +1,20 @@
 <?php
 
-namespace Test\Interactor\SignIn;
+namespace Test\Interactor\CommandHandler\SignIn;
 
 use Domain\Service\IdGenerator;
-use Domain\User\User;
-use Domain\User\UserDataTransformer;
-use Domain\User\UserRepository;
+use Domain\Entity\User\User;
+use Domain\Entity\User\UserDataTransformer;
+use Domain\Entity\User\UserRepository;
 use Infrastructure\DataTransformer\Domain\User\UserNoOpDataTransformer;
 use Infrastructure\InMemory\User\InMemoryUserRepository;
-use Interactor\SignIn\Exception\InvalidSignInCommandHandlerException;
-use Interactor\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
-use Interactor\SignIn\SignInCommand;
-use Interactor\SignIn\SignInCommandHandler;
+use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerException;
+use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
+use Interactor\CommandHandler\SignIn\SignInCommand;
+use Interactor\CommandHandler\SignIn\SignInCommandHandler;
 use Test\Domain\Service\FakeIdGenerator;
-use Test\Domain\User\FakeUserBuilder;
-use Test\Domain\User\FakeUserRepositoryThrownException;
+use Test\Domain\Entity\User\FakeUserBuilder;
+use Test\Domain\Entity\User\FakeUserRepositoryThrownException;
 
 class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {

@@ -2,8 +2,8 @@
 
 namespace Infrastructure\InMemory\User;
 
-use Domain\User\User;
-use Domain\User\UserRepository;
+use Domain\Entity\User\User;
+use Domain\Entity\User\UserRepository;
 
 class InMemoryUserRepository implements UserRepository
 {

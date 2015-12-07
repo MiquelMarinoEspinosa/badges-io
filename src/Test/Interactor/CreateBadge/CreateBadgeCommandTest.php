@@ -1,16 +1,16 @@
 <?php
 
-namespace Test\Interactor\CreateBadge;
+namespace Test\Interactor\CommandHandler\CreateBadge;
 
-use Interactor\CreateBadge\CreateBadgeCommand;
-use Interactor\CreateBadge\Exception\InvalidCreateBadgeCommandException;
-use Interactor\CreateBadge\Exception\InvalidCreateBadgeCommandExceptionCode;
-use Interactor\CreateBadge\ImageData\Exception\InvalidImageDataException;
-use Interactor\CreateBadge\ImageData\Exception\InvalidImageDataExceptionCode;
-use Interactor\CreateBadge\ImageData\ImageData;
-use Interactor\CreateBadge\TenantData\Exception\InvalidTenantDataException;
-use Interactor\CreateBadge\TenantData\Exception\InvalidTenantDataExceptionCode;
-use Interactor\CreateBadge\TenantData\TenantData;
+use Interactor\CommandHandler\CreateBadge\CreateBadgeCommand;
+use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandException;
+use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandExceptionCode;
+use Interactor\CommandHandler\CreateBadge\ImageData\Exception\InvalidImageDataException;
+use Interactor\CommandHandler\CreateBadge\ImageData\Exception\InvalidImageDataExceptionCode;
+use Interactor\CommandHandler\CreateBadge\ImageData\ImageData;
+use Interactor\CommandHandler\CreateBadge\TenantData\Exception\InvalidTenantDataException;
+use Interactor\CommandHandler\CreateBadge\TenantData\Exception\InvalidTenantDataExceptionCode;
+use Interactor\CommandHandler\CreateBadge\TenantData\TenantData;
 
 class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
 {

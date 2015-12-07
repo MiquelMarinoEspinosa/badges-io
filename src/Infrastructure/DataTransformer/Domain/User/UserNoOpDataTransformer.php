@@ -2,8 +2,8 @@
 
 namespace Infrastructure\DataTransformer\Domain\User;
 
-use Domain\User\User;
-use Domain\User\UserDataTransformer;
+use Domain\Entity\User\User;
+use Domain\Entity\User\UserDataTransformer;
 
 class UserNoOpDataTransformer implements UserDataTransformer
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Test\Interactor\SignIn;
+namespace Test\Interactor\CommandHandler\SignIn;
 
-use Interactor\SignIn\Exception\InvalidSignInCommandException;
-use Interactor\SignIn\Exception\InvalidSignInCommandExceptionCode;
-use Interactor\SignIn\SignInCommand;
+use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandException;
+use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandExceptionCode;
+use Interactor\CommandHandler\SignIn\SignInCommand;
 
 class SignInCommandTest extends \PHPUnit_Framework_TestCase
 {
