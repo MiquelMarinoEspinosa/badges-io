@@ -28,9 +28,8 @@ class UserValidator implements Validator
     }
 
     /**
-     * @throws InvalidUserException
-     *
      * @return UserValidator
+     * @throws InvalidUserException
      */
     private function validateId()
     {

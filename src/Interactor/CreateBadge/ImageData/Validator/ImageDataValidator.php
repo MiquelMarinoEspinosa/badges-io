@@ -36,6 +36,7 @@ class ImageDataValidator implements Validator
     }
 
     /**
+     * @return ImageDataValidator
      * @throws InvalidImageDataException
      */
     private function validateName()

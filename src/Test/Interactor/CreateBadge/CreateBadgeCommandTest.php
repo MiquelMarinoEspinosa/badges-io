@@ -459,36 +459,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutImageWidthShouldThrownImageDataExceptionImageNameNotValidProvidedStatusCode()
-    {
-        try {
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
-
-            $this->buildCreateBadgeCommand(
-                static::BADGE_NAME_VALID_BADGE_NAME,
-                static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
-                static::IMAGE_NAME_NOT_VALID_EMPTY,
-                $aNullImageWidth,
-                $aNullImageHeight,
-                $aNullImageFormat
-            );
-            $this->thisTestFails();
-        } catch (InvalidImageDataException $invalidImageDataException) {
-            $this->assertEquals(
-                InvalidImageDataExceptionCode::STATUS_CODE_NAME_NOT_VALID_PROVIDED,
-                $invalidImageDataException->code()
-            );
-        }
-
-    }
-
-    /**
-     * @test
-     */
     public function commandWithoutImageWidthShouldThrownImageDataExceptionWidthNotProvidedStatusCode()
     {
         try {
