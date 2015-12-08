@@ -3,29 +3,23 @@
 namespace Test\Domain\Entity\User;
 
 use Domain\Entity\User\User;
-use Domain\Entity\User\UserRepository;
+use Infrastructure\InMemory\Domain\Entity\User\InMemoryUserRepository;
 
-class FakeUserRepositoryThrownException implements UserRepository
+class FakeUserRepositoryThrownException extends InMemoryUserRepository
 {
     const FIND_BY_USER_NAME_METHOD_THROW_EXCEPTION  = -1;
     const FIND_BY_EMAIL_METHOD_THROW_EXCEPTION      = -2;
     const PERSIST_METHOD_THROW_EXCEPTION            = -3;
 
-    /** @var  User[] */
-    private $users;
     /**
      * @var int
      */
     private $methodException;
 
-    /**
-     * @param User[] $users
-     * @param int $methodException
-     */
     public function __construct($users, $methodException)
     {
-        $this->users            = $users;
         $this->methodException  = $methodException;
+        parent::__construct($users);
     }
 
     /**
@@ -34,14 +28,7 @@ class FakeUserRepositoryThrownException implements UserRepository
     public function findByUserName($userName)
     {
         $this->checkIfHasToThrownAnException(static::FIND_BY_USER_NAME_METHOD_THROW_EXCEPTION);
-        $aNullUser = null;
-        foreach ($this->users as $user) {
-            if ($user->userName() == $userName) {
-                return $user;
-            }
-        }
-
-        return $aNullUser;
+        parent::findByUserName($userName);
     }
 
     /**
@@ -50,14 +37,7 @@ class FakeUserRepositoryThrownException implements UserRepository
     public function findByEmail($email)
     {
         $this->checkIfHasToThrownAnException(static::FIND_BY_EMAIL_METHOD_THROW_EXCEPTION);
-        $aNullUser = null;
-        foreach ($this->users as $user) {
-            if ($user->email() == $email) {
-                return $user;
-            }
-        }
-
-        return $aNullUser;
+        parent::findByEmail($email);
     }
 
     /**
@@ -66,7 +46,7 @@ class FakeUserRepositoryThrownException implements UserRepository
     public function persist(User $user)
     {
         $this->checkIfHasToThrownAnException(static::PERSIST_METHOD_THROW_EXCEPTION);
-        $this->users[] = $user;
+        parent::persist($user);
     }
 
     /**

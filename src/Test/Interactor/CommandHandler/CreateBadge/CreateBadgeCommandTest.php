@@ -15,11 +15,11 @@ use Interactor\CommandHandler\CreateBadge\TenantData\TenantData;
 class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
 {
     const BADGE_NAME_NOT_VALID_EMPTY            = ' ';
-    const BADGE_NAME_VALID_BADGE_NAME           = 'badgeName';
-    const BADGE_DESCRIPTION_VALID_EMPTY         = '';
-    const IS_MULTI_TENANT_NOT_VALID_STRING      = 'aString';
     const BADGE_NAME_NOT_VALID_INT              = 12;
+    const BADGE_NAME_VALID_BADGE_NAME           = 'badgeName';
     const BADGE_DESCRIPTION_NOT_VALID_FLOAT     = 1.4;
+    const BADGE_DESCRIPTION_VALID_EMPTY         = '';
+    const BADGE_IS_MULTI_TENANT_NOT_VALID_STRING      = 'aString';
     const BADGE_IS_MULTI_TENANT_VALID_TRUE      = true;
     const TENANT_ID_NOT_VALID_INT               = 3;
     const TENANT_ID_NOT_VALID_EMPTY             = ' ';
@@ -33,7 +33,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     const IMAGE_HEIGHT_NOT_VALID_STRING         = 'string';
     const IMAGE_HEIGHT_NOT_VALID_MINUS_INT      = -2;
     const IMAGE_HEIGHT_VALID_5                  = 5;
-    const FORMAT_NOT_VALID_HRX                  = 'hrx';
+    const IMAGE_FORMAT_NOT_VALID_HRX            = 'hrx';
     const IMAGE_FORMAT_VALID_JPEG               = 'jpeg';
 
     /**
@@ -254,7 +254,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::IS_MULTI_TENANT_NOT_VALID_STRING,
+                static::BADGE_IS_MULTI_TENANT_NOT_VALID_STRING,
                 $aNullTenantId,
                 $aNullImageName,
                 $aNullImageWidth,
@@ -671,7 +671,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 static::IMAGE_HEIGHT_VALID_5,
-                static::FORMAT_NOT_VALID_HRX
+                static::IMAGE_FORMAT_NOT_VALID_HRX
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {

@@ -43,7 +43,7 @@ class CreateBadgeCommand implements Command
      *
      * @return CreateBadgeCommand
      */
-    public function setName($name)
+    private function setName($name)
     {
         $this->name = $name;
 

@@ -125,7 +125,7 @@ class Badge
      *
      * @return Badge
      */
-    public function setTenants($tenants)
+    private function setTenants($tenants)
     {
         $this->tenants = $tenants;
 
