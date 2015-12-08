@@ -31,14 +31,7 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
     public function emailAlreadyExistsShouldThrowExceptionEmailAlreadyExistsStatusCode()
     {
         try {
-            $commandHandler = $this->buildCommandHandler(
-                $this->buildUserRepository(
-                    static::USER_ID,
-                    static::EMAIL_EXISTS_TEST_BADGES_IO_COM,
-                    static::USERNAME_EXISTS_VALID_BADGES_USER,
-                    static::PASSWORD_VALID_BE_FREE
-                )
-            );
+            $commandHandler = $this->buildCommandHandler($this->buildDefaultUserRepository());
             $commandHandler->handle(
                 $this->buildCommand(
                     static::EMAIL_EXISTS_TEST_BADGES_IO_COM,
@@ -61,14 +54,7 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
     public function userNameAlreadyExistsShouldThrowExceptionEmailAlreadyExistsStatusCode()
     {
         try {
-            $commandHandler = $this->buildCommandHandler(
-                $this->buildUserRepository(
-                    static::USER_ID,
-                    static::EMAIL_EXISTS_TEST_BADGES_IO_COM,
-                    static::USERNAME_EXISTS_VALID_BADGES_USER,
-                    static::PASSWORD_VALID_BE_FREE
-                )
-            );
+            $commandHandler = $this->buildCommandHandler($this->buildDefaultUserRepository());
             $commandHandler->handle(
                 $this->buildCommand(
                     static::EMAIL_NOT_EXISTS_TEST_BADGES_IO_COM,
@@ -247,6 +233,19 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
         return new FakeUserRepositoryThrownException(
             [FakeUserBuilder::build($id, $email, $userName, $passWord)],
             $methodException
+        );
+    }
+
+    /**
+     * @return UserRepository
+     */
+    private function buildDefaultUserRepository()
+    {
+        return $this->buildUserRepository(
+            static::USER_ID,
+            static::EMAIL_EXISTS_TEST_BADGES_IO_COM,
+            static::USERNAME_EXISTS_VALID_BADGES_USER,
+            static::PASSWORD_VALID_BE_FREE
         );
     }
 
