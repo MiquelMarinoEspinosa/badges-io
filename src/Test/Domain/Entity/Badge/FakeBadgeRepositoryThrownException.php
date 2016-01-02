@@ -8,6 +8,7 @@ use Infrastructure\InMemory\Domain\Entity\Badge\InMemoryBadgeRepository;
 class FakeBadgeRepositoryThrownException extends InMemoryBadgeRepository
 {
     const PERSIST_THROW_EXCEPTION = -1;
+    const FIND_THROW_EXCEPTION    = -2;
 
     /**
      * @var int
@@ -28,6 +29,16 @@ class FakeBadgeRepositoryThrownException extends InMemoryBadgeRepository
     {
         $this->checkIfHasToThrownAnException(static::PERSIST_THROW_EXCEPTION);
         parent::persist($badge);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function find($id)
+    {
+        $this->checkIfHasToThrownAnException(static::FIND_THROW_EXCEPTION);
+
+        return parent::find($id);
     }
 
     /**
