@@ -32,7 +32,7 @@ class SignInCommandHandler implements CommandHandler
     ) {
         $this->userRepository       = $userRepository;
         $this->userDataTransformer  = $userDataTransformer;
-        $this->idGenerator      = $userIdGenerator;
+        $this->idGenerator          = $userIdGenerator;
     }
 
     /**
