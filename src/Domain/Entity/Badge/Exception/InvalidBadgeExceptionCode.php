@@ -20,8 +20,4 @@ class InvalidBadgeExceptionCode
     const MESSAGE_CODE_IS_MULTI_TENANT_NOT_PROVIDED         = 'IsMultiTenant not provided';
     const STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED    = -8;
     const MESSAGE_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED   = 'IsMultiTenant not valid provided';
-    const STATUS_CODE_TENANTS_NOT_PROVIDED                  = -9;
-    const MESSAGE_CODE_TENANTS_NOT_PROVIDED                 = 'Tenants not provided';
-    const STATUS_CODE_TENANTS_NOT_VALID_PROVIDED            = -10;
-    const MESSAGE_CODE_TENANTS_NOT_VALID_PROVIDED           = 'Tenants not valid provided';
 }

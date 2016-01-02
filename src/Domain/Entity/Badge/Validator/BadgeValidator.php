@@ -25,8 +25,7 @@ class BadgeValidator implements Validator
         $this->validateId()
              ->validateName()
              ->validateDescription()
-             ->validateIsMultitenant()
-             ->validateTenants();
+             ->validateIsMultitenant();
     }
 
     /**
@@ -239,86 +238,6 @@ class BadgeValidator implements Validator
     private function notValidIsMultiTenantFormat($isMultiTenant)
     {
         return !is_bool($isMultiTenant);
-    }
-
-    /**
-     * @return BadgeValidator
-     * @throws InvalidBadgeException
-     */
-    private function validateTenants()
-    {
-        $this->checkIsTenantsNotNull()
-             ->checkTenantsFormat();
-
-        return $this;
-    }
-
-    /**
-     * @return BadgeValidator
-     * @throws InvalidBadgeException
-     */
-    private function checkIsTenantsNotNull()
-    {
-        $aNullTenants = null;
-        if ($this->badge->tenants() === $aNullTenants) {
-            throw $this->buildInvalidCreateCommandException(
-                InvalidBadgeExceptionCode::STATUS_CODE_TENANTS_NOT_PROVIDED
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return BadgeValidator
-     * @throws InvalidBadgeException
-     */
-    private function checkTenantsFormat()
-    {
-        if ($this->notValidTenantsFormat($this->badge->tenants())) {
-            throw $this->buildInvalidCreateCommandException(
-                InvalidBadgeExceptionCode::STATUS_CODE_TENANTS_NOT_VALID_PROVIDED
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Tenant[] $tenants
-     *
-     * @return bool
-     */
-    private function notValidTenantsFormat($tenants)
-    {
-        $notValidFormat = true;
-        $validFormat    = false;
-
-        if (!is_array($tenants)) {
-            return $notValidFormat;
-        }
-
-        if (!$this->badge->isMultiTenant() && count($tenants) > 1) {
-            return $notValidFormat;
-        }
-
-        foreach ($tenants as $tenant) {
-            if ($this->isNotATenant($tenant)) {
-                return $notValidFormat;
-            }
-        }
-
-        return $validFormat;
-    }
-
-    /**
-     * @param mixed $object
-     *
-     * @return bool
-     */
-    private function isNotATenant($object)
-    {
-        return !($object instanceof Tenant);
     }
 
     /**

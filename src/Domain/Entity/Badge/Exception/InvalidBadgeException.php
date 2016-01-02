@@ -36,12 +36,6 @@ class InvalidBadgeException extends BaseException
             case InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED:
                 $this->isMultiTenantNotValidProvided();
                 break;
-            case InvalidBadgeExceptionCode::STATUS_CODE_TENANTS_NOT_PROVIDED:
-                $this->tenantsNotProvided();
-                break;
-            case InvalidBadgeExceptionCode::STATUS_CODE_TENANTS_NOT_VALID_PROVIDED:
-                $this->tenantsNotValidProvided();
-                break;
         }
 
         parent::__construct($this->message(), $this->code());
@@ -131,28 +125,6 @@ class InvalidBadgeException extends BaseException
     {
         $this->setCode(InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED)
              ->setMessage(InvalidBadgeExceptionCode::MESSAGE_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED);
-
-        return $this;
-    }
-
-    /**
-     * @return InvalidBadgeException
-     */
-    private function tenantsNotProvided()
-    {
-        $this->setCode(InvalidBadgeExceptionCode::STATUS_CODE_TENANTS_NOT_PROVIDED)
-             ->setMessage(InvalidBadgeExceptionCode::MESSAGE_CODE_TENANTS_NOT_PROVIDED);
-
-        return $this;
-    }
-
-    /**
-     * @return InvalidBadgeException
-     */
-    private function tenantsNotValidProvided()
-    {
-        $this->setCode(InvalidBadgeExceptionCode::STATUS_CODE_TENANTS_NOT_VALID_PROVIDED)
-             ->setMessage(InvalidBadgeExceptionCode::MESSAGE_CODE_TENANTS_NOT_VALID_PROVIDED);
 
         return $this;
     }

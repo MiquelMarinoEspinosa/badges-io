@@ -181,7 +181,7 @@ class CreateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(
             $this->validateBadgeData($badge, $command)
-            && $this->validateTenantData($badge->tenants()[0], $command->tenantData())
+            && $this->validateTenantData($badge->tenant(), $command->tenantData())
             && $this->validateImageData($badge->image(), $command->imageData())
             && $this->isBadgePersisted($badgeRepository, $badge)
             && $this->isImagePersisted($imageRepository, $badge->image())

@@ -157,7 +157,7 @@ class CreateBadgeCommandHandler implements CommandHandler
             $command->name(),
             $command->description(),
             $command->isMultiTenant(),
-            [$tenant],
+            $tenant,
             $image
         );
     }

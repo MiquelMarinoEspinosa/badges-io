@@ -48,14 +48,12 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
             $aNullName          = null;
             $aNullDescription   = null;
             $aNullIsMultiTenant = null;
-            $aNullTenants       = null;
 
             $this->buildBadge(
                 $aNullId,
                 $aNullName,
                 $aNullDescription,
-                $aNullIsMultiTenant,
-                $aNullTenants
+                $aNullIsMultiTenant
             );
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
@@ -75,14 +73,12 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
             $aNullName          = null;
             $aNullDescription   = null;
             $aNullIsMultiTenant = null;
-            $aNullTenants       = null;
 
             $this->buildBadge(
                 static::ID_NOT_VALID_INT,
                 $aNullName,
                 $aNullDescription,
-                $aNullIsMultiTenant,
-                $aNullTenants
+                $aNullIsMultiTenant
             );
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
@@ -102,14 +98,12 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
             $aNullName          = null;
             $aNullDescription   = null;
             $aNullIsMultiTenant = null;
-            $aNullTenants       = null;
 
             $this->buildBadge(
                 static::ID_NOT_VALID_EMPTY,
                 $aNullName,
                 $aNullDescription,
-                $aNullIsMultiTenant,
-                $aNullTenants
+                $aNullIsMultiTenant
             );
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
@@ -129,14 +123,12 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
             $aNullName          = null;
             $aNullDescription   = null;
             $aNullIsMultiTenant = null;
-            $aNullTenants       = null;
 
             $this->buildBadge(
                 static::ID_VALID_1234,
                 $aNullName,
                 $aNullDescription,
-                $aNullIsMultiTenant,
-                $aNullTenants
+                $aNullIsMultiTenant
             );
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
@@ -155,14 +147,12 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
         try {
             $aNullDescription   = null;
             $aNullIsMultiTenant = null;
-            $aNullTenants       = null;
 
             $this->buildBadge(
                 static::ID_VALID_1234,
                 static::NAME_NOT_VALID_EMPTY,
                 $aNullDescription,
-                $aNullIsMultiTenant,
-                $aNullTenants
+                $aNullIsMultiTenant
             );
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
@@ -181,14 +171,12 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
         try {
             $aNullDescription   = null;
             $aNullIsMultiTenant = null;
-            $aNullTenants       = null;
 
             $this->buildBadge(
                 static::ID_VALID_1234,
                 static::NAME_VALID_BADGE_NAME,
                 $aNullDescription,
-                $aNullIsMultiTenant,
-                $aNullTenants
+                $aNullIsMultiTenant
             );
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
@@ -206,14 +194,12 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $aNullIsMultiTenant = null;
-            $aNullTenants       = null;
 
             $this->buildBadge(
                 static::ID_VALID_1234,
                 static::NAME_VALID_BADGE_NAME,
                 static::DESCRIPTION_NOT_VALID_FLOAT,
-                $aNullIsMultiTenant,
-                $aNullTenants
+                $aNullIsMultiTenant
             );
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
@@ -231,14 +217,12 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $aNullIsMultiTenant = null;
-            $aNullTenants       = null;
 
             $this->buildBadge(
                 static::ID_VALID_1234,
                 static::NAME_VALID_BADGE_NAME,
                 static::DESCRIPTION_VALID_EMPTY,
-                $aNullIsMultiTenant,
-                $aNullTenants
+                $aNullIsMultiTenant
             );
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
@@ -255,111 +239,16 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
     public function notValidIsMultiTenantTypeProvidedShouldThrownExceptionIsMultiTenantNotValidProvidedStatusCode()
     {
         try {
-            $aNullTenants = null;
-
             $this->buildBadge(
                 static::ID_VALID_1234,
                 static::NAME_VALID_BADGE_NAME,
                 static::DESCRIPTION_VALID_EMPTY,
-                static::IS_MULTI_TENANT_NOT_VALID_STRING,
-                $aNullTenants
+                static::IS_MULTI_TENANT_NOT_VALID_STRING
             );
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
             $this->assertEquals(
                 InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED,
-                $invalidBadgeException->code()
-            );
-        }
-    }
-
-    /**
-     * @test
-     */
-    public function notTenantsProvidedShouldThrownExceptionTenantsNotProvidedStatusCode()
-    {
-        try {
-            $aNullTenants = null;
-
-            $this->buildBadge(
-                static::ID_VALID_1234,
-                static::NAME_VALID_BADGE_NAME,
-                static::DESCRIPTION_VALID_EMPTY,
-                static::IS_MULTI_TENANT_VALID_TRUE,
-                $aNullTenants
-            );
-            $this->thisTestFails();
-        } catch (InvalidBadgeException $invalidBadgeException) {
-            $this->assertEquals(
-                InvalidBadgeExceptionCode::STATUS_CODE_TENANTS_NOT_PROVIDED,
-                $invalidBadgeException->code()
-            );
-        }
-    }
-
-    /**
-     * @test
-     */
-    public function notValidTenantsArrayTypeShouldThrownExceptionTenantsNotValidProvidedStatusCode()
-    {
-        try {
-            $this->buildBadge(
-                static::ID_VALID_1234,
-                static::NAME_VALID_BADGE_NAME,
-                static::DESCRIPTION_VALID_EMPTY,
-                static::IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_NOT_VALID_INT_1
-            );
-            $this->thisTestFails();
-        } catch (InvalidBadgeException $invalidBadgeException) {
-            $this->assertEquals(
-                InvalidBadgeExceptionCode::STATUS_CODE_TENANTS_NOT_VALID_PROVIDED,
-                $invalidBadgeException->code()
-            );
-        }
-    }
-
-    /**
-     * @test
-     */
-    public function notValidTenantsTypeShouldThrownExceptionTenantsNotValidProvidedStatusCode()
-    {
-        try {
-            $notValidTenants = array_merge($this->buildTenants(), [static::TENANT_NOT_VALID_INT_1]);
-
-            $this->buildBadge(
-                static::ID_VALID_1234,
-                static::NAME_VALID_BADGE_NAME,
-                static::DESCRIPTION_VALID_EMPTY,
-                static::IS_MULTI_TENANT_VALID_TRUE,
-                $notValidTenants
-            );
-            $this->thisTestFails();
-        } catch (InvalidBadgeException $invalidBadgeException) {
-            $this->assertEquals(
-                InvalidBadgeExceptionCode::STATUS_CODE_TENANTS_NOT_VALID_PROVIDED,
-                $invalidBadgeException->code()
-            );
-        }
-    }
-
-    /**
-     * @test
-     */
-    public function tooManyTenantsProvidedShouldThrownExceptionTenantsNotValidProvidedStatusCode()
-    {
-        try {
-            $this->buildBadge(
-                static::ID_VALID_1234,
-                static::NAME_VALID_BADGE_NAME,
-                static::DESCRIPTION_VALID_EMPTY,
-                static::IS_MULTI_TENANT_VALID_FALSE,
-                $this->buildTenants()
-            );
-            $this->thisTestFails();
-        } catch (InvalidBadgeException $invalidBadgeException) {
-            $this->assertEquals(
-                InvalidBadgeExceptionCode::STATUS_CODE_TENANTS_NOT_VALID_PROVIDED,
                 $invalidBadgeException->code()
             );
         }
@@ -374,8 +263,7 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
             static::ID_VALID_1234,
             static::NAME_VALID_BADGE_NAME,
             static::DESCRIPTION_VALID_EMPTY,
-            static::IS_MULTI_TENANT_VALID_TRUE,
-            $this->buildTenants()
+            static::IS_MULTI_TENANT_VALID_TRUE
         );
 
         $this->assertTrue(
@@ -383,51 +271,47 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
             && $badge->name() === static::NAME_VALID_BADGE_NAME
             && $badge->description() === static::DESCRIPTION_VALID_EMPTY
             && $badge->isMultiTenant() === static::IS_MULTI_TENANT_VALID_TRUE
+            && $badge->tenant() instanceof Tenant
             && $badge->image() instanceof Image
-        );
-
-        $this->assertContainsOnlyInstancesOf(
-            Tenant::class,
-            $badge->tenants()
         );
     }
 
+    /**
+     * @param string $id
+     * @param string $name
+     * @param string $description
+     * @param boolean $isMultiTenant
+     *
+     * @return Badge
+     */
     private function buildBadge(
         $id,
         $name,
         $description,
-        $isMultiTenant,
-        $tenants
+        $isMultiTenant
     ) {
         return new Badge(
             $id,
             $name,
             $description,
             $isMultiTenant,
-            $tenants,
+            $this->buildTenant(),
             $this->buildImage()
         );
     }
 
     /**
-     * @return Tenant[]
+     * @return Tenant
      */
-    private function buildTenants()
+    private function buildTenant()
     {
-        return [
-            FakeTenantBuilder::build(
-                static::TENANT_ID_1234,
-                static::TENANT_EMAIL_TEST_BADGES_IO_COM,
-                static::TENANT_USERNAME_BADGES_TENANT,
-                static::TENANT_PASSWORD_BE_FREE
-            ),
-            FakeTenantBuilder::build(
-                static::TENANT_ID_12345,
-                static::TENANT_EMAIL_TEST_BADGES_COM,
-                static::TENANT_USERNAME_TENANT,
-                static::TENANT_PASSWORD_BE_COOL
-            )
-        ];
+        return FakeTenantBuilder::build(
+            static::TENANT_ID_1234,
+            static::TENANT_EMAIL_TEST_BADGES_IO_COM,
+            static::TENANT_USERNAME_BADGES_TENANT,
+            static::TENANT_PASSWORD_BE_FREE
+        )
+        ;
     }
 
     /**

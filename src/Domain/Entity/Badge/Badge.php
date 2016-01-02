@@ -16,18 +16,18 @@ class Badge
     private $description;
     /** @var  bool */
     private $isMultiTenant;
-    /** @var  Tenant[] */
-    private $tenants;
+    /** @var  Tenant */
+    private $tenant;
     /** @var  Image */
     private $image;
 
-    public function __construct($id, $name, $description, $isMultiTenant, $tenants, Image $image)
+    public function __construct($id, $name, $description, $isMultiTenant, Tenant $tenant, Image $image)
     {
         $this->setId($id)
              ->setName($name)
              ->setDescription($description)
              ->setIsMultiTenant($isMultiTenant)
-             ->setTenants($tenants)
+             ->setTenant($tenant)
              ->setImage($image)
              ->validate();
     }
@@ -113,21 +113,21 @@ class Badge
     }
 
     /**
-     * @return Tenant[]
+     * @return Tenant
      */
-    public function tenants()
+    public function tenant()
     {
-        return $this->tenants;
+        return $this->tenant;
     }
 
     /**
-     * @param Tenant[] $tenants
+     * @param Tenant $tenant
      *
      * @return Badge
      */
-    private function setTenants($tenants)
+    private function setTenant($tenant)
     {
-        $this->tenants = $tenants;
+        $this->tenant = $tenant;
 
         return $this;
     }
