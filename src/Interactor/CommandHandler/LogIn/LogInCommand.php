@@ -2,10 +2,10 @@
 
 namespace Interactor\CommandHandler\LogIn;
 
-use Interactor\CommandHandler\Command;
+use Interactor\CommandHandler\BaseCommand;
 use Interactor\CommandHandler\LogIn\Validator\LogInCommandValidator;
 
-class LogInCommand implements Command
+class LogInCommand extends BaseCommand
 {
     /** @var string */
     private $userId;
@@ -63,15 +63,10 @@ class LogInCommand implements Command
         return $this;
     }
 
-    private function validate()
-    {
-        $this->buildValidator()->validate();
-    }
-
     /**
-     * @return LogInCommandValidator
+     * {@inheritdoc}
      */
-    private function buildValidator()
+    protected function buildValidator()
     {
         return new LogInCommandValidator($this);
     }

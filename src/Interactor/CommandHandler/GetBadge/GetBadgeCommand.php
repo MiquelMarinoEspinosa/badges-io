@@ -2,10 +2,10 @@
 
 namespace Interactor\CommandHandler\GetBadge;
 
-use Interactor\CommandHandler\Command;
+use Interactor\CommandHandler\BaseCommand;
 use Interactor\CommandHandler\GetBadge\Validator\GetBadgeCommandValidator;
 
-class GetBadgeCommand implements Command
+class GetBadgeCommand extends BaseCommand
 {
     /** @var string */
     private $badgeId;
@@ -65,19 +65,9 @@ class GetBadgeCommand implements Command
     }
 
     /**
-     * @return GetBadgeCommand
+     * {@inheritdoc}
      */
-    private function validate()
-    {
-        $this->buildValidator()->validate();
-
-        return $this;
-    }
-
-    /**
-     * @return GetBadgeCommandValidator
-     */
-    private function buildValidator()
+    protected function buildValidator()
     {
         return new GetBadgeCommandValidator($this);
     }

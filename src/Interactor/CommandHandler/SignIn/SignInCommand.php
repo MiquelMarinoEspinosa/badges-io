@@ -2,10 +2,10 @@
 
 namespace Interactor\CommandHandler\SignIn;
 
-use Interactor\CommandHandler\Command;
+use Interactor\CommandHandler\BaseCommand;
 use Interactor\CommandHandler\SignIn\Validator\SignInCommandValidator;
 
-class SignInCommand implements Command
+class SignInCommand extends BaseCommand
 {
     /** @var  string */
     private $email;
@@ -88,19 +88,9 @@ class SignInCommand implements Command
     }
 
     /**
-     * @return SignInCommand
+     * {@inheritdoc}
      */
-    private function validate()
-    {
-        $this->buildValidator()->validate();
-
-        return $this;
-    }
-
-    /**
-     * @return SignInCommandValidator
-     */
-    private function buildValidator()
+    protected function buildValidator()
     {
         return new SignInCommandValidator($this);
     }

@@ -2,12 +2,12 @@
 
 namespace Interactor\CommandHandler\CreateBadge;
 
-use Interactor\CommandHandler\Command;
+use Interactor\CommandHandler\BaseCommand;
 use Interactor\CommandHandler\CreateBadge\ImageData\ImageData;
 use Interactor\CommandHandler\CreateBadge\TenantData\TenantData;
 use Interactor\CommandHandler\CreateBadge\Validator\CreateBadgeCommandValidator;
 
-class CreateBadgeCommand implements Command
+class CreateBadgeCommand extends BaseCommand
 {
     /** @var  string */
     private $name;
@@ -131,19 +131,9 @@ class CreateBadgeCommand implements Command
     }
 
     /**
-     * @return CreateBadgeCommand
+     * {@inheritdoc}
      */
-    private function validate()
-    {
-        $this->buildValidator()->validate();
-
-        return $this;
-    }
-
-    /**
-     * @return CreateBadgeCommandValidator
-     */
-    private function buildValidator()
+    protected function buildValidator()
     {
         return new CreateBadgeCommandValidator($this);
     }
