@@ -106,9 +106,9 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $command         = $this->buildGetBadgeCommand(static::BADGE_ID, static::TENANT_ID);
         /** @var Badge $badge */
         $badge           = $commandHandler->handle($command);
-        $this->assertEquals(
-            $badge->id(),
-            $command->badgeId()
+        $this->assertTrue(
+            $badge->id() === $command->badgeId()
+            && $badge->tenant()->id() === $command->tenantId()
         );
     }
 
