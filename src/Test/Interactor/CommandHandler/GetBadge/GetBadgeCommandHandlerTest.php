@@ -53,7 +53,6 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 $invalidGetBadgeCommandHandlerException->code()
             );
         }
-
     }
 
     /**
@@ -73,7 +72,6 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 $invalidGetBadgeCommandHandlerException->code()
             );
         }
-
     }
 
     /**
@@ -93,7 +91,6 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 $invalidGetBadgeCommandHandlerException->code()
             );
         }
-
     }
 
     /**
