@@ -7,14 +7,10 @@ use Interactor\CommandHandler\GetBadge\Validator\GetBadgeCommandValidator;
 
 class GetBadgeCommand implements Command
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $badgeId;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $tenantId;
 
     /**

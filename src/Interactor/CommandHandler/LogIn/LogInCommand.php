@@ -7,9 +7,15 @@ use Interactor\CommandHandler\LogIn\Validator\LogInCommandValidator;
 
 class LogInCommand implements Command
 {
+    /** @var string */
     private $userId;
+    /** @var string */
     private $passWord;
 
+    /**
+     * @param string $userId
+     * @param string $passWord
+     */
     public function __construct($userId, $passWord)
     {
         $this->setUserId($userId)
