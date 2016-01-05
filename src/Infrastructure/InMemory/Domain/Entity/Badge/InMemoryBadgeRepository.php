@@ -28,12 +28,23 @@ class InMemoryBadgeRepository implements BadgeRepository
     public function find($id)
     {
         $aNullBadge = null;
-        foreach ($this->badges as $badge) {
-            if ($badge->id() === $id) {
-                return $badge;
+        foreach ($this->badges as $aBadge) {
+            if ($aBadge->id() === $id) {
+                return $aBadge;
             }
         }
 
         return $aNullBadge;
+    }
+
+    public function remove(Badge $badge)
+    {
+        $aNullBadge = null;
+        foreach ($this->badges as $badgeIndex => $aBadge) {
+            if ($badge->id() === $aBadge->id()) {
+                unset($this->badges[$badgeIndex]);
+                return;
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ class FakeBadgeRepositoryThrownException extends InMemoryBadgeRepository
 {
     const PERSIST_THROW_EXCEPTION = -1;
     const FIND_THROW_EXCEPTION    = -2;
+    const REMOVE_THROW_EXCEPTION  = -3;
 
     /**
      * @var int
@@ -39,6 +40,12 @@ class FakeBadgeRepositoryThrownException extends InMemoryBadgeRepository
         $this->checkIfHasToThrownAnException(static::FIND_THROW_EXCEPTION);
 
         return parent::find($id);
+    }
+
+    public function remove(Badge $badge)
+    {
+        $this->checkIfHasToThrownAnException(static::REMOVE_THROW_EXCEPTION);
+        parent::remove($badge);
     }
 
     /**

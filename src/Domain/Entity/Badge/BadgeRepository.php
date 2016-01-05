@@ -12,4 +12,6 @@ interface BadgeRepository
      * @return Badge | null
      */
     public function find($id);
+
+    public function remove(Badge $badge);
 }
