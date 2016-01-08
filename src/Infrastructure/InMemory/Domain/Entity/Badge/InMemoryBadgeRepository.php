@@ -4,6 +4,7 @@ namespace Infrastructure\InMemory\Domain\Entity\Badge;
 
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\BadgeRepository;
+use Domain\Entity\Tenant\Tenant;
 
 class InMemoryBadgeRepository implements BadgeRepository
 {
@@ -17,6 +18,9 @@ class InMemoryBadgeRepository implements BadgeRepository
         $this->badges = $badges;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function persist(Badge $badge)
     {
         $this->badges[] = $badge;
@@ -37,6 +41,9 @@ class InMemoryBadgeRepository implements BadgeRepository
         return $aNullBadge;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function remove(Badge $badge)
     {
         $aNullBadge = null;
@@ -46,5 +53,35 @@ class InMemoryBadgeRepository implements BadgeRepository
                 return;
             }
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByTenant(Tenant $tenant)
+    {
+        $aListBadges = [];
+        foreach ($this->badges as $aBadge) {
+            if ($aBadge->tenant()->id() === $tenant->id()) {
+                $aListBadges[] = $aBadge;
+            }
+        }
+
+        return $aListBadges;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findMultiTenant()
+    {
+        $aListBadges = [];
+        foreach ($this->badges as $aBadge) {
+            if ($aBadge->isMultiTenant()) {
+                $aListBadges[] = $aBadge;
+            }
+        }
+
+        return $aListBadges;
     }
 }
