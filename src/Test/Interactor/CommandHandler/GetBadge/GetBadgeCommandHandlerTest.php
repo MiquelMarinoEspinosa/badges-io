@@ -87,7 +87,7 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidGetBadgeCommandHandlerException $invalidGetBadgeCommandHandlerException) {
             $this->assertEquals(
-                InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_VALID,
+                InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN,
                 $invalidGetBadgeCommandHandlerException->code()
             );
         }

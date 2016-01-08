@@ -79,7 +79,7 @@ class GetBadgeCommandHandler implements CommandHandler
         $isNotMultiTenant = false;
         if ($badge->isMultiTenant() === $isNotMultiTenant && $this->notValidTenant($badge, $tenantId)) {
             throw $this->buildGetBadgeCommandHandlerException(
-                InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_VALID
+                InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN
             );
         }
     }

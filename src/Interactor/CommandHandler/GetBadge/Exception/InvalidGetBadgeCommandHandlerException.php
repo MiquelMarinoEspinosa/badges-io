@@ -12,7 +12,7 @@ class InvalidGetBadgeCommandHandlerException extends BaseException
             case InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_FOUND:
                 $this->badgeNotFound();
                 break;
-            case InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_VALID:
+            case InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN:
                 $this->tenantNotValid();
                 break;
         }
@@ -34,7 +34,7 @@ class InvalidGetBadgeCommandHandlerException extends BaseException
      */
     private function tenantNotValid()
     {
-        return $this->setCode(InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_VALID)
-                    ->setMessage(InvalidGetBadgeCommandHandlerExceptionCode::MESSAGE_CODE_TENANT_NOT_VALID);
+        return $this->setCode(InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN)
+                    ->setMessage(InvalidGetBadgeCommandHandlerExceptionCode::MESSAGE_CODE_TENANT_FORBIDDEN);
     }
 }
