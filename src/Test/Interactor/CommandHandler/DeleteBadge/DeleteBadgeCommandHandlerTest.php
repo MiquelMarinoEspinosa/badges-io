@@ -48,7 +48,7 @@ class DeleteBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandHandlerException $invalidDeleteBadgeCommandHandlerException) {
             $this->assertEquals(
-                InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_FOUND,
+                InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_REMOVED,
                 $invalidDeleteBadgeCommandHandlerException->code()
             );
         }
