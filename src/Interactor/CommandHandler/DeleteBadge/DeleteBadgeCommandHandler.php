@@ -45,7 +45,7 @@ class DeleteBadgeCommandHandler implements CommandHandler
             $badge = $this->badgeRepository->find($badgeId);
         } catch (\Exception $exception) {
             throw $this->buildDeleteBadgeCommandHandlerException(
-                InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_FOUND
+                InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_REMOVED
             );
         }
 
