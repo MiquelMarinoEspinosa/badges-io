@@ -12,7 +12,7 @@ class InvalidDeleteBadgeCommandHandlerException extends BaseException
             case InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_FOUND:
                 $this->badgeNotFound();
                 break;
-            case InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_VALID:
+            case InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN:
                 $this->tenantNotValid();
                 break;
             case InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_REMOVED:
@@ -37,8 +37,8 @@ class InvalidDeleteBadgeCommandHandlerException extends BaseException
      */
     private function tenantNotValid()
     {
-        return $this->setCode(InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_VALID)
-                    ->setMessage(InvalidDeleteBadgeCommandHandlerExceptionCode::MESSAGE_CODE_TENANT_NOT_VALID);
+        return $this->setCode(InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN)
+                    ->setMessage(InvalidDeleteBadgeCommandHandlerExceptionCode::MESSAGE_CODE_TENANT_FORBIDDEN);
     }
 
     /**

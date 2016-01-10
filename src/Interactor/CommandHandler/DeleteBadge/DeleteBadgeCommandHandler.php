@@ -67,9 +67,9 @@ class DeleteBadgeCommandHandler implements CommandHandler
     private function validateBadge(Badge $badge, $tenantId)
     {
         $isNotMultiTenant = false;
-        if ($badge->isMultiTenant() === $isNotMultiTenant && $this->notValidTenant($badge, $tenantId)) {
+        if ($badge->isMultiTenant() === $isNotMultiTenant && $this->isTenantForbidden($badge, $tenantId)) {
             throw $this->buildDeleteBadgeCommandHandlerException(
-                InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_VALID
+                InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN
             );
         }
     }
@@ -80,7 +80,7 @@ class DeleteBadgeCommandHandler implements CommandHandler
      *
      * @return bool
      */
-    private function notValidTenant(Badge $badge, $tenantId)
+    private function isTenantForbidden(Badge $badge, $tenantId)
     {
         return $badge->tenant()->id() !== $tenantId;
     }
