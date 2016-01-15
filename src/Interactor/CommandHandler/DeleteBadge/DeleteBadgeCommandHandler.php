@@ -4,6 +4,8 @@ namespace Interactor\CommandHandler\DeleteBadge;
 
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\BadgeRepository;
+use Domain\Entity\Image\Image;
+use Domain\Entity\Image\ImageRepository;
 use Interactor\CommandHandler\CommandHandler;
 use Interactor\CommandHandler\DeleteBadge\Exception\InvalidDeleteBadgeCommandHandlerException;
 use Interactor\CommandHandler\DeleteBadge\Exception\InvalidDeleteBadgeCommandHandlerExceptionCode;
@@ -15,9 +17,15 @@ class DeleteBadgeCommandHandler implements CommandHandler
      */
     private $badgeRepository;
 
-    public function __construct(BadgeRepository $badgeRepository)
+    /**
+     * @var ImageRepository
+     */
+    private $imageRepository;
+
+    public function __construct(BadgeRepository $badgeRepository, ImageRepository $imageRepository)
     {
         $this->badgeRepository = $badgeRepository;
+        $this->imageRepository = $imageRepository;
     }
 
     /**
@@ -29,6 +37,7 @@ class DeleteBadgeCommandHandler implements CommandHandler
     {
         $badge = $this->tryToFindBadge($command->badgeId());
         $this->validateBadge($badge, $command->tenantId());
+        $this->tryToRemoveTheImage($badge->image());
         $this->tryToRemoveTheBadge($badge);
     }
 
@@ -83,6 +92,22 @@ class DeleteBadgeCommandHandler implements CommandHandler
     private function isTenantForbidden(Badge $badge, $tenantId)
     {
         return $badge->tenant()->id() !== $tenantId;
+    }
+
+    /**
+     * @param Image $image
+     *
+     * @throws InvalidDeleteBadgeCommandHandlerException
+     */
+    private function tryToRemoveTheImage(Image $image)
+    {
+        try {
+            $this->imageRepository->remove($image);
+        } catch (\Exception $exception) {
+            throw $this->buildDeleteBadgeCommandHandlerException(
+                InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_REMOVED
+            );
+        }
     }
 
     /**

@@ -12,4 +12,9 @@ interface ImageRepository
      * @return Image | null
      */
     public function find($id);
+
+    /**
+     * @param Image $image
+     */
+    public function remove(Image $image);
 }

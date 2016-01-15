@@ -36,4 +36,18 @@ class InMemoryImageRepository implements ImageRepository
 
         return $aNullImage;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove(Image $image)
+    {
+        $aNullImage = null;
+        foreach ($this->images as $imageIndex => $anImage) {
+            if ($image->id() === $anImage->id()) {
+                unset($this->images[$imageIndex]);
+                return;
+            }
+        }
+    }
 }

@@ -8,6 +8,7 @@ use Infrastructure\InMemory\Domain\Entity\Image\InMemoryImageRepository;
 class FakeImageRepositoryThrownException extends InMemoryImageRepository
 {
     const PERSIST_THROW_EXCEPTION = -1;
+    const REMOVE_THROW_EXCEPTION  = -3;
 
     /**
      * @var int
@@ -24,10 +25,22 @@ class FakeImageRepositoryThrownException extends InMemoryImageRepository
         parent::__construct($images);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function persist(Image $image)
     {
         $this->checkIfHasToThrownAnException(static::PERSIST_THROW_EXCEPTION);
         parent::persist($image);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove(Image $image)
+    {
+        $this->checkIfHasToThrownAnException(static::REMOVE_THROW_EXCEPTION);
+        parent::remove($image);
     }
 
     /**
