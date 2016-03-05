@@ -51,7 +51,7 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function userNameAlreadyExistsShouldThrowExceptionEmailAlreadyExistsStatusCode()
+    public function usernameAlreadyExistsShouldThrowExceptionEmailAlreadyExistsStatusCode()
     {
         try {
             $commandHandler = $this->buildCommandHandler($this->buildDefaultUserRepository());
@@ -105,7 +105,7 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function exceptionRepositoryWhenCheckUserNameShouldThrowExceptionUserNotCreatedException()
+    public function exceptionRepositoryWhenCheckUsernameShouldThrowExceptionUserNotCreatedException()
     {
         try {
             $commandHandler = $this->buildCommandHandler(

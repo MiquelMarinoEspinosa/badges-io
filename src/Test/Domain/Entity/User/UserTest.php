@@ -23,7 +23,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function idIsNullShouldThrowInvalidUserExceptionWithIdNotProvidedStatus()
+    public function notIdProvidedShouldThrowInvalidUserExceptionWithIdNotProvidedStatus()
     {
         try {
             $aNullId        = null;
@@ -118,7 +118,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function nullUserNameShouldThrowInvalidUserExceptionWithUsernameNotProvidedStatus()
+    public function nullUsernameShouldThrowInvalidUserExceptionWithUsernameNotProvidedStatus()
     {
         try {
             $aNullUserName = null;
@@ -141,7 +141,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function notValidUserNameShouldThrowInvalidUserExceptionWithUserNameNotValidProvidedStatus()
+    public function notValidUsernameShouldThrowInvalidUserExceptionWithUserNameNotValidProvidedStatus()
     {
         try {
             $aNullPassWord = null;
@@ -163,7 +163,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function notValidUserNameTypeShouldThrowInvalidUserExceptionWithUserNameNotValidProvidedStatus()
+    public function notValidUsernameTypeShouldThrowInvalidUserExceptionWithUserNameNotValidProvidedStatus()
     {
         try {
             $aNullPassWord = null;
@@ -185,7 +185,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function nullPassWordShouldThrowInvalidUSerExceptionWithPassWordNotProvidedStatus()
+    public function nullPasswordShouldThrowInvalidUserExceptionWithPassWordNotProvidedStatus()
     {
         try {
             $aNullPassWord = null;
@@ -207,7 +207,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function notValidPassWordShouldThrowInvalidUserExceptionWithPassWordNotValidProvidedStatus()
+    public function notValidPasswordShouldThrowInvalidUserExceptionWithPassWordNotValidProvidedStatus()
     {
         try {
             $this->buildUser(
@@ -228,7 +228,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function notValidPassWordTypeShouldThrowInvalidUserExceptionWithPassWordNotValidProvidedStatus()
+    public function notValidPasswordTypeShouldThrowInvalidUserExceptionWithPassWordNotValidProvidedStatus()
     {
         try {
             $this->buildUser(
@@ -249,7 +249,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function userWithAllTheParamsValidShouldReturnTheUser()
+    public function validParametersShouldReturnTheUser()
     {
         $user = $this->buildUser(
             static::ID_VALID_1234,

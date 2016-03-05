@@ -103,7 +103,7 @@ class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function userNameNotExistsShouldThrownExceptionUserNotExistStatusCode()
+    public function usernameNotExistsShouldThrownExceptionUserNotExistStatusCode()
     {
         try {
             $command = $this->buildCommand(
@@ -125,7 +125,7 @@ class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function passWordNotMatchWithEmailShouldThrownExceptionLoginFailedStatusCode()
+    public function passwordNotMatchWithEmailShouldThrownExceptionLoginFailedStatusCode()
     {
         try {
             $command = $this->buildCommand(
@@ -147,7 +147,7 @@ class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function passWordNotMatchWithUserNameShouldThrownExceptionLoginFailedStatusCode()
+    public function passwordNotMatchWithUserNameShouldThrownExceptionLoginFailedStatusCode()
     {
         try {
             $command = $this->buildCommand(
@@ -188,7 +188,7 @@ class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function validUserNameCredentialsShouldReturnTheUser()
+    public function validUsernameCredentialsShouldReturnTheUser()
     {
         $command = $this->buildCommand(
             static::USERNAME_EXISTS_VALID_BADGES_USER,

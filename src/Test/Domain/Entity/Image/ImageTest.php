@@ -166,7 +166,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithImageNameNotValidShouldThrownImageDataExceptionNameNotValidProvidedStatusCode()
+    public function notValidImageNameShouldThrownExceptionNameNotValidProvidedStatusCode()
     {
         try {
             $aNullWidth  = null;
@@ -396,7 +396,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithAllTheParamsValidShouldReturnTheCommand()
+    public function validParametersShouldReturnTheImage()
     {
         $image = $this->buildImage(
             static::ID_VALID_1234,

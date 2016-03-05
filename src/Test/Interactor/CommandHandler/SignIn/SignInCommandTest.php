@@ -57,7 +57,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutUserNameShouldThrowExceptionWithUsernameNotProvidedStatusCode()
+    public function commandWithoutUsernameShouldThrowExceptionWithUsernameNotProvidedStatusCode()
     {
         try {
             $aNullUserName = null;
@@ -75,7 +75,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidUserNameTypeShouldThrowExceptionWithUserNameNotValidProvidedStatusCode()
+    public function commandWithNotValidUsernameTypeShouldThrowExceptionWithUserNameNotValidProvidedStatusCode()
     {
         try {
             $aNullPassWord = null;
@@ -96,7 +96,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidUserNameShouldThrowExceptionWithUserNameNotValidProvidedStatusCode()
+    public function commandWithNotValidUsernameShouldThrowExceptionWithUserNameNotValidProvidedStatusCode()
     {
         try {
             $aNullPassWord = null;
@@ -117,7 +117,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutPassWordShouldThrowExceptionWithPassWordNotProvidedStatusCode()
+    public function commandWithoutPasswordShouldThrowExceptionWithPassWordNotProvidedStatusCode()
     {
         try {
             $aNullPassWord = null;
@@ -138,7 +138,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidPassWordShouldThrowExceptionWithPassWordNotValidProvidedStatusCode()
+    public function commandWithNotValidPasswordShouldThrowExceptionWithPassWordNotValidProvidedStatusCode()
     {
         try {
             $this->buildCommand(
@@ -157,7 +157,7 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithNotValidPassWordTypeShouldThrowExceptionWithPassWordNotValidProvidedStatusCode()
+    public function commandWithNotValidPasswordTypeShouldThrowExceptionWithPassWordNotValidProvidedStatusCode()
     {
         try {
             $this->buildCommand(

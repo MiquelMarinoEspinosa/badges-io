@@ -16,7 +16,7 @@ class LogInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function notUserIdProvidedShouldThrownExceptionUserIdNotProvidedCodeStatus()
+    public function commandWithoutUserIdProvidedShouldThrownExceptionUserIdNotProvidedCodeStatus()
     {
         try {
             $aNullUserId    = null;
@@ -35,7 +35,7 @@ class LogInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function userIdNotValidTypeProvidedShouldThrownExceptionUserIdNotValidProvidedCodeStatus()
+    public function commandWithUserIdNotValidTypeProvidedShouldThrownExceptionUserIdNotValidProvidedCodeStatus()
     {
         try {
             $aNullPassWord  = null;
@@ -53,7 +53,7 @@ class LogInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function notPassWordProvidedShouldThrownExceptionPassWordNotProvidedCodeStatus()
+    public function commandWithoutPasswordProvidedShouldThrownExceptionPassWordNotProvidedCodeStatus()
     {
         try {
             $aNullPassWord  = null;
@@ -71,7 +71,7 @@ class LogInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function passWordNotValidTypeProvidedShouldThrownExceptionPassWordNotValidProvidedCodeStatus()
+    public function commandWithPasswordNotValidTypeProvidedShouldThrownExceptionPassWordNotValidProvidedCodeStatus()
     {
         try {
             $this->buildCommand(static::USER_ID_VALID_BADGES_USER, static::PASSWORD_NOT_VALID_BOOLEAN_TRUE);
@@ -88,7 +88,7 @@ class LogInCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function validParametersShouldReturnTheCommand()
+    public function commandWithAllTheParametersValidShouldReturnTheCommand()
     {
         $command = $this->buildCommand(static::USER_ID_VALID_BADGES_USER, static::PASSWORD_VALID_BEFREE);
 
