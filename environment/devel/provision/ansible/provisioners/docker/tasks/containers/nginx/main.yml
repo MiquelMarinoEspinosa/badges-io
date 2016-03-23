@@ -3,7 +3,7 @@
   sudo: yes
   docker:
     name: nginx
-    image: nginx:1.9.5
+    image: nginx:latest
     state: started
     ports:
       - "80:80"

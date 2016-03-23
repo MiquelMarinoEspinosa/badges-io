@@ -1,0 +1,12 @@
+---
+- name: install mysql container app
+  sudo: yes
+  docker:
+    name: mysql
+    image: mysql
+    state: started
+    env:
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
+
+    volumes:
+        - /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/mysql/conf:/docker-entrypoint-initdb.d

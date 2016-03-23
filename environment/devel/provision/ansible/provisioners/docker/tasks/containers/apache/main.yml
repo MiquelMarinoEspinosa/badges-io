@@ -3,7 +3,7 @@
   sudo: yes
   docker:
      name: apache
-     image: httpd:2.4.17
+     image: httpd:latest
      state: started
      ports:
       - "8080:80"

@@ -1,4 +1,6 @@
 ---
+- include: containers/mysql/main.yml
+
 - include: containers/php/main.yml
 
 - include: containers/apache/main.yml
