@@ -10,7 +10,7 @@
     links:
       - php
     volumes:
-      - /var/deployments/badges-io/releases/1/src:/var/deployments/badges-io/releases/1/src
+      - /var/deployments/badges-io/releases/1:/var/deployments/badges-io/releases/1
 
 - name: config nginx container
   sudo: yes

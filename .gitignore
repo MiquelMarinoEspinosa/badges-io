@@ -1,0 +1,11 @@
+.vagrant
+/vendor/
+/bin/
+/app/bootstrap.php.cache
+/app/cache/*
+/app/logs/*
+/app/config/parameters.yml
+/badgesio/bundles/
+/badgesio/.htaccess
+/app/.htaccess
+.idea/

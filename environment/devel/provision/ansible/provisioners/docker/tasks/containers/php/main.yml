@@ -10,8 +10,7 @@
     links:
       - mysql
     volumes:
-      - /var/deployments/badges-io/releases/1/src:/var/deployments/badges-io/releases/1/src
-      - /var/deployments/badges-io/releases/1/vendor:/var/deployments/badges-io/releases/1/vendor
+      - /var/deployments/badges-io/releases/1:/var/deployments/badges-io/releases/1
 
 - name: config badges-io-dev site
   sudo: yes
