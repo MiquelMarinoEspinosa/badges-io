@@ -1,5 +1,5 @@
 <?php
-namespace App\Bundle\MainBundle\Controller;
+namespace App\Bundle\GamificationBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Response;

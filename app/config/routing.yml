@@ -1,3 +1,4 @@
 main:
     type: rest
-    resource: "@BadgesBundle/Resources/config/badges.xml"
+    resource: "@GamificationBundle/Resources/config/gamification-routes.xml"
+    prefix: api

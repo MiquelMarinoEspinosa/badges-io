@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
 
-            new App\Bundle\MainBundle\BadgesBundle()
+            new App\Bundle\GamificationBundle\GamificationBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
