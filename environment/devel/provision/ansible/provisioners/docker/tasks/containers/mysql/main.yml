@@ -5,8 +5,11 @@
     name: mysql
     image: mysql
     state: started
+    ports:
+      - "3306:3306"
     env:
       MYSQL_RANDOM_ROOT_PASSWORD: yes
 
     volumes:
-        - /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/mysql/conf:/docker-entrypoint-initdb.d
+      - /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/mysql/conf/sql:/docker-entrypoint-initdb.d
+      - /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/mysql/conf/mysql:/etc/mysql
