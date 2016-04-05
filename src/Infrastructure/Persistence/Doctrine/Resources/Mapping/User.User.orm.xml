@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Domain\Entity\User\User">
+        <id name="id" type="string" length="200" />
+        <field name="email" type="string" length="50" />
+        <field name="userName" type="string" length="50" />
+        <field name="passWord" type="string" length="200" />
+    </entity>
+</doctrine-mapping>

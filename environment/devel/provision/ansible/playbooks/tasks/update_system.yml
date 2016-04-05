@@ -3,20 +3,20 @@
   hosts: badges-io-dev
   sudo: yes
   tasks:
-  - name: APT | Update system repositories
-    apt_repository: repo='{{ item.archive_type }} {{ item.repository_url }} {{ item.distribution }} {{ item.components }}' state=present
-    with_items:
-      - { archive_type: "deb",     repository_url: "http://packages.dotdeb.org", distribution: "wheezy", components: "all" }
-      - { archive_type: "deb-src", repository_url: "http://packages.dotdeb.org", distribution: "wheezy", components: "all" }
-      - { archive_type: "deb",     repository_url: "http://ftp.us.debian.org/debian", distribution: "wheezy", components: "non-free contrib" }
-      - { archive_type: "deb",     repository_url: "http://ftp.us.debian.org/debian", distribution: "wheezy-updates", components: "main" }
-      - { archive_type: "deb",     repository_url: "http://ftp.us.debian.org/debian", distribution: "wheezy-backports", components: "main non-free contrib" }
+    - name: APT | Update system repositories
+      apt_repository: repo='{{ item.archive_type }} {{ item.repository_url }} {{ item.distribution }} {{ item.components }}' state=present
+      with_items:
+        - { archive_type: "deb",     repository_url: "http://packages.dotdeb.org", distribution: "wheezy", components: "all" }
+        - { archive_type: "deb-src", repository_url: "http://packages.dotdeb.org", distribution: "wheezy", components: "all" }
+        - { archive_type: "deb",     repository_url: "http://ftp.us.debian.org/debian", distribution: "wheezy", components: "non-free contrib" }
+        - { archive_type: "deb",     repository_url: "http://ftp.us.debian.org/debian", distribution: "wheezy-updates", components: "main" }
+        - { archive_type: "deb",     repository_url: "http://ftp.us.debian.org/debian", distribution: "wheezy-backports", components: "main non-free contrib" }
 
-  - name: APT | Ensure system is updated
-    apt: upgrade=dist update_cache=yes
+    - name: APT | Ensure system is updated
+      apt: upgrade=dist update_cache=yes
 
-  - name: APT | Ensure base packages are installed
-    apt: name=apt-transport-https,vim state=latest
+    - name: APT | Ensure base packages are installed
+      apt: name=apt-transport-https,vim state=latest
 
-  - name: ENVIRONMENT | Ensure when ssh machine go to app folder
-    shell: echo 'cd /var/deployments/badges-io/releases/1' > .bash_profile
+    - name: ENVIRONMENT | Ensure when ssh machine go to app folder
+      shell: echo 'cd /var/deployments/badges-io/releases/1' > .bash_profile

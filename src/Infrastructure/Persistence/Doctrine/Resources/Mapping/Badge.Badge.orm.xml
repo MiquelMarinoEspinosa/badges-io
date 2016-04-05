@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Domain\Entity\Badge\Badge">
+        <id name="id" type="string" length="200" />
+        <field name="name" type="string" length="50" />
+        <field name="description" type="string" length="200" />
+        <field name="isMultiTenant" type="boolean" />
+        <one-to-one field="image" target-entity="Domain\Entity\Image\Image">
+            <join-column name="imageId" referenced-column-name="id" />
+        </one-to-one>
+        <many-to-one field="tenant" target-entity="Domain\Entity\User\User">
+            <join-column name="userId" referenced-column-name="id" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
