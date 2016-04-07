@@ -64,6 +64,7 @@ $PHP_EXTRA_CONFIGURE_ARGS \
 --with-zlib \
 --with-mysqli \
 --with-mysql \
+--with-pdo-mysql \
 && make -j"$(nproc)" \
 && make install \
 && { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; } \
