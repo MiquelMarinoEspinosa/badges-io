@@ -61,11 +61,11 @@ class DoctrineBadgeRepository implements BadgeRepository
     public function findMultiTenant()
     {
         $queryBuilder = $this->entityRepository->createQueryBuilder('badges');
+
         return $queryBuilder
             ->where(
                 $queryBuilder->expr()->eq('isMultiTenant', 1)
             )->getQuery()
              ->getResult();
-
     }
 }
