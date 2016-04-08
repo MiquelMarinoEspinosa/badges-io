@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="gamification.domain.entity.badge.badge_repository"
+                 alias="gamification.infrastructure.peristence.domain.entity.badge.doctrine_badge_repository" />
+
+        <service id="gamification.domain.entity.image.image_repository"
+                 alias="gamification.infrastructure.peristence.domain.entity.image.doctrine_image_repository" />
+
+        <service id="gamification.domain.entity.tenant.tenant_repository"
+                 alias="gamification.infrastructure.peristence.domain.entity.tenant.doctrine_tenant_repository" />
+
+        <service id="gamification.domain.entity.user.user_repository"
+                 alias="gamification.infrastructure.peristence.domain.entity.user.doctrine_user_repository" />
+    </services>
+
+</container>
