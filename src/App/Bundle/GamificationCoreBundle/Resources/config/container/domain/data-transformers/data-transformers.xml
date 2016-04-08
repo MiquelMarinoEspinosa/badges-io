@@ -5,14 +5,20 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="gamification.domain.entity.user.user_data_transformer"
+                 alias="gamification.infrastructure.data_transformer.api.domain.entity.user.user_api_data_transformer" />
+
+        <service id="gamification.domain.entity.tenant.tenant_data_transformer"
+                 alias="gamification.infrastructure.data_transformer.api.domain.entity.tenant.tenant_api_data_transformer" />
+
+        <service id="gamification.domain.entity.image.image_data_transformer"
+                 alias="gamification.infrastructure.data_transformer.api.domain.entity.image.image_api_data_transformer" />
+
         <service id="gamification.domain.entity.badge.badge_data_transformer"
-                 alias="gamification.infrastructure.data_transformer.no_operation.domain.entity.badge.badge_no_op_data_transformer" />
+                 alias="gamification.infrastructure.data_transformer.api.domain.entity.badge.badge_api_data_transformer" />
 
         <service id="gamification.domain.entity.badge.badge_collection_data_transformer"
-                 alias="gamification.infrastructure.data_transformer.no_operation.domain.entity.badge.badge_no_op_collection_data_transformer" />
-
-        <service id="gamification.domain.entity.user.user_data_transformer"
-                 alias="gamification.infrastructure.data_transformer.no_operation.domain.entity.user.user_no_op_data_transformer" />
+                 alias="gamification.infrastructure.data_transformer.api.domain.entity.badge.badge_api_collection_data_transformer" />
     </services>
 
 </container>

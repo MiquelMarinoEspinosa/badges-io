@@ -6,6 +6,7 @@
     <imports>
         <import resource="persistence/repositories/doctrine/repositories.xml"/>
         <import resource="data-transformers/no-operation/data-transformers.xml"/>
+        <import resource="data-transformers/api/data-transformers.xml"/>
         <import resource="domain-services/domain-services.xml"/>
     </imports>
 </container>
