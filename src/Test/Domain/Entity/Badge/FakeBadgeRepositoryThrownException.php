@@ -4,7 +4,7 @@ namespace Test\Domain\Entity\Badge;
 
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Tenant\Tenant;
-use Infrastructure\InMemory\Domain\Entity\Badge\InMemoryBadgeRepository;
+use Infrastructure\Persistence\InMemory\Domain\Entity\Badge\InMemoryBadgeRepository;
 
 class FakeBadgeRepositoryThrownException extends InMemoryBadgeRepository
 {

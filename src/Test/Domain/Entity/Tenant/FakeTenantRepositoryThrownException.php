@@ -2,7 +2,7 @@
 
 namespace Test\Domain\Entity\Tenant;
 
-use Infrastructure\InMemory\Domain\Entity\Tenant\InMemoryTenantRepository;
+use Infrastructure\Persistence\InMemory\Domain\Entity\Tenant\InMemoryTenantRepository;
 
 class FakeTenantRepositoryThrownException extends InMemoryTenantRepository
 {

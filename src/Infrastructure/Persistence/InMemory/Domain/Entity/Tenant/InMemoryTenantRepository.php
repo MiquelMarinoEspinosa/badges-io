@@ -1,6 +1,6 @@
 <?php
 
-namespace Infrastructure\InMemory\Domain\Entity\Tenant;
+namespace Infrastructure\Persistence\InMemory\Domain\Entity\Tenant;
 
 use Domain\Entity\Tenant\Tenant;
 use Domain\Entity\Tenant\TenantRepository;

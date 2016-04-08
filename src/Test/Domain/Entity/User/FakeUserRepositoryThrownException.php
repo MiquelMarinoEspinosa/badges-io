@@ -3,7 +3,7 @@
 namespace Test\Domain\Entity\User;
 
 use Domain\Entity\User\User;
-use Infrastructure\InMemory\Domain\Entity\User\InMemoryUserRepository;
+use Infrastructure\Persistence\InMemory\Domain\Entity\User\InMemoryUserRepository;
 
 class FakeUserRepositoryThrownException extends InMemoryUserRepository
 {

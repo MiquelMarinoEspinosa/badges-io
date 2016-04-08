@@ -1,6 +1,6 @@
 <?php
 
-namespace Infrastructure\InMemory\Domain\Entity\User;
+namespace Infrastructure\Persistence\InMemory\Domain\Entity\User;
 
 use Domain\Entity\User\User;
 use Domain\Entity\User\UserRepository;

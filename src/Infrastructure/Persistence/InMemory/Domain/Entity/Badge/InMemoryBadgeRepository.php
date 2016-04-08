@@ -1,6 +1,6 @@
 <?php
 
-namespace Infrastructure\InMemory\Domain\Entity\Badge;
+namespace Infrastructure\Persistence\InMemory\Domain\Entity\Badge;
 
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\BadgeRepository;

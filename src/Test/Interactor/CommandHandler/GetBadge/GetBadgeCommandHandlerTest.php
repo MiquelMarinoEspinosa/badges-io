@@ -5,7 +5,7 @@ namespace Test\Interactor\CommandHandler\GetBadge;
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\BadgeRepository;
 use Infrastructure\DataTransformer\NoOperation\Domain\Entity\Badge\BadgeNoOpDataTransformer;
-use Infrastructure\InMemory\Domain\Entity\Badge\InMemoryBadgeRepository;
+use Infrastructure\Persistence\InMemory\Domain\Entity\Badge\InMemoryBadgeRepository;
 use Interactor\CommandHandler\GetBadge\Exception\InvalidGetBadgeCommandHandlerException;
 use Interactor\CommandHandler\GetBadge\Exception\InvalidGetBadgeCommandHandlerExceptionCode;
 use Interactor\CommandHandler\GetBadge\GetBadgeCommand;

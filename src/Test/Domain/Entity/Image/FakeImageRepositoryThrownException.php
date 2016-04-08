@@ -3,7 +3,7 @@
 namespace Test\Domain\Entity\Image;
 
 use Domain\Entity\Image\Image;
-use Infrastructure\InMemory\Domain\Entity\Image\InMemoryImageRepository;
+use Infrastructure\Persistence\InMemory\Domain\Entity\Image\InMemoryImageRepository;
 
 class FakeImageRepositoryThrownException extends InMemoryImageRepository
 {

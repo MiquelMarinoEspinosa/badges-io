@@ -1,6 +1,6 @@
 <?php
 
-namespace Infrastructure\InMemory\Domain\Entity\Image;
+namespace Infrastructure\Persistence\InMemory\Domain\Entity\Image;
 
 use Domain\Entity\Image\Image;
 use Domain\Entity\Image\ImageRepository;
