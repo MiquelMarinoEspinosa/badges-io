@@ -2,3 +2,7 @@ main:
     type: rest
     resource: "@GamificationBundle/Resources/config/gamification-routes.xml"
     prefix: api
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
