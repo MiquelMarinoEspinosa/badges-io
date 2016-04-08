@@ -3,9 +3,10 @@
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-    <imports>
-        <import resource="repositories/repositories.xml"/>
-        <import resource="data-transformers/data-transformers.xml"/>
-        <import resource="domain-services/domain-services.xml"/>
-    </imports>
+
+    <services>
+        <service id="gamification.domain.service.id_generator"
+                 alias="gamification.infrastructure.services.domain.id_generator.uu_id_generator" />
+    </services>
+
 </container>
