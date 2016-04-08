@@ -1,6 +1,6 @@
 <?php
 
-namespace Infrastructure\DataTransformer\Domain\Entity\Badge;
+namespace Infrastructure\DataTransformer\NoOperation\Domain\Entity\Badge;
 
 use Domain\Entity\Badge\BadgeCollectionDataTransformer;
 

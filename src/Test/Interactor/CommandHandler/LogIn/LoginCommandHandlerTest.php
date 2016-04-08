@@ -4,7 +4,7 @@ namespace Test\Interactor\CommandHandler\LogIn;
 
 use Domain\Entity\User\User;
 use Domain\Entity\User\UserRepository;
-use Infrastructure\DataTransformer\Domain\Entity\User\UserNoOpDataTransformer;
+use Infrastructure\DataTransformer\NoOperation\Domain\Entity\User\UserNoOpDataTransformer;
 use Infrastructure\InMemory\Domain\Entity\User\InMemoryUserRepository;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerException;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerExceptionCode;

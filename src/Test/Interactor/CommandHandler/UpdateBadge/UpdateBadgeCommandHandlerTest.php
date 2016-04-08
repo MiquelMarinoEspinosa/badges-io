@@ -10,7 +10,7 @@ use Domain\Entity\Image\ImageRepository;
 use Domain\Entity\Tenant\Tenant;
 use Domain\Entity\Tenant\TenantRepository;
 use Domain\Service\IdGenerator;
-use Infrastructure\DataTransformer\Domain\Entity\Badge\BadgeNoOpDataTransformer;
+use Infrastructure\DataTransformer\NoOperation\Domain\Entity\Badge\BadgeNoOpDataTransformer;
 use Infrastructure\InMemory\Domain\Entity\Badge\InMemoryBadgeRepository;
 use Infrastructure\InMemory\Domain\Entity\Image\InMemoryImageRepository;
 use Infrastructure\InMemory\Domain\Entity\Tenant\InMemoryTenantRepository;

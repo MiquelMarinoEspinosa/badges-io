@@ -6,7 +6,7 @@ use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\BadgeRepository;
 use Domain\Entity\Tenant\Tenant;
 use Domain\Entity\Tenant\TenantRepository;
-use Infrastructure\DataTransformer\Domain\Entity\Badge\BadgeNoOpCollectionDataTransformer;
+use Infrastructure\DataTransformer\NoOperation\Domain\Entity\Badge\BadgeNoOpCollectionDataTransformer;
 use Infrastructure\InMemory\Domain\Entity\Badge\InMemoryBadgeRepository;
 use Infrastructure\InMemory\Domain\Entity\Tenant\InMemoryTenantRepository;
 use Interactor\CommandHandler\ListBadges\Exception\InvalidListBadgesCommandHandlerException;

@@ -6,7 +6,7 @@ use Domain\Service\IdGenerator;
 use Domain\Entity\User\User;
 use Domain\Entity\User\UserDataTransformer;
 use Domain\Entity\User\UserRepository;
-use Infrastructure\DataTransformer\Domain\Entity\User\UserNoOpDataTransformer;
+use Infrastructure\DataTransformer\NoOperation\Domain\Entity\User\UserNoOpDataTransformer;
 use Infrastructure\InMemory\Domain\Entity\User\InMemoryUserRepository;
 use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerException;
 use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
