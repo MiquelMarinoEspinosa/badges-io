@@ -13,9 +13,9 @@ class SignInController extends FOSRestController
      *  description = "Create a new user",
      *  output = "Infrastructure\Resource\Api\Domain\Entity\User\UserApiResource",
      *  requirements={
-     *    {"name"="username", "dataType"="string", "description"="User's Name"},
-     *    {"name"="email", "dataType"="string", "description"="User's Mail"},
-     *    {"name"="password", "dataType"="password", "description"="User's Password"}
+     *    {"name"="username", "dataType"="string", "required"="true", "description"="User's Name"},
+     *    {"name"="email", "dataType"="string", "required"="true", "description"="User's Mail"},
+     *    {"name"="password", "dataType"="password", "required"="true", "description"="User's Password"}
      *  },
      *  statusCodes={
      *      200="Returned when successful",

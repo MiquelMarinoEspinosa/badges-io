@@ -13,9 +13,9 @@ class LogInController extends FOSRestController
      *  description = "Login into the system",
      *  output = "Infrastructure\Resource\Api\Domain\Entity\User\UserApiResource",
      *  requirements={
-     *    {"name"="username", "dataType"="string", "description"="User's Name"},
-     *    {"name"="email", "dataType"="string", "description"="User's Mail"},
-     *    {"name"="password", "dataType"="password", "description"="User's Password"}
+     *    {"name"="username", "dataType"="string", "required"="true", "description"="User's Name"},
+     *    {"name"="email", "dataType"="string", "required"="true", "description"="User's Mail"},
+     *    {"name"="password", "dataType"="string", "required"="true",, "description"="User's Password"}
      *  },
      *  statusCodes={
      *      200="Returned when successful",
@@ -23,7 +23,7 @@ class LogInController extends FOSRestController
      *  }
      * )
      */
-    public function putLoginAction(Request $request)
+    public function postLoginAction(Request $request)
     {
         $logInCommand = $this->buildLogInCommand($request);
 
