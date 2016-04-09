@@ -25,7 +25,7 @@ class DoctrineUserRepository implements UserRepository
      */
     public function findByUserName($userName)
     {
-        return $this->entityRepository->findBy(['userName' => $userName]);
+        return $this->entityRepository->findOneBy(['userName' => $userName]);
     }
 
     /**
@@ -33,7 +33,7 @@ class DoctrineUserRepository implements UserRepository
      */
     public function findByEmail($email)
     {
-        return $this->entityRepository->findBy(['email' => $email]);
+        return $this->entityRepository->findOneBy(['email' => $email]);
     }
 
     /**
