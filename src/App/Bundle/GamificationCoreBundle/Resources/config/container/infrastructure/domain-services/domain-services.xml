@@ -8,6 +8,10 @@
         <service id="gamification.infrastructure.services.domain.id_generator.uu_id_generator"
                  class="Infrastructure\Services\Domain\IdGenerator\UuIdGenerator">
         </service>
+
+        <service id="gamification.infrastructure.services.domain.password_cipher.md5_password_cipher"
+                 class="Infrastructure\Services\Domain\PasswordCipher\Md5PasswordCipher">
+        </service>
     </services>
 
 </container>

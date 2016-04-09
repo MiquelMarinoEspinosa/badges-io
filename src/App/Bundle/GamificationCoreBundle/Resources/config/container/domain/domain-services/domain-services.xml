@@ -7,6 +7,8 @@
     <services>
         <service id="gamification.domain.service.id_generator"
                  alias="gamification.infrastructure.services.domain.id_generator.uu_id_generator" />
+        <service id="gamification.domain.service.password_cipher"
+                 alias="gamification.infrastructure.services.domain.password_cipher.md5_password_cipher" />
     </services>
 
 </container>
