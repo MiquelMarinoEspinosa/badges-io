@@ -109,7 +109,24 @@ fos_rest:
     routing_loader:
             include_format: false
 
-nelmio_api_doc: ~
+nelmio_api_doc:
+    name: Badges-io API documentation
+    sandbox:
+        #authentication:
+        #name: apikey
+        #delivery: header
+        #enabled:  true
+        #accept_type: application/hal+json
+        body_format:
+            formats: ~
+            default_format: json
+        request_format:
+            method: accept_header
+            default_format: json
+
+            formats:
+                xml: application/xml
+                json: application/json
 
 jms_serializer:
     property_naming:
