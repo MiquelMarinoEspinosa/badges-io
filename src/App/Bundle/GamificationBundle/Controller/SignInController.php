@@ -12,10 +12,10 @@ class SignInController extends FOSRestController
      * @ApiDoc(
      *  description = "Create a new user",
      *  output = "Infrastructure\Resource\Api\Domain\Entity\User\UserApiResource",
-     *  requirements={
-     *    {"name"="username", "dataType"="string", "required"="true", "description"="User's Name"},
-     *    {"name"="email", "dataType"="string", "required"="true", "description"="User's Mail"},
-     *    {"name"="password", "dataType"="string", "required"="true", "description"="User's Password"}
+     *  parameters={
+     *    {"name"="username", "dataType"="string", "format"="\s+", "description"="User's Name", "required"="true"},
+     *    {"name"="email", "dataType"="string", "format"="\s+", "description"="User's Mail", "required"="true"},
+     *    {"name"="password", "dataType"="string", "format"="\s+", "description"="User's Password", "required"="true"}
      *  },
      *  statusCodes={
      *      200="Returned when successful",
