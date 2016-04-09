@@ -110,3 +110,21 @@ fos_rest:
             include_format: false
 
 nelmio_api_doc: ~
+
+jms_serializer:
+    property_naming:
+        separator:  _
+        lower_case: true
+
+    metadata:
+        cache: file
+        debug: "%kernel.debug%"
+        file_cache:
+            dir: %kernel.cache_dir%/serializer
+
+        auto_detection: false
+
+        directories:
+            Gamification:
+                namespace_prefix: Infrastructure\Resource\Api\Domain\Entity
+                path: "%kernel.root_dir%/../src/Infrastructure/Resource/Api/Jms/Resources/serializer"
