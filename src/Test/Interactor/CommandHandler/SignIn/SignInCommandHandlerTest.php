@@ -6,8 +6,10 @@ use Domain\Service\IdGenerator;
 use Domain\Entity\User\User;
 use Domain\Entity\User\UserDataTransformer;
 use Domain\Entity\User\UserRepository;
+use Domain\Service\PasswordCipher;
 use Infrastructure\DataTransformer\NoOperation\Domain\Entity\User\UserNoOpDataTransformer;
 use Infrastructure\Persistence\InMemory\Domain\Entity\User\InMemoryUserRepository;
+use Infrastructure\Services\Domain\PasswordCipher\MD5PasswordCipher;
 use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerException;
 use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
 use Interactor\CommandHandler\SignIn\SignInCommand;
@@ -215,7 +217,8 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
         return new SignInCommandHandler(
             $userRepository,
             $this->buildUserDataTransformer(),
-            $this->buildIdGenerator()
+            $this->buildIdGenerator(),
+            $this->buildPasswordCipher()
         );
     }
 
@@ -281,5 +284,13 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
     private function thisTestFails()
     {
         $this->assertTrue(false);
+    }
+
+    /**
+     * @return PasswordCipher
+     */
+    private function buildPasswordCipher()
+    {
+        return new MD5PasswordCipher();
     }
 }

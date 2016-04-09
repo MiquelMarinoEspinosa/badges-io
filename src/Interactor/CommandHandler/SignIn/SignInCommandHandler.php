@@ -6,6 +6,7 @@ use Domain\Service\IdGenerator;
 use Domain\Entity\User\User;
 use Domain\Entity\User\UserDataTransformer;
 use Domain\Entity\User\UserRepository;
+use Domain\Service\PasswordCipher;
 use Interactor\CommandHandler\CommandHandler;
 use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerException;
 use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
@@ -24,15 +25,21 @@ class SignInCommandHandler implements CommandHandler
      * @var IdGenerator
      */
     private $idGenerator;
+    /**
+     * @var PasswordCipher
+     */
+    private $passwordCipher;
 
     public function __construct(
         UserRepository $userRepository,
         UserDataTransformer $userDataTransformer,
-        IdGenerator $userIdGenerator
+        IdGenerator $userIdGenerator,
+        PasswordCipher $passwordCipher
     ) {
         $this->userRepository       = $userRepository;
         $this->userDataTransformer  = $userDataTransformer;
         $this->idGenerator          = $userIdGenerator;
+        $this->passwordCipher       = $passwordCipher;
     }
 
     /**
@@ -116,7 +123,7 @@ class SignInCommandHandler implements CommandHandler
             $this->idGenerator->generateId(),
             $command->email(),
             $command->userName(),
-            $command->passWord()
+            $this->passwordCipher->cipher($command->passWord())
         );
     }
 

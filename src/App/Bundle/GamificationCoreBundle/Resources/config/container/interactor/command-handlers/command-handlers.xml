@@ -44,6 +44,7 @@
             <argument type="service" id="gamification.domain.entity.user.user_repository" />
             <argument type="service" id="gamification.domain.entity.user.user_data_transformer" />
             <argument type="service" id="gamification.domain.service.id_generator" />
+            <argument type="service" id="gamification.domain.service.password_cipher" />
         </service>
 
         <service id="gamification.interactor.command_handler.update_badge.update_badge_command_handler"
