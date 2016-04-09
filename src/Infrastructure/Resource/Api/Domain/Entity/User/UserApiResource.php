@@ -9,16 +9,16 @@ class UserApiResource
     /** @var  string */
     private $email;
     /** @var  string */
-    private $userName;
+    private $username;
     /** @var  string */
-    private $passWord;
+    private $password;
 
-    public function __construct($id, $email, $userName, $passWord)
+    public function __construct($id, $email, $username, $password)
     {
         $this->setId($id)
              ->setEmail($email)
-             ->setUserName($userName)
-             ->setPassWord($passWord);
+             ->setUsername($username)
+             ->setPassword($password);
     }
 
     /**
@@ -64,19 +64,19 @@ class UserApiResource
     /**
      * @return string
      */
-    public function userName()
+    public function username()
     {
-        return $this->userName;
+        return $this->username;
     }
 
     /**
-     * @param string $userName
+     * @param string $username
      *
      * @return UserApiResource
      */
-    private function setUserName($userName)
+    private function setUsername($username)
     {
-        $this->userName = $userName;
+        $this->username = $username;
 
         return $this;
     }
@@ -84,19 +84,19 @@ class UserApiResource
     /**
      * @return string
      */
-    public function passWord()
+    public function password()
     {
-        return $this->passWord;
+        return $this->password;
     }
 
     /**
-     * @param string $passWord
+     * @param string $password
      *
      * @return UserApiResource
      */
-    private function setPassWord($passWord)
+    private function setPassword($password)
     {
-        $this->passWord = $passWord;
+        $this->password = $password;
 
         return $this;
     }
