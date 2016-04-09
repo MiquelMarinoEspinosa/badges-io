@@ -4,8 +4,10 @@ namespace Test\Interactor\CommandHandler\LogIn;
 
 use Domain\Entity\User\User;
 use Domain\Entity\User\UserRepository;
+use Domain\Service\PasswordCipher;
 use Infrastructure\DataTransformer\NoOperation\Domain\Entity\User\UserNoOpDataTransformer;
 use Infrastructure\Persistence\InMemory\Domain\Entity\User\InMemoryUserRepository;
+use Infrastructure\Services\Domain\PasswordCipher\MD5PasswordCipher;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerException;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerExceptionCode;
 use Interactor\CommandHandler\LogIn\LogInCommand;
@@ -178,10 +180,11 @@ class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $commandHandler = $this->buildCommandHandler($this->buildDefaultUserRepository());
         /** @var User $user */
         $user = $commandHandler->handle($command);
+        $passwordCipher = $this->buildPasswordCipher();
 
         $this->assertTrue(
             $user->userName() === static::USERNAME_EXISTS_VALID_BADGES_USER
-            && $user->passWord() === static::PASSWORD_VALID_EXISTS_BE_FREE
+            && $user->passWord() === $passwordCipher->cipher(static::PASSWORD_VALID_EXISTS_BE_FREE)
         );
     }
 
@@ -197,10 +200,11 @@ class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $commandHandler = $this->buildCommandHandler($this->buildDefaultUserRepository());
         /** @var User $user */
         $user = $commandHandler->handle($command);
+        $passwordCipher = $this->buildPasswordCipher();
 
         $this->assertTrue(
             $user->userName() === static::USERNAME_EXISTS_VALID_BADGES_USER
-            && $user->passWord() === static::PASSWORD_VALID_EXISTS_BE_FREE
+            && $user->passWord() === $passwordCipher->cipher(static::PASSWORD_VALID_EXISTS_BE_FREE)
         );
     }
 
@@ -211,7 +215,11 @@ class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
      */
     private function buildCommandHandler($userRepository)
     {
-        return new LoginCommandHandler($userRepository, $this->buildUserDataTransformer());
+        return new LoginCommandHandler(
+            $userRepository,
+            $this->buildUserDataTransformer(),
+            $this->buildPasswordCipher()
+        );
     }
 
     /**
@@ -227,12 +235,13 @@ class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
      */
     private function buildDefaultUsers()
     {
+        $passwordCipher = $this->buildPasswordCipher();
         return [
             FakeUserBuilder::build(
                 static::USER_ID,
                 static::EMAIL_EXISTS_TEST_BADGES_IO_COM,
                 static::USERNAME_EXISTS_VALID_BADGES_USER,
-                static::PASSWORD_VALID_EXISTS_BE_FREE
+                $passwordCipher->cipher(static::PASSWORD_VALID_EXISTS_BE_FREE)
             )
         ];
     }
@@ -264,6 +273,14 @@ class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
     private function buildUserRepositoryThrowException($methodException)
     {
         return new FakeUserRepositoryThrownException($this->buildDefaultUsers(), $methodException);
+    }
+
+    /**
+     * @return PasswordCipher
+     */
+    private function buildPasswordCipher()
+    {
+        return new MD5PasswordCipher();
     }
 
     private function thisTestFails()

@@ -37,6 +37,7 @@
                  class="Interactor\CommandHandler\LogIn\LogInCommandHandler">
             <argument type="service" id="gamification.domain.entity.user.user_repository" />
             <argument type="service" id="gamification.domain.entity.user.user_data_transformer" />
+            <argument type="service" id="gamification.domain.service.password_cipher" />
         </service>
 
         <service id="gamification.interactor.command_handler.sign_in.sign_in_command_handler"

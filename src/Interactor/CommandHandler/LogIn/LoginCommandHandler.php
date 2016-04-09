@@ -5,6 +5,7 @@ namespace Interactor\CommandHandler\LogIn;
 use Domain\Entity\User\User;
 use Domain\Entity\User\UserDataTransformer;
 use Domain\Entity\User\UserRepository;
+use Domain\Service\PasswordCipher;
 use Interactor\CommandHandler\CommandHandler;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerException;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerExceptionCode;
@@ -19,11 +20,19 @@ class LoginCommandHandler implements CommandHandler
      * @var UserDataTransformer
      */
     private $userDataTransformer;
+    /**
+     * @var PasswordCipher
+     */
+    private $passwordCipher;
 
-    public function __construct(UserRepository $userRepository, UserDataTransformer $userDataTransformer)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        UserDataTransformer $userDataTransformer,
+        PasswordCipher $passwordCipher
+    ) {
         $this->userRepository      = $userRepository;
         $this->userDataTransformer = $userDataTransformer;
+        $this->passwordCipher      = $passwordCipher;
     }
 
     /**
@@ -37,7 +46,7 @@ class LoginCommandHandler implements CommandHandler
         $userByEmail = $this->tryToFindByEmail($command->userId());
 
         if ($userByEmail instanceof User) {
-            if ($userByEmail->passWord() !== $command->passWord()) {
+            if ($this->areNotEqualUserAndCommandPasswords($command, $userByEmail)) {
                 throw $this->buildInvalidLogInCommandHandlerException(
                     InvalidLoginCommandHandlerExceptionCode::STATUS_CODE_LOGIN_FAILED
                 );
@@ -49,7 +58,7 @@ class LoginCommandHandler implements CommandHandler
         $userByUsername = $this->tryToFindByUserName($command->userId());
 
         if ($userByUsername instanceof User) {
-            if ($userByUsername->passWord() !== $command->passWord()) {
+            if ($this->areNotEqualUserAndCommandPasswords($command, $userByUsername)) {
                 throw $this->buildInvalidLogInCommandHandlerException(
                     InvalidLoginCommandHandlerExceptionCode::STATUS_CODE_LOGIN_FAILED
                 );
@@ -109,5 +118,16 @@ class LoginCommandHandler implements CommandHandler
     private function buildInvalidLogInCommandHandlerException($statusCode)
     {
         return new InvalidLoginCommandHandlerException($statusCode);
+    }
+
+    /**
+     * @param LogInCommand $command
+     * @param User $user
+     *
+     * @return bool
+     */
+    private function areNotEqualUserAndCommandPasswords($command, User $user)
+    {
+        return $user->passWord() !== $this->passwordCipher->cipher($command->passWord());
     }
 }
