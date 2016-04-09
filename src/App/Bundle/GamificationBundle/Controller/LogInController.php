@@ -15,7 +15,7 @@ class LogInController extends FOSRestController
      *  requirements={
      *    {"name"="username", "dataType"="string", "required"="true", "description"="User's Name"},
      *    {"name"="email", "dataType"="string", "required"="true", "description"="User's Mail"},
-     *    {"name"="password", "dataType"="string", "required"="true",, "description"="User's Password"}
+     *    {"name"="password", "dataType"="string", "required"="true", "description"="User's Password"}
      *  },
      *  statusCodes={
      *      200="Returned when successful",
