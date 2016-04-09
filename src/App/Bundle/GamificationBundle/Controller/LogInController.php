@@ -23,7 +23,7 @@ class LogInController extends FOSRestController
      *  }
      * )
      */
-    public function postLoginAction(Request $request)
+    public function putLoginAction(Request $request)
     {
         $logInCommand = $this->buildLogInCommand($request);
 
