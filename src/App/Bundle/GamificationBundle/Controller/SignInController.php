@@ -1,18 +1,16 @@
 <?php
 namespace App\Bundle\GamificationBundle\Controller;
 
-use Domain\Entity\Image\Image;
 use FOS\RestBundle\Controller\FOSRestController;
 use Interactor\CommandHandler\SignIn\SignInCommand;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class SignInController extends FOSRestController
 {
     /**
      * @ApiDoc(
-     *  description = "Sign In",
+     *  description = "Create a new user",
      *  output = "Infrastructure\Resource\Api\Domain\Entity\User\UserApiResource",
      *  requirements={
      *    {"name"="username", "dataType"="string", "description"="User's Name"},
