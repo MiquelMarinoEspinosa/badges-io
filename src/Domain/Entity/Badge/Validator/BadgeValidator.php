@@ -5,7 +5,7 @@ namespace Domain\Entity\Badge\Validator;
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\Exception\InvalidBadgeException;
 use Domain\Entity\Badge\Exception\InvalidBadgeExceptionCode;
-use Domain\Entity\Tenant\Tenant;
+use Domain\Entity\User\User;
 use Domain\Validator\Validator;
 
 class BadgeValidator implements Validator
@@ -25,7 +25,7 @@ class BadgeValidator implements Validator
         $this->validateId()
              ->validateName()
              ->validateDescription()
-             ->validateIsMultitenant();
+             ->validateIsMultiUser();
     }
 
     /**
@@ -191,10 +191,10 @@ class BadgeValidator implements Validator
      * @return BadgeValidator
      * @throws InvalidBadgeException
      */
-    private function validateIsMultiTenant()
+    private function validateIsMultiUser()
     {
-        $this->checkIsMultiTenantNotNull()
-             ->checkIsMultiTenantFormat();
+        $this->checkIsMultiUserNotNull()
+             ->checkIsMultiUserFormat();
 
         return $this;
     }
@@ -203,12 +203,12 @@ class BadgeValidator implements Validator
      * @return BadgeValidator
      * @throws InvalidBadgeException
      */
-    private function checkIsMultiTenantNotNull()
+    private function checkIsMultiUserNotNull()
     {
-        $aNullIsMultiTenant = null;
-        if ($this->badge->isMultiTenant() === $aNullIsMultiTenant) {
+        $aNullIsMultiUser = null;
+        if ($this->badge->isMultiUser() === $aNullIsMultiUser) {
             throw $this->buildInvalidCreateCommandException(
-                InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED
+                InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED
             );
         }
 
@@ -219,11 +219,11 @@ class BadgeValidator implements Validator
      * @return BadgeValidator
      * @throws InvalidBadgeException
      */
-    private function checkIsMultiTenantFormat()
+    private function checkIsMultiUserFormat()
     {
-        if ($this->notValidIsMultiTenantFormat($this->badge->isMultiTenant())) {
+        if ($this->notValidIsMultiUserFormat($this->badge->isMultiUser())) {
             throw $this->buildInvalidCreateCommandException(
-                InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED
+                InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED
             );
         }
 
@@ -231,13 +231,13 @@ class BadgeValidator implements Validator
     }
 
     /**
-     * @param string $isMultiTenant
+     * @param string $isMultiUser
      *
      * @return bool
      */
-    private function notValidIsMultiTenantFormat($isMultiTenant)
+    private function notValidIsMultiUserFormat($isMultiUser)
     {
-        return !is_bool($isMultiTenant);
+        return !is_bool($isMultiUser);
     }
 
     /**

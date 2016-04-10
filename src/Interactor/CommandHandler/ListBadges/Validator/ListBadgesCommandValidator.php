@@ -21,17 +21,17 @@ class ListBadgesCommandValidator implements Validator
 
     public function validate()
     {
-        $this->validateTenantId();
+        $this->validateUserId();
     }
 
     /**
      * @return ListBadgesCommandValidator
      * @throws InvalidListBadgesCommandException
      */
-    private function validateTenantId()
+    private function validateUserId()
     {
-        $this->checkTenantIdNotNull()
-             ->checkTenantIdFormat();
+        $this->checkUserIdNotNull()
+             ->checkUserIdFormat();
 
         return $this;
     }
@@ -40,12 +40,12 @@ class ListBadgesCommandValidator implements Validator
      * @return ListBadgesCommandValidator
      * @throws InvalidListBadgesCommandException
      */
-    private function checkTenantIdNotNull()
+    private function checkUserIdNotNull()
     {
         $aNullId = null;
-        if ($this->listBadgesCommand->tenantId() === $aNullId) {
+        if ($this->listBadgesCommand->userId() === $aNullId) {
             throw $this->buildInvalidGetCommandException(
-                InvalidListBadgesCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED
+                InvalidListBadgesCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED
             );
         }
 
@@ -56,11 +56,11 @@ class ListBadgesCommandValidator implements Validator
      * @return ListBadgesCommandValidator
      * @throws InvalidListBadgesCommandException
      */
-    private function checkTenantIdFormat()
+    private function checkUserIdFormat()
     {
-        if ($this->notValidTenantIdFormat($this->listBadgesCommand->tenantId())) {
+        if ($this->notValidUserIdFormat($this->listBadgesCommand->userId())) {
             throw $this->buildInvalidGetCommandException(
-                InvalidListBadgesCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED
+                InvalidListBadgesCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED
             );
         }
 
@@ -68,13 +68,13 @@ class ListBadgesCommandValidator implements Validator
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return bool
      */
-    private function notValidTenantIdFormat($tenantId)
+    private function notValidUserIdFormat($userId)
     {
-        return !is_string($tenantId) || '' === trim($tenantId);
+        return !is_string($userId) || '' === trim($userId);
     }
 
 

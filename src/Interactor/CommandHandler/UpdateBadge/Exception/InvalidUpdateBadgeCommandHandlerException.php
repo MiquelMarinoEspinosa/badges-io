@@ -18,11 +18,11 @@ class InvalidUpdateBadgeCommandHandlerException extends BaseException
             case InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_FOUND:
                 $this->badgeNotFound();
                 break;
-            case InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN:
-                $this->tenantNotValid();
+            case InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_FORBIDDEN:
+                $this->userNotValid();
                 break;
-            case InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_FOUND:
-                $this->tenantNotFound();
+            case InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND:
+                $this->userNotFound();
                 break;
         }
 
@@ -54,10 +54,10 @@ class InvalidUpdateBadgeCommandHandlerException extends BaseException
     /**
      * @return InvalidUpdateBadgeCommandHandlerException
      */
-    private function tenantNotValid()
+    private function userNotValid()
     {
-        $this->setCode(InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN)
-             ->setMessage(InvalidUpdateBadgeCommandHandlerExceptionCode::MESSAGE_CODE_TENANT_FORBIDDEN);
+        $this->setCode(InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_FORBIDDEN)
+             ->setMessage(InvalidUpdateBadgeCommandHandlerExceptionCode::MESSAGE_CODE_USER_FORBIDDEN);
 
         return $this;
     }
@@ -65,10 +65,10 @@ class InvalidUpdateBadgeCommandHandlerException extends BaseException
     /**
      * @return InvalidUpdateBadgeCommandHandlerException
      */
-    private function tenantNotFound()
+    private function userNotFound()
     {
-        $this->setCode(InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_FOUND)
-             ->setMessage(InvalidUpdateBadgeCommandHandlerExceptionCode::MESSAGE_CODE_TENANT_NOT_FOUND);
+        $this->setCode(InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND)
+             ->setMessage(InvalidUpdateBadgeCommandHandlerExceptionCode::MESSAGE_CODE_USER_NOT_FOUND);
 
         return $this;
     }

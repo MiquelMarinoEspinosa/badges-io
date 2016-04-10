@@ -7,8 +7,8 @@ use Domain\Entity\Badge\BadgeDataTransformer;
 use Domain\Entity\Badge\BadgeRepository;
 use Domain\Entity\Image\Image;
 use Domain\Entity\Image\ImageRepository;
-use Domain\Entity\Tenant\Tenant;
-use Domain\Entity\Tenant\TenantRepository;
+use Domain\Entity\User\User;
+use Domain\Entity\User\UserRepository;
 use Interactor\CommandHandler\CommandHandler;
 use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandHandlerException;
 use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandHandlerExceptionCode;
@@ -17,9 +17,9 @@ use Interactor\CommandHandler\UpdateBadge\ImageData\ImageData;
 class UpdateBadgeCommandHandler implements CommandHandler
 {
     /**
-     * @var TenantRepository
+     * @var UserRepository
      */
-    private $tenantRepository;
+    private $userRepository;
     /**
      * @var ImageRepository
      */
@@ -34,12 +34,12 @@ class UpdateBadgeCommandHandler implements CommandHandler
     private $badgeDataTransformer;
 
     public function __construct(
-        TenantRepository $tenantRepository,
+        UserRepository  $userRepository,
         ImageRepository $imageRepository,
         BadgeRepository $badgeRepository,
         BadgeDataTransformer $badgeDataTransformer
     ) {
-        $this->tenantRepository     = $tenantRepository;
+        $this->userRepository       = $userRepository;
         $this->imageRepository      = $imageRepository;
         $this->badgeRepository      = $badgeRepository;
         $this->badgeDataTransformer = $badgeDataTransformer;
@@ -53,22 +53,22 @@ class UpdateBadgeCommandHandler implements CommandHandler
      */
     public function handle($command)
     {
-        $previousBadge  = $this->tryToFindBadgeByBadgeIdAndTenantId($command->id(), $command->tenantData()->id());
-        $tenant         = $this->tryToFindTenantByTenantId($command->tenantData()->id());
+        $previousBadge  = $this->tryToFindBadgeByBadgeIdAndUserId($command->id(), $command->userData()->id());
+        $user           = $this->tryToFindUserByUserId($command->userData()->id());
         $updatedImage   = $this->tryToUpdateImage($previousBadge->image()->id(), $command->imageData());
-        $updatedBadge   = $this->tryToUpdateBadge($command, $previousBadge, $tenant, $updatedImage);
+        $updatedBadge   = $this->tryToUpdateBadge($command, $previousBadge, $user, $updatedImage);
 
         return $this->badgeDataTransformer->transform($updatedBadge);
     }
 
     /**
      * @param string $badgeId
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return Badge
      * @throws InvalidUpdateBadgeCommandHandlerException
      */
-    private function tryToFindBadgeByBadgeIdAndTenantId($badgeId, $tenantId)
+    private function tryToFindBadgeByBadgeIdAndUserId($badgeId, $userId)
     {
         $aNullBadge = null;
         try {
@@ -85,9 +85,9 @@ class UpdateBadgeCommandHandler implements CommandHandler
             );
         }
 
-        if ($badge->tenant()->id() !== $tenantId) {
+        if ($badge->user()->id() !== $userId) {
             throw $this->buildInvalidUpdateBadgeCommandHandlerException(
-                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN
+                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_FORBIDDEN
             );
         }
 
@@ -95,29 +95,29 @@ class UpdateBadgeCommandHandler implements CommandHandler
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
-     * @return Tenant
+     * @return User
      * @throws InvalidUpdateBadgeCommandHandlerException
      */
-    private function tryToFindTenantByTenantId($tenantId)
+    private function tryToFindUserByUserId($userId)
     {
-        $aNullTenant = null;
+        $aNullUser = null;
         try {
-            $tenant = $this->tenantRepository->find($tenantId);
+            $user = $this->userRepository->find($userId);
         } catch (\Exception $exception) {
             throw $this->buildInvalidUpdateBadgeCommandHandlerException(
                 InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_UPDATED
             );
         }
 
-        if ($aNullTenant === $tenant) {
+        if ($aNullUser === $user) {
             throw $this->buildInvalidUpdateBadgeCommandHandlerException(
-                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_FOUND
+                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND
             );
         }
 
-        return $tenant;
+        return $user;
     }
 
     /**
@@ -161,16 +161,16 @@ class UpdateBadgeCommandHandler implements CommandHandler
     /**
      * @param UpdateBadgeCommand $command
      * @param Badge $badge
-     * @param Tenant $tenant
+     * @param User $user
      * @param Image $image
      *
      * @return Badge
      * @throws InvalidUpdateBadgeCommandHandlerException
      */
-    private function tryToUpdateBadge(UpdateBadgeCommand $command, Badge $badge, Tenant $tenant, Image $image)
+    private function tryToUpdateBadge(UpdateBadgeCommand $command, Badge $badge, User $user, Image $image)
     {
         try {
-            $badge = $this->updateBadge($command, $badge, $tenant, $image);
+            $badge = $this->updateBadge($command, $badge, $user, $image);
             $this->badgeRepository->persist($badge);
         } catch (\Exception $exception) {
             throw $this->buildInvalidUpdateBadgeCommandHandlerException(
@@ -184,19 +184,19 @@ class UpdateBadgeCommandHandler implements CommandHandler
     /**
      * @param UpdateBadgeCommand $command
      * @param Badge $badge
-     * @param Tenant $tenant
+     * @param User  $user
      * @param Image $image
      *
      * @return Badge
      */
-    private function updateBadge(UpdateBadgeCommand $command, Badge $badge, Tenant $tenant, Image $image)
+    private function updateBadge(UpdateBadgeCommand $command, Badge $badge, User $user, Image $image)
     {
         return new Badge(
             $badge->id(),
             $command->name(),
             $command->description(),
-            $command->isMultiTenant(),
-            $tenant,
+            $command->isMultiUser(),
+            $user,
             $image
         );
     }

@@ -8,9 +8,6 @@
         <service id="gamification.domain.entity.user.user_data_transformer"
                  alias="gamification.infrastructure.data_transformer.api.domain.entity.user.user_api_data_transformer" />
 
-        <service id="gamification.domain.entity.tenant.tenant_data_transformer"
-                 alias="gamification.infrastructure.data_transformer.api.domain.entity.tenant.tenant_api_data_transformer" />
-
         <service id="gamification.domain.entity.image.image_data_transformer"
                  alias="gamification.infrastructure.data_transformer.api.domain.entity.image.image_api_data_transformer" />
 

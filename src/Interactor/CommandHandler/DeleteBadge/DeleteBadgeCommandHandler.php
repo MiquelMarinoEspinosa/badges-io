@@ -36,7 +36,7 @@ class DeleteBadgeCommandHandler implements CommandHandler
     public function handle($command)
     {
         $badge = $this->tryToFindBadge($command->badgeId());
-        $this->validateBadge($badge, $command->tenantId());
+        $this->validateBadge($badge, $command->userId());
         $this->tryToRemoveTheImage($badge->image());
         $this->tryToRemoveTheBadge($badge);
     }
@@ -69,29 +69,29 @@ class DeleteBadgeCommandHandler implements CommandHandler
 
     /**
      * @param Badge $badge
-     * @param string $tenantId
+     * @param string $userId
      *
      * @throws InvalidDeleteBadgeCommandHandlerException
      */
-    private function validateBadge(Badge $badge, $tenantId)
+    private function validateBadge(Badge $badge, $userId)
     {
-        $isNotMultiTenant = false;
-        if ($badge->isMultiTenant() === $isNotMultiTenant && $this->isTenantForbidden($badge, $tenantId)) {
+        $isNotMultiUser = false;
+        if ($badge->isMultiUser() === $isNotMultiUser && $this->isUserForbidden($badge, $userId)) {
             throw $this->buildDeleteBadgeCommandHandlerException(
-                InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN
+                InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_FORBIDDEN
             );
         }
     }
 
     /**
      * @param Badge $badge
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return bool
      */
-    private function isTenantForbidden(Badge $badge, $tenantId)
+    private function isUserForbidden(Badge $badge, $userId)
     {
-        return $badge->tenant()->id() !== $tenantId;
+        return $badge->user()->id() !== $userId;
     }
 
     /**

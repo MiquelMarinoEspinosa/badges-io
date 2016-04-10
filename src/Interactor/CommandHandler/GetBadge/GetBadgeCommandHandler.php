@@ -37,7 +37,7 @@ class GetBadgeCommandHandler implements CommandHandler
     public function handle($command)
     {
         $badge = $this->tryToFindBadge($command->badgeId());
-        $this->validateBadge($badge, $command->tenantId());
+        $this->validateBadge($badge, $command->userId());
 
         return $this->badgeDataTransformer->transform($badge);
     }
@@ -70,29 +70,29 @@ class GetBadgeCommandHandler implements CommandHandler
 
     /**
      * @param Badge $badge
-     * @param string $tenantId
+     * @param string $userId
      *
      * @throws InvalidGetBadgeCommandHandlerException
      */
-    private function validateBadge(Badge $badge, $tenantId)
+    private function validateBadge(Badge $badge, $userId)
     {
-        $isNotMultiTenant = false;
-        if ($badge->isMultiTenant() === $isNotMultiTenant && $this->notValidTenant($badge, $tenantId)) {
+        $isNotMultiUser = false;
+        if ($badge->isMultiUser() === $isNotMultiUser && $this->notValidUser($badge, $userId)) {
             throw $this->buildGetBadgeCommandHandlerException(
-                InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN
+                InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_FORBIDDEN
             );
         }
     }
 
     /**
      * @param Badge $badge
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return bool
      */
-    private function notValidTenant(Badge $badge, $tenantId)
+    private function notValidUser(Badge $badge, $userId)
     {
-        return $badge->tenant()->id() !== $tenantId;
+        return $badge->user()->id() !== $userId;
     }
 
     /**

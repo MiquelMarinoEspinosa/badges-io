@@ -10,6 +10,7 @@ class FakeUserRepositoryThrownException extends InMemoryUserRepository
     const FIND_BY_USER_NAME_METHOD_THROW_EXCEPTION  = -1;
     const FIND_BY_EMAIL_METHOD_THROW_EXCEPTION      = -2;
     const PERSIST_METHOD_THROW_EXCEPTION            = -3;
+    const FIND_BY_ID_METHOD_THROW_EXCEPTION         = -4;
 
     /**
      * @var int
@@ -20,6 +21,15 @@ class FakeUserRepositoryThrownException extends InMemoryUserRepository
     {
         $this->methodException  = $methodException;
         parent::__construct($users);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function find($id)
+    {
+        $this->checkIfHasToThrownAnException(static::FIND_BY_ID_METHOD_THROW_EXCEPTION);
+        parent::find($id);
     }
 
     /**

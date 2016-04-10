@@ -15,11 +15,11 @@ class InvalidDeleteBadgeCommandException extends BaseException
             case InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_BADGE_ID_NOT_VALID_PROVIDED:
                 $this->badgeIdNotValidProvided();
                 break;
-            case InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED:
-                $this->tenantIdNotProvided();
+            case InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED:
+                $this->userIdNotProvided();
                 break;
-            case InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED:
-                $this->tenantIdNotValidProvided();
+            case InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED:
+                $this->userIdNotValidProvided();
                 break;
         }
 
@@ -38,15 +38,15 @@ class InvalidDeleteBadgeCommandException extends BaseException
              ->setMessage(InvalidDeleteBadgeCommandExceptionCode::MESSAGE_CODE_BADGE_ID_NOT_VALID_PROVIDED);
     }
 
-    private function tenantIdNotProvided()
+    private function userIdNotProvided()
     {
-        $this->setCode(InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED)
-             ->setMessage(InvalidDeleteBadgeCommandExceptionCode::MESSAGE_CODE_TENANT_ID_NOT_PROVIDED);
+        $this->setCode(InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED)
+             ->setMessage(InvalidDeleteBadgeCommandExceptionCode::MESSAGE_CODE_USER_ID_NOT_PROVIDED);
     }
 
-    private function tenantIdNotValidProvided()
+    private function userIdNotValidProvided()
     {
-        $this->setCode(InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED)
-             ->setMessage(InvalidDeleteBadgeCommandExceptionCode::MESSAGE_CODE_TENANT_ID_NOT_VALID_PROVIDED);
+        $this->setCode(InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED)
+             ->setMessage(InvalidDeleteBadgeCommandExceptionCode::MESSAGE_CODE_USER_ID_NOT_VALID_PROVIDED);
     }
 }

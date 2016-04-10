@@ -22,7 +22,7 @@ class DeleteBadgeCommandValidator implements Validator
     public function validate()
     {
         $this->validateBadgeId()
-             ->validateTenantId();
+             ->validateUserId();
     }
 
     /**
@@ -82,10 +82,10 @@ class DeleteBadgeCommandValidator implements Validator
      * @return DeleteBadgeCommandValidator
      * @throws InvalidDeleteBadgeCommandException
      */
-    private function validateTenantId()
+    private function validateUserId()
     {
-        $this->checkTenantIdNotNull()
-             ->checkTenantIdFormat();
+        $this->checkUserIdNotNull()
+             ->checkUserIdFormat();
 
         return $this;
     }
@@ -94,12 +94,12 @@ class DeleteBadgeCommandValidator implements Validator
      * @return DeleteBadgeCommandValidator
      * @throws InvalidDeleteBadgeCommandException
      */
-    private function checkTenantIdNotNull()
+    private function checkUserIdNotNull()
     {
         $aNullId = null;
-        if ($this->deleteBadgeCommand->tenantId() === $aNullId) {
+        if ($this->deleteBadgeCommand->userId() === $aNullId) {
             throw $this->buildInvalidDeleteCommandException(
-                InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED
+                InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED
             );
         }
 
@@ -110,11 +110,11 @@ class DeleteBadgeCommandValidator implements Validator
      * @return DeleteBadgeCommandValidator
      * @throws InvalidDeleteBadgeCommandException
      */
-    private function checkTenantIdFormat()
+    private function checkUserIdFormat()
     {
-        if ($this->notValidTenantIdFormat($this->deleteBadgeCommand->tenantId())) {
+        if ($this->notValidUserIdFormat($this->deleteBadgeCommand->userId())) {
             throw $this->buildInvalidDeleteCommandException(
-                InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED
+                InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED
             );
         }
 
@@ -122,13 +122,13 @@ class DeleteBadgeCommandValidator implements Validator
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return bool
      */
-    private function notValidTenantIdFormat($tenantId)
+    private function notValidUserIdFormat($userId)
     {
-        return !is_string($tenantId) || '' === trim($tenantId);
+        return !is_string($userId) || '' === trim($userId);
     }
 
 

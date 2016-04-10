@@ -15,11 +15,11 @@ class InvalidGetBadgeCommandException extends BaseException
             case InvalidGetBadgeCommandExceptionCode::STATUS_CODE_BADGE_ID_NOT_VALID_PROVIDED:
                 $this->badgeIdNotValidProvided();
                 break;
-            case InvalidGetBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED:
-                $this->tenantIdNotProvided();
+            case InvalidGetBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED:
+                $this->userIdNotProvided();
                 break;
-            case InvalidGetBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED:
-                $this->tenantIdNotValidProvided();
+            case InvalidGetBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED:
+                $this->userIdNotValidProvided();
                 break;
         }
 
@@ -38,15 +38,15 @@ class InvalidGetBadgeCommandException extends BaseException
              ->setMessage(InvalidGetBadgeCommandExceptionCode::MESSAGE_CODE_BADGE_ID_NOT_VALID_PROVIDED);
     }
 
-    private function tenantIdNotProvided()
+    private function userIdNotProvided()
     {
-        $this->setCode(InvalidGetBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED)
-             ->setMessage(InvalidGetBadgeCommandExceptionCode::MESSAGE_CODE_TENANT_ID_NOT_PROVIDED);
+        $this->setCode(InvalidGetBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED)
+             ->setMessage(InvalidGetBadgeCommandExceptionCode::MESSAGE_CODE_USER_ID_NOT_PROVIDED);
     }
 
-    private function tenantIdNotValidProvided()
+    private function userIdNotValidProvided()
     {
-        $this->setCode(InvalidGetBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED)
-             ->setMessage(InvalidGetBadgeCommandExceptionCode::MESSAGE_CODE_TENANT_ID_NOT_VALID_PROVIDED);
+        $this->setCode(InvalidGetBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED)
+             ->setMessage(InvalidGetBadgeCommandExceptionCode::MESSAGE_CODE_USER_ID_NOT_VALID_PROVIDED);
     }
 }

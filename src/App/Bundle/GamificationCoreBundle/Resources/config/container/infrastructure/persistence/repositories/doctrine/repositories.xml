@@ -15,11 +15,6 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 
-        <service id="gamification.infrastructure.peristence.domain.entity.tenant.doctrine_tenant_repository"
-                 class="Infrastructure\Persistence\Doctrine\Domain\Entity\Image\DoctrineTenantRepository">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-        </service>
-
         <service id="gamification.infrastructure.peristence.domain.entity.user.doctrine_user_repository"
                  class="Infrastructure\Persistence\Doctrine\Domain\Entity\User\DoctrineUserRepository">
             <argument type="service" id="doctrine.orm.entity_manager" />

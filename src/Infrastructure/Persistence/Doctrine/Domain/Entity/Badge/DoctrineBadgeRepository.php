@@ -5,7 +5,7 @@ namespace Infrastructure\Persistence\Doctrine\Domain\Entity\Badge;
 use Doctrine\ORM\EntityManager;
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\BadgeRepository;
-use Domain\Entity\Tenant\Tenant;
+use Domain\Entity\User\User;
 
 class DoctrineBadgeRepository implements BadgeRepository
 {
@@ -50,21 +50,21 @@ class DoctrineBadgeRepository implements BadgeRepository
     /**
      * {@inheritdoc}
      */
-    public function findByTenant(Tenant $tenant)
+    public function findByUser(User $user)
     {
-        return $this->entityRepository->findBy(['tenant' => $tenant]);
+        return $this->entityRepository->findBy(['user' => $user]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findMultiTenant()
+    public function findMultiUser()
     {
         $queryBuilder = $this->entityRepository->createQueryBuilder('badges');
 
         return $queryBuilder
             ->where(
-                $queryBuilder->expr()->eq('isMultiTenant', 1)
+                $queryBuilder->expr()->eq('isMultiUser', 1)
             )->getQuery()
              ->getResult();
     }

@@ -7,9 +7,10 @@ use Domain\Entity\Badge\BadgeDataTransformer;
 use Domain\Entity\Badge\BadgeRepository;
 use Domain\Entity\Image\Image;
 use Domain\Entity\Image\ImageRepository;
-use Domain\Entity\Tenant\Tenant;
-use Domain\Entity\Tenant\TenantRepository;
+use Domain\Entity\User\User;
+use Domain\Entity\User\UserRepository;
 use Domain\Service\IdGenerator;
+use Exception;
 use Interactor\CommandHandler\CommandHandler;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandHandlerException;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandHandlerExceptionCode;
@@ -18,9 +19,9 @@ use Interactor\CommandHandler\CreateBadge\ImageData\ImageData;
 class CreateBadgeCommandHandler implements CommandHandler
 {
     /**
-     * @var TenantRepository
+     * @var UserRepository
      */
-    private $tenantRepository;
+    private $userRepository;
     /**
      * @var ImageRepository
      */
@@ -39,13 +40,13 @@ class CreateBadgeCommandHandler implements CommandHandler
     private $badgeDataTransformer;
 
     public function __construct(
-        TenantRepository $tenantRepository,
+        UserRepository $userRepository,
         ImageRepository $imageRepository,
         BadgeRepository $badgeRepository,
         IdGenerator $idGenerator,
         BadgeDataTransformer $badgeDataTransformer
     ) {
-        $this->tenantRepository     = $tenantRepository;
+        $this->userRepository       = $userRepository;
         $this->imageRepository      = $imageRepository;
         $this->badgeRepository      = $badgeRepository;
         $this->idGenerator          = $idGenerator;
@@ -60,37 +61,35 @@ class CreateBadgeCommandHandler implements CommandHandler
      */
     public function handle($command)
     {
-        $tenant = $this->tryToFindTenantByTenantId($command->tenantData()->id());
+        $user = $this->tryToFindUserByUserId($command->userData()->id());
         $image  = $this->tryToPersistImage($command->imageData());
-        $badge  = $this->tryToPersistBadge($command, $tenant, $image);
+        $badge  = $this->tryToPersistBadge($command, $user, $image);
 
         return $this->badgeDataTransformer->transform($badge);
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
-     * @return Tenant
+     * @return User
      * @throws InvalidCreateBadgeCommandHandlerException
      */
-    private function tryToFindTenantByTenantId($tenantId)
+    private function tryToFindUserByUserId($userId)
     {
-        $aNullTenant = null;
+        $aNullUser = null;
         try {
-            $tenant = $this->tenantRepository->find($tenantId);
+            $user = $this->userRepository->find($userId);
         } catch (\Exception $exception) {
+            throw $exception;
+        }
+
+        if ($aNullUser === $user) {
             throw $this->buildInvalidCreateBadgeCommandHandlerException(
-                InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_CREATED
+                InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND
             );
         }
 
-        if ($aNullTenant === $tenant) {
-            throw $this->buildInvalidCreateBadgeCommandHandlerException(
-                InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_FOUND
-            );
-        }
-
-        return $tenant;
+        return $user;
     }
 
     /**
@@ -129,15 +128,13 @@ class CreateBadgeCommandHandler implements CommandHandler
         );
     }
 
-    private function tryToPersistBadge($command, $tenant, $image)
+    private function tryToPersistBadge($command, $user, $image)
     {
-        $badge = $this->buildBadge($command, $tenant, $image);
+        $badge = $this->buildBadge($command, $user, $image);
         try {
             $this->badgeRepository->persist($badge);
         } catch (\Exception $exception) {
-            throw $this->buildInvalidCreateBadgeCommandHandlerException(
-                InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_CREATED
-            );
+            throw $exception;
         }
 
         return $badge;
@@ -145,19 +142,19 @@ class CreateBadgeCommandHandler implements CommandHandler
 
     /**
      * @param CreateBadgeCommand $command
-     * @param Tenant $tenant
+     * @param User $user
      * @param Image $image
      *
      * @return Badge
      */
-    private function buildBadge($command, $tenant, $image)
+    private function buildBadge($command, $user, $image)
     {
         return new Badge(
             $this->idGenerator->generateId(),
             $command->name(),
             $command->description(),
-            $command->isMultiTenant(),
-            $tenant,
+            $command->isMultiUser(),
+            $user,
             $image
         );
     }

@@ -10,16 +10,16 @@ class DeleteBadgeCommand extends BaseCommand
     /** @var string */
     private $badgeId;
     /** @var string */
-    private $tenantId;
+    private $userId;
 
     /**
      * @param string $badgeId
-     * @param string $tenantId
+     * @param string $userId
      */
-    public function __construct($badgeId, $tenantId)
+    public function __construct($badgeId, $userId)
     {
         $this->setBadgeId($badgeId)
-             ->setTenantId($tenantId)
+             ->setUserId($userId)
              ->validate();
     }
 
@@ -46,19 +46,19 @@ class DeleteBadgeCommand extends BaseCommand
     /**
      * @return string
      */
-    public function tenantId()
+    public function userId()
     {
-        return $this->tenantId;
+        return $this->userId;
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return DeleteBadgeCommand
      */
-    private function setTenantId($tenantId)
+    private function setUserId($userId)
     {
-        $this->tenantId = $tenantId;
+        $this->userId = $userId;
 
         return $this;
     }

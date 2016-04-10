@@ -98,7 +98,7 @@ class CreateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidCreateBadgeCommandHandlerException $invalidCreateBadgeCommandHandlerException) {
             $this->assertEquals(
-                InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_FOUND,
+                InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND,
                 $invalidCreateBadgeCommandHandlerException->code()
             );
         }
@@ -384,7 +384,7 @@ class CreateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     {
         return $badge->name() === $command->name()
         && $badge->description() === $command->description()
-        && $badge->isMultiTenant() === $command->isMultiTenant();
+        && $badge->isMultiUser() === $command->isMultiUser();
     }
 
     /**

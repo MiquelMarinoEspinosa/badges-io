@@ -78,7 +78,7 @@ class GetBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidGetBadgeCommandException $invalidGetBadgeCommandException) {
             $this->assertEquals(
-                InvalidGetBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED,
+                InvalidGetBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED,
                 $invalidGetBadgeCommandException->code()
             );
         }
@@ -94,7 +94,7 @@ class GetBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidGetBadgeCommandException $invalidGetBadgeCommandException) {
             $this->assertEquals(
-                InvalidGetBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED,
+                InvalidGetBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED,
                 $invalidGetBadgeCommandException->code()
             );
         }
@@ -110,7 +110,7 @@ class GetBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidGetBadgeCommandException $invalidGetBadgeCommandException) {
             $this->assertEquals(
-                InvalidGetBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED,
+                InvalidGetBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED,
                 $invalidGetBadgeCommandException->code()
             );
         }
@@ -124,7 +124,7 @@ class GetBadgeCommandTest extends \PHPUnit_Framework_TestCase
         $command = $this->buildGetBadgeCommand(static::VALID_BADGE_ID_1234, static::VALID_TENANT_ID_4321);
 
         $this->assertTrue($command->badgeId() === static::VALID_BADGE_ID_1234
-                          && $command->tenantId() === static::VALID_TENANT_ID_4321);
+                          && $command->userId() === static::VALID_TENANT_ID_4321);
     }
 
     /**

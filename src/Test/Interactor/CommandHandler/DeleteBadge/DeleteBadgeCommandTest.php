@@ -78,7 +78,7 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandException $invalidDeleteBadgeCommandException) {
             $this->assertEquals(
-                InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED,
+                InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED,
                 $invalidDeleteBadgeCommandException->code()
             );
         }
@@ -94,7 +94,7 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandException $invalidDeleteBadgeCommandException) {
             $this->assertEquals(
-                InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED,
+                InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED,
                 $invalidDeleteBadgeCommandException->code()
             );
         }
@@ -110,7 +110,7 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandException $invalidDeleteBadgeCommandException) {
             $this->assertEquals(
-                InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED,
+                InvalidDeleteBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED,
                 $invalidDeleteBadgeCommandException->code()
             );
         }
@@ -125,7 +125,7 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(
             $command->badgeId() === static::VALID_BADGE_ID_1234
-            && $command->tenantId() === static::VALID_TENANT_ID_4321
+            && $command->userId() === static::VALID_TENANT_ID_4321
         );
     }
 

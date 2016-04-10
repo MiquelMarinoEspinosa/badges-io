@@ -1,8 +1,8 @@
 <?php
 
-namespace Interactor\CommandHandler\CreateBadge\TenantData\Exception;
+namespace Interactor\CommandHandler\UpdateBadge\UserData\Exception;
 
-class InvalidTenantDataExceptionCode
+class InvalidUserDataExceptionCode
 {
     const STATUS_CODE_ID_NOT_PROVIDED           = -1;
     const MESSAGE_CODE_ID_NOT_PROVIDED          = 'Id not provided';

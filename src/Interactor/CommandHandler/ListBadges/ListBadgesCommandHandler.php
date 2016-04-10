@@ -5,8 +5,8 @@ namespace Interactor\CommandHandler\ListBadges;
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\BadgeCollectionDataTransformer;
 use Domain\Entity\Badge\BadgeRepository;
-use Domain\Entity\Tenant\Tenant;
-use Domain\Entity\Tenant\TenantRepository;
+use Domain\Entity\User\User;
+use Domain\Entity\User\UserRepository;
 use Interactor\CommandHandler\CommandHandler;
 use Interactor\CommandHandler\ListBadges\Exception\InvalidListBadgesCommandHandlerException;
 use Interactor\CommandHandler\ListBadges\Exception\InvalidListBadgesCommandHandlerExceptionCode;
@@ -19,9 +19,9 @@ class ListBadgesCommandHandler implements CommandHandler
     private $badgeRepository;
 
     /**
-     * @var TenantRepository
+     * @var UserRepository
      */
-    private $tenantRepository;
+    private $userRepository;
 
     /**
      * @var BadgeCollectionDataTransformer
@@ -30,11 +30,11 @@ class ListBadgesCommandHandler implements CommandHandler
 
     public function __construct(
         BadgeRepository                $badgeRepository,
-        TenantRepository               $tenantRepository,
+        UserRepository                 $userRepository,
         BadgeCollectionDataTransformer $badgeCollectionDataTransformer
     ) {
         $this->badgeRepository                = $badgeRepository;
-        $this->tenantRepository               = $tenantRepository;
+        $this->userRepository                 = $userRepository;
         $this->badgeCollectionDataTransformer = $badgeCollectionDataTransformer;
     }
 
@@ -45,66 +45,66 @@ class ListBadgesCommandHandler implements CommandHandler
      */
     public function handle($command)
     {
-        $badgesByTenant    = $this->tryToFindBadgesByTenant($command->tenantId());
-        $badgesMultiTenant = $this->tryToFindMultiTenantBadges();
+        $badgesByUser    = $this->tryToFindBadgesByUser($command->userId());
+        $badgesMultiUser = $this->tryToFindMultiUserBadges();
 
-        return $this->badgeCollectionDataTransformer->transform(array_merge($badgesByTenant, $badgesMultiTenant));
+        return $this->badgeCollectionDataTransformer->transform(array_merge($badgesByUser, $badgesMultiUser));
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return Badge[]
      * @throws InvalidListBadgesCommandHandlerException
      */
-    private function tryToFindBadgesByTenant($tenantId)
+    private function tryToFindBadgesByUser($userId)
     {
-        $tenant = $this->tryToFindTenantByTenantId($tenantId);
+        $user = $this->tryToFindUserByUserId($userId);
         try {
-            $badgesByTenant = $this->badgeRepository->findByTenant($tenant);
+            $badgesByUser = $this->badgeRepository->findByUser($user);
         } catch (\Exception $exception) {
             throw $this->buildListBadgesCommandHandlerException(
                 InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_BADGES_NOT_FOUND
             );
         }
 
-        return $badgesByTenant;
+        return $badgesByUser;
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
-     * @return Tenant
+     * @return User
      * @throws InvalidListBadgesCommandHandlerException
      */
-    private function tryToFindTenantByTenantId($tenantId)
+    private function tryToFindUserByUserId($userId)
     {
-        $aNullTenant = null;
+        $aNullUser = null;
         try {
-            $tenant = $this->tenantRepository->find($tenantId);
+            $user = $this->userRepository->find($userId);
         } catch (\Exception $exception) {
             throw $this->buildListBadgesCommandHandlerException(
                 InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_BADGES_NOT_FOUND
             );
         }
 
-        if ($aNullTenant === $tenant) {
+        if ($aNullUser === $user) {
             throw $this->buildListBadgesCommandHandlerException(
-                InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_FOUND
+                InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND
             );
         }
 
-        return $tenant;
+        return $user;
     }
 
     /**
      * @return Badge[]
      * @throws InvalidListBadgesCommandHandlerException
      */
-    private function tryToFindMultiTenantBadges()
+    private function tryToFindMultiUserBadges()
     {
         try {
-            $badgesMultiTenant = $this->badgeRepository->findMultiTenant();
+            $badgesMultiUser = $this->badgeRepository->findMultiUser();
         } catch (\Exception $exception) {
             throw $this->buildListBadgesCommandHandlerException(
                 InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_BADGES_NOT_FOUND
@@ -112,7 +112,7 @@ class ListBadgesCommandHandler implements CommandHandler
         }
 
 
-        return $badgesMultiTenant;
+        return $badgesMultiUser;
     }
 
     /**

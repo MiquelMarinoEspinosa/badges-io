@@ -6,7 +6,7 @@ use Interactor\CommandHandler\UpdateBadge\UpdateBadgeCommand;
 use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandException;
 use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandExceptionCode;
 use Interactor\CommandHandler\UpdateBadge\ImageData\Validator\ImageDataValidator;
-use Interactor\CommandHandler\UpdateBadge\TenantData\Validator\TenantDataValidator;
+use Interactor\CommandHandler\UpdateBadge\UserData\Validator\UserDataValidator;
 use Interactor\Validator\Validator;
 
 class UpdateBadgeCommandValidator implements Validator
@@ -26,8 +26,8 @@ class UpdateBadgeCommandValidator implements Validator
         $this->validateId()
              ->validateName()
              ->validateDescription()
-             ->validateIsMultitenant()
-             ->validateTenantData()
+             ->validateIsMultiUser()
+             ->validateUserData()
              ->validateImageData();
     }
 
@@ -194,10 +194,10 @@ class UpdateBadgeCommandValidator implements Validator
      * @return UpdateBadgeCommandValidator
      * @throws InvalidUpdateBadgeCommandException
      */
-    private function validateIsMultiTenant()
+    private function validateIsMultiUser()
     {
-        $this->checkIsMultiTenantNotNull()
-             ->checkIsMultiTenantFormat();
+        $this->checkIsMultiUserNotNull()
+             ->checkIsMultiUserFormat();
 
         return $this;
     }
@@ -206,12 +206,12 @@ class UpdateBadgeCommandValidator implements Validator
      * @return UpdateBadgeCommandValidator
      * @throws InvalidUpdateBadgeCommandException
      */
-    private function checkIsMultiTenantNotNull()
+    private function checkIsMultiUserNotNull()
     {
-        $aNullIsMultiTenant = null;
-        if ($this->updateBadgeCommand->isMultiTenant() === $aNullIsMultiTenant) {
+        $aNullIsMultiUser = null;
+        if ($this->updateBadgeCommand->isMultiUser() === $aNullIsMultiUser) {
             throw $this->buildInvalidUpdateCommandException(
-                InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED
+                InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED
             );
         }
 
@@ -222,11 +222,11 @@ class UpdateBadgeCommandValidator implements Validator
      * @return UpdateBadgeCommandValidator
      * @throws InvalidUpdateBadgeCommandException
      */
-    private function checkIsMultiTenantFormat()
+    private function checkIsMultiUserFormat()
     {
-        if ($this->notValidIsMultiTenantFormat($this->updateBadgeCommand->isMultiTenant())) {
+        if ($this->notValidIsMultiUserFormat($this->updateBadgeCommand->isMultiUser())) {
             throw $this->buildInvalidUpdateCommandException(
-                InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED
+                InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED
             );
         }
 
@@ -234,13 +234,13 @@ class UpdateBadgeCommandValidator implements Validator
     }
 
     /**
-     * @param string $isMultiTenant
+     * @param string $isMultiUser
      *
      * @return bool
      */
-    private function notValidIsMultiTenantFormat($isMultiTenant)
+    private function notValidIsMultiUserFormat($isMultiUser)
     {
-        return !is_bool($isMultiTenant);
+        return !is_bool($isMultiUser);
     }
 
     /**
@@ -256,19 +256,19 @@ class UpdateBadgeCommandValidator implements Validator
     /**
      * @return UpdateBadgeCommandValidator
      */
-    private function validateTenantData()
+    private function validateUserData()
     {
-        $this->buildTenantDataValidator()->validate();
+        $this->buildUserDataValidator()->validate();
 
         return $this;
     }
 
     /**
-     * @return TenantDataValidator
+     * @return UserDataValidator
      */
-    private function buildTenantDataValidator()
+    private function buildUserDataValidator()
     {
-        return new TenantDataValidator($this->updateBadgeCommand->tenantData());
+        return new UserDataValidator($this->updateBadgeCommand->userData());
     }
 
     /**

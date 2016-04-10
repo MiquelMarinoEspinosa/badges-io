@@ -4,7 +4,7 @@ namespace Interactor\CommandHandler\CreateBadge;
 
 use Interactor\CommandHandler\BaseCommand;
 use Interactor\CommandHandler\CreateBadge\ImageData\ImageData;
-use Interactor\CommandHandler\CreateBadge\TenantData\TenantData;
+use Interactor\CommandHandler\CreateBadge\UserData\UserData;
 use Interactor\CommandHandler\CreateBadge\Validator\CreateBadgeCommandValidator;
 
 class CreateBadgeCommand extends BaseCommand
@@ -14,18 +14,18 @@ class CreateBadgeCommand extends BaseCommand
     /** @var  string */
     private $description;
     /** @var  bool */
-    private $isMultiTenant;
-    /** @var  TenantData */
-    private $tenantData;
+    private $isMultiUser;
+    /** @var  UserData */
+    private $userData;
     /** @var  ImageData */
     private $imageData;
 
-    public function __construct($name, $description, $isMultiTenant, TenantData $tenantData, ImageData $imageData)
+    public function __construct($name, $description, $isMultiUser, UserData $userData, ImageData $imageData)
     {
         $this->setName($name)
              ->setDescription($description)
-             ->setIsMultiTenant($isMultiTenant)
-             ->setTenantData($tenantData)
+             ->setIsMultiUser($isMultiUser)
+             ->setUserData($userData)
              ->setImageData($imageData)
              ->validate();
     }
@@ -71,21 +71,21 @@ class CreateBadgeCommand extends BaseCommand
     }
 
     /**
-     * @return TenantData
+     * @return UserData
      */
-    public function tenantData()
+    public function userData()
     {
-        return $this->tenantData;
+        return $this->userData;
     }
 
     /**
-     * @param TenantData $tenantData
+     * @param UserData $userData
      *
      * @return CreateBadgeCommand
      */
-    private function setTenantData($tenantData)
+    private function setUserData($userData)
     {
-        $this->tenantData = $tenantData;
+        $this->userData = $userData;
 
         return $this;
     }
@@ -113,19 +113,19 @@ class CreateBadgeCommand extends BaseCommand
     /**
      * @return boolean
      */
-    public function isMultiTenant()
+    public function isMultiUser()
     {
-        return $this->isMultiTenant;
+        return $this->isMultiUser;
     }
 
     /**
-     * @param boolean $isMultiTenant
+     * @param boolean $isMultiUser
      *
      * @return CreateBadgeCommand
      */
-    private function setIsMultiTenant($isMultiTenant)
+    private function setIsMultiUser($isMultiUser)
     {
-        $this->isMultiTenant = $isMultiTenant;
+        $this->isMultiUser = $isMultiUser;
 
         return $this;
     }

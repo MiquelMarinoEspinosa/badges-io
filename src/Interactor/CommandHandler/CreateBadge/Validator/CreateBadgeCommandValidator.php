@@ -6,7 +6,7 @@ use Interactor\CommandHandler\CreateBadge\CreateBadgeCommand;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandException;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandExceptionCode;
 use Interactor\CommandHandler\CreateBadge\ImageData\Validator\ImageDataValidator;
-use Interactor\CommandHandler\CreateBadge\TenantData\Validator\TenantDataValidator;
+use Interactor\CommandHandler\CreateBadge\UserData\Validator\UserDataValidator;
 use Interactor\Validator\Validator;
 
 class CreateBadgeCommandValidator implements Validator
@@ -25,8 +25,8 @@ class CreateBadgeCommandValidator implements Validator
     {
         $this->validateName()
              ->validateDescription()
-             ->validateIsMultitenant()
-             ->validateTenantData()
+             ->validateIsMultiUser()
+             ->validateUserData()
              ->validateImageData();
     }
 
@@ -140,10 +140,10 @@ class CreateBadgeCommandValidator implements Validator
      * @return CreateBadgeCommandValidator
      * @throws InvalidCreateBadgeCommandException
      */
-    private function validateIsMultiTenant()
+    private function validateIsMultiUser()
     {
-        $this->checkIsMultiTenantNotNull()
-              ->checkIsMultiTenantFormat();
+        $this->checkIsMultiUserNotNull()
+              ->checkIsMultiUserFormat();
 
         return $this;
     }
@@ -152,12 +152,12 @@ class CreateBadgeCommandValidator implements Validator
      * @return CreateBadgeCommandValidator
      * @throws InvalidCreateBadgeCommandException
      */
-    private function checkIsMultiTenantNotNull()
+    private function checkIsMultiUserNotNull()
     {
-        $aNullIsMultiTenant = null;
-        if ($this->createBadgeCommand->isMultiTenant() === $aNullIsMultiTenant) {
+        $aNullIsMultiUser = null;
+        if ($this->createBadgeCommand->isMultiUser() === $aNullIsMultiUser) {
             throw $this->buildInvalidCreateCommandException(
-                InvalidCreateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED
+                InvalidCreateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED
             );
         }
 
@@ -168,11 +168,11 @@ class CreateBadgeCommandValidator implements Validator
      * @return CreateBadgeCommandValidator
      * @throws InvalidCreateBadgeCommandException
      */
-    private function checkIsMultiTenantFormat()
+    private function checkIsMultiUserFormat()
     {
-        if ($this->notValidIsMultiTenantFormat($this->createBadgeCommand->isMultiTenant())) {
+        if ($this->notValidIsMultiUserFormat($this->createBadgeCommand->isMultiUser())) {
             throw $this->buildInvalidCreateCommandException(
-                InvalidCreateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED
+                InvalidCreateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED
             );
         }
 
@@ -180,13 +180,13 @@ class CreateBadgeCommandValidator implements Validator
     }
 
     /**
-     * @param string $isMultiTenant
+     * @param string $isMultiUser
      *
      * @return bool
      */
-    private function notValidIsMultiTenantFormat($isMultiTenant)
+    private function notValidIsMultiUserFormat($isMultiUser)
     {
-        return !is_bool($isMultiTenant);
+        return !is_bool($isMultiUser);
     }
 
     /**
@@ -202,19 +202,19 @@ class CreateBadgeCommandValidator implements Validator
     /**
      * @return CreateBadgeCommandValidator
      */
-    private function validateTenantData()
+    private function validateUserData()
     {
-        $this->buildTenantDataValidator()->validate();
+        $this->buildUserDataValidator()->validate();
 
         return $this;
     }
 
     /**
-     * @return TenantDataValidator
+     * @return UserDataValidator
      */
-    private function buildTenantDataValidator()
+    private function buildUserDataValidator()
     {
-        return new TenantDataValidator($this->createBadgeCommand->tenantData());
+        return new UserDataValidator($this->createBadgeCommand->userData());
     }
 
     /**

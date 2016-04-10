@@ -5,7 +5,7 @@ namespace Infrastructure\DataTransformer\Api\Domain\Entity\Badge;
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\BadgeDataTransformer;
 use Infrastructure\DataTransformer\Api\Domain\Entity\Image\ImageApiDataTransformer;
-use Infrastructure\DataTransformer\Api\Domain\Entity\Tenant\TenantApiDataTransformer;
+use Infrastructure\DataTransformer\Api\Domain\Entity\User\UserApiDataTransformer;
 use Infrastructure\Resource\Api\Domain\Entity\Badge\BadgeApiResource;
 
 class BadgeApiDataTransformer implements BadgeDataTransformer
@@ -15,31 +15,31 @@ class BadgeApiDataTransformer implements BadgeDataTransformer
      */
     private $imageApiDataTransformer;
     /**
-     * @var TenantApiDataTransformer
+     * @var UserApiDataTransformer
      */
-    private $tenantApiDataTransformer;
+    private $userApiDataTransformer;
 
     public function __construct(
         ImageApiDataTransformer $imageApiDataTransformer,
-        TenantApiDataTransformer $tenantApiDataTransformer
+        UserApiDataTransformer $userApiDataTransformer
     ) {
         $this->imageApiDataTransformer  = $imageApiDataTransformer;
-        $this->tenantApiDataTransformer = $tenantApiDataTransformer;
+        $this->userApiDataTransformer = $userApiDataTransformer;
     }
     /**
      * {@inheritdoc}
      */
     public function transform(Badge $badge)
     {
-        $tenantApiResource = $this->tenantApiDataTransformer->transform($badge->tenant());
+        $userApiResource = $this->userApiDataTransformer->transform($badge->user());
         $imageApiResource  = $this->imageApiDataTransformer->transform($badge->image());
 
         return new BadgeApiResource(
             $badge->id(),
             $badge->name(),
             $badge->description(),
-            $badge->isMultiTenant(),
-            $tenantApiResource,
+            $badge->isMultiUser(),
+            $userApiResource,
             $imageApiResource
         );
     }

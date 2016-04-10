@@ -4,7 +4,7 @@ namespace Interactor\CommandHandler\UpdateBadge;
 
 use Interactor\CommandHandler\BaseCommand;
 use Interactor\CommandHandler\UpdateBadge\ImageData\ImageData;
-use Interactor\CommandHandler\UpdateBadge\TenantData\TenantData;
+use Interactor\CommandHandler\UpdateBadge\UserData\UserData;
 use Interactor\CommandHandler\UpdateBadge\Validator\UpdateBadgeCommandValidator;
 
 class UpdateBadgeCommand extends BaseCommand
@@ -16,19 +16,19 @@ class UpdateBadgeCommand extends BaseCommand
     /** @var  string */
     private $description;
     /** @var  bool */
-    private $isMultiTenant;
-    /** @var  TenantData */
-    private $tenantData;
+    private $isMultiUser;
+    /** @var  UserData */
+    private $userData;
     /** @var  ImageData */
     private $imageData;
 
-    public function __construct($id, $name, $description, $isMultiTenant, TenantData $tenantData, ImageData $imageData)
+    public function __construct($id, $name, $description, $isMultiUser, UserData $userData, ImageData $imageData)
     {
         $this->setId($id)
              ->setName($name)
              ->setDescription($description)
-             ->setIsMultiTenant($isMultiTenant)
-             ->setTenantData($tenantData)
+             ->setIsMultiUser($isMultiUser)
+             ->setUserData($userData)
              ->setImageData($imageData)
              ->validate();
     }
@@ -94,21 +94,21 @@ class UpdateBadgeCommand extends BaseCommand
     }
 
     /**
-     * @return TenantData
+     * @return UserData
      */
-    public function tenantData()
+    public function userData()
     {
-        return $this->tenantData;
+        return $this->userData;
     }
 
     /**
-     * @param TenantData $tenantData
+     * @param UserData $userData
      *
      * @return UpdateBadgeCommand
      */
-    private function setTenantData($tenantData)
+    private function setUserData($userData)
     {
-        $this->tenantData = $tenantData;
+        $this->userData = $userData;
 
         return $this;
     }
@@ -136,19 +136,19 @@ class UpdateBadgeCommand extends BaseCommand
     /**
      * @return boolean
      */
-    public function isMultiTenant()
+    public function isMultiUser()
     {
-        return $this->isMultiTenant;
+        return $this->isMultiUser;
     }
 
     /**
-     * @param boolean $isMultiTenant
+     * @param boolean $isMultiUser
      *
      * @return UpdateBadgeCommand
      */
-    private function setIsMultiTenant($isMultiTenant)
+    private function setIsMultiUser($isMultiUser)
     {
-        $this->isMultiTenant = $isMultiTenant;
+        $this->isMultiUser = $isMultiUser;
 
         return $this;
     }

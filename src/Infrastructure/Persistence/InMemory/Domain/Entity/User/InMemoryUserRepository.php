@@ -21,6 +21,21 @@ class InMemoryUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
+    public function find($id)
+    {
+        $aNullUser = null;
+        foreach ($this->users as $user) {
+            if ($user->id() == $id) {
+                return $user;
+            }
+        }
+
+        return $aNullUser;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findByUserName($userName)
     {
         $aNullUser = null;

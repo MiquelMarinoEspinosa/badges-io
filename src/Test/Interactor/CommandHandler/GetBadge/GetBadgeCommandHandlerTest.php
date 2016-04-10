@@ -87,7 +87,7 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidGetBadgeCommandHandlerException $invalidGetBadgeCommandHandlerException) {
             $this->assertEquals(
-                InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN,
+                InvalidGetBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_FORBIDDEN,
                 $invalidGetBadgeCommandHandlerException->code()
             );
         }
@@ -105,7 +105,7 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $badge           = $commandHandler->handle($command);
         $this->assertTrue(
             $badge->id() === $command->badgeId()
-            && $badge->tenant()->id() === $command->tenantId()
+            && $badge->tenant()->id() === $command->userId()
         );
     }
 

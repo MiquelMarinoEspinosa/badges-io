@@ -4,7 +4,7 @@ namespace Domain\Entity\Badge;
 
 use Domain\Entity\Badge\Validator\BadgeValidator;
 use Domain\Entity\Image\Image;
-use Domain\Entity\Tenant\Tenant;
+use Domain\Entity\User\User;
 
 class Badge
 {
@@ -15,19 +15,19 @@ class Badge
     /** @var  string */
     private $description;
     /** @var  bool */
-    private $isMultiTenant;
-    /** @var  Tenant */
-    private $tenant;
+    private $isMultiUser;
+    /** @var  User */
+    private $user;
     /** @var  Image */
     private $image;
 
-    public function __construct($id, $name, $description, $isMultiTenant, Tenant $tenant, Image $image)
+    public function __construct($id, $name, $description, $isMultiUser, User $user, Image $image)
     {
         $this->setId($id)
              ->setName($name)
              ->setDescription($description)
-             ->setIsMultiTenant($isMultiTenant)
-             ->setTenant($tenant)
+             ->setIsMultiUser($isMultiUser)
+             ->setUser($user)
              ->setImage($image)
              ->validate();
     }
@@ -95,39 +95,39 @@ class Badge
     /**
      * @return boolean
      */
-    public function isMultiTenant()
+    public function isMultiUser()
     {
-        return $this->isMultiTenant;
+        return $this->isMultiUser;
     }
 
     /**
-     * @param boolean $isMultiTenant
+     * @param boolean $isMultiUser
      *
      * @return Badge
      */
-    private function setIsMultiTenant($isMultiTenant)
+    private function setIsMultiUser($isMultiUser)
     {
-        $this->isMultiTenant = $isMultiTenant;
+        $this->isMultiUser = $isMultiUser;
 
         return $this;
     }
 
     /**
-     * @return Tenant
+     * @return User
      */
-    public function tenant()
+    public function user()
     {
-        return $this->tenant;
+        return $this->user;
     }
 
     /**
-     * @param Tenant $tenant
+     * @param User $user
      *
      * @return Badge
      */
-    private function setTenant($tenant)
+    private function setUser($user)
     {
-        $this->tenant = $tenant;
+        $this->user = $user;
 
         return $this;
     }

@@ -11,9 +11,6 @@
         <service id="gamification.domain.entity.image.image_repository"
                  alias="gamification.infrastructure.peristence.domain.entity.image.doctrine_image_repository" />
 
-        <service id="gamification.domain.entity.tenant.tenant_repository"
-                 alias="gamification.infrastructure.peristence.domain.entity.tenant.doctrine_tenant_repository" />
-
         <service id="gamification.domain.entity.user.user_repository"
                  alias="gamification.infrastructure.peristence.domain.entity.user.doctrine_user_repository" />
     </services>

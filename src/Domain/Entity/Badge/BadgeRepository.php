@@ -2,7 +2,7 @@
 
 namespace Domain\Entity\Badge;
 
-use Domain\Entity\Tenant\Tenant;
+use Domain\Entity\User\User;
 
 interface BadgeRepository
 {
@@ -24,14 +24,14 @@ interface BadgeRepository
     public function remove(Badge $badge);
 
     /**
-     * @param Tenant $tenant
+     * @param User $user
      *
      * @return Badge[]
      */
-    public function findByTenant(Tenant $tenant);
+    public function findByUser(User $user);
 
     /**
      * @return Badge[]
      */
-    public function findMultiTenant();
+    public function findMultiUser();
 }

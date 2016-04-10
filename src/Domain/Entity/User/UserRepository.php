@@ -5,6 +5,13 @@ namespace Domain\Entity\User;
 interface UserRepository
 {
     /**
+     * @param string $id
+     *
+     * @return User
+     */
+    public function find($id);
+
+    /**
      * @param string $userName
      *
      * @return User|null

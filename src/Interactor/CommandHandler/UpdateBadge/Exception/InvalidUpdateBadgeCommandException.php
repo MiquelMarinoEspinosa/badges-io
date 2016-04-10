@@ -30,11 +30,11 @@ class InvalidUpdateBadgeCommandException extends BaseException
             case InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_DESCRIPTION_NOT_VALID_PROVIDED:
                 $this->descriptionNotValidProvided();
                 break;
-            case InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED:
-                $this->isMultiTenantNotProvided();
+            case InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED:
+                $this->isMultiUserNotProvided();
                 break;
-            case InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED:
-                $this->isMultiTenantNotValidProvided();
+            case InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED:
+                $this->isMultiUserNotValidProvided();
                 break;
         }
 
@@ -110,10 +110,10 @@ class InvalidUpdateBadgeCommandException extends BaseException
     /**
      * @return InvalidUpdateBadgeCommandException
      */
-    private function isMultiTenantNotProvided()
+    private function isMultiUserNotProvided()
     {
-        $this->setCode(InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED)
-             ->setMessage(InvalidUpdateBadgeCommandExceptionCode::MESSAGE_CODE_IS_MULTI_TENANT_NOT_PROVIDED);
+        $this->setCode(InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED)
+             ->setMessage(InvalidUpdateBadgeCommandExceptionCode::MESSAGE_CODE_IS_MULTI_USER_NOT_PROVIDED);
 
         return $this;
     }
@@ -121,10 +121,10 @@ class InvalidUpdateBadgeCommandException extends BaseException
     /**
      * @return InvalidUpdateBadgeCommandException
      */
-    private function isMultiTenantNotValidProvided()
+    private function isMultiUserNotValidProvided()
     {
-        $this->setCode(InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED)
-             ->setMessage(InvalidUpdateBadgeCommandExceptionCode::MESSAGE_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED);
+        $this->setCode(InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED)
+             ->setMessage(InvalidUpdateBadgeCommandExceptionCode::MESSAGE_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED);
 
         return $this;
     }

@@ -15,8 +15,8 @@ class InvalidListBadgesCommandHandlerException extends BaseException
             case InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_BADGES_NOT_FOUND:
                 $this->badgeNotFound();
                 break;
-            case InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_FOUND:
-                $this->tenantNotFound();
+            case InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND:
+                $this->userNotFound();
                 break;
         }
 
@@ -35,9 +35,9 @@ class InvalidListBadgesCommandHandlerException extends BaseException
     /**
      * @return BaseException
      */
-    private function tenantNotFound()
+    private function userNotFound()
     {
-        return $this->setCode(InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_FOUND)
-                    ->setMessage(InvalidListBadgesCommandHandlerExceptionCode::MESSAGE_CODE_TENANT_NOT_FOUND);
+        return $this->setCode(InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND)
+                    ->setMessage(InvalidListBadgesCommandHandlerExceptionCode::MESSAGE_CODE_USER_NOT_FOUND);
     }
 }

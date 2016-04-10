@@ -30,11 +30,11 @@ class InvalidBadgeException extends BaseException
             case InvalidBadgeExceptionCode::STATUS_CODE_DESCRIPTION_NOT_VALID_PROVIDED:
                 $this->descriptionNotValidProvided();
                 break;
-            case InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED:
-                $this->isMultiTenantNotProvided();
+            case InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED:
+                $this->isMultiUserNotProvided();
                 break;
-            case InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED:
-                $this->isMultiTenantNotValidProvided();
+            case InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED:
+                $this->isMultiUserNotValidProvided();
                 break;
         }
 
@@ -110,10 +110,10 @@ class InvalidBadgeException extends BaseException
     /**
      * @return InvalidBadgeException
      */
-    private function isMultiTenantNotProvided()
+    private function isMultiUserNotProvided()
     {
-        $this->setCode(InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED)
-             ->setMessage(InvalidBadgeExceptionCode::MESSAGE_CODE_IS_MULTI_TENANT_NOT_PROVIDED);
+        $this->setCode(InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED)
+             ->setMessage(InvalidBadgeExceptionCode::MESSAGE_CODE_IS_MULTI_USER_NOT_PROVIDED);
 
         return $this;
     }
@@ -121,10 +121,10 @@ class InvalidBadgeException extends BaseException
     /**
      * @return InvalidBadgeException
      */
-    private function isMultiTenantNotValidProvided()
+    private function isMultiUserNotValidProvided()
     {
-        $this->setCode(InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED)
-             ->setMessage(InvalidBadgeExceptionCode::MESSAGE_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED);
+        $this->setCode(InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED)
+             ->setMessage(InvalidBadgeExceptionCode::MESSAGE_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED);
 
         return $this;
     }

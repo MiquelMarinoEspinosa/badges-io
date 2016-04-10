@@ -3,7 +3,7 @@
 namespace Infrastructure\Resource\Api\Domain\Entity\Badge;
 
 use Infrastructure\Resource\Api\Domain\Entity\Image\ImageApiResource;
-use Infrastructure\Resource\Api\Domain\Entity\Tenant\TenantApiResource;
+use Infrastructure\Resource\Api\Domain\Entity\User\UserApiResource;
 
 class BadgeApiResource
 {
@@ -14,9 +14,9 @@ class BadgeApiResource
     /** @var  string */
     private $description;
     /** @var  bool */
-    private $isMultiTenant;
-    /** @var TenantApiResource */
-    private $tenantResource;
+    private $isMultiUser;
+    /** @var UserApiResource */
+    private $userApiResource;
     /** @var ImageApiResource */
     private $imageResource;
 
@@ -24,15 +24,15 @@ class BadgeApiResource
         $id,
         $name,
         $description,
-        $isMultiTenant,
-        TenantApiResource $tenantResource,
+        $isMultiUser,
+        UserApiResource $userApiResource,
         ImageApiResource $imageResource
     ) {
         $this->setId($id)
              ->setName($name)
              ->setDescription($description)
-             ->setIsMultiTenant($isMultiTenant)
-             ->setTenantResource($tenantResource)
+             ->setIsMultiUser($isMultiUser)
+             ->setUserApiResource($userApiResource)
              ->setImageResource($imageResource);
     }
 
@@ -99,39 +99,39 @@ class BadgeApiResource
     /**
      * @return boolean
      */
-    public function isMultiTenant()
+    public function isMultiUser()
     {
-        return $this->isMultiTenant;
+        return $this->isMultiUser;
     }
 
     /**
-     * @param boolean $isMultiTenant
+     * @param boolean $isMultiUser
      *
      * @return BadgeApiResource
      */
-    private function setIsMultiTenant($isMultiTenant)
+    private function setIsMultiUser($isMultiUser)
     {
-        $this->isMultiTenant = $isMultiTenant;
+        $this->isMultiUser = $isMultiUser;
 
         return $this;
     }
 
     /**
-     * @return TenantApiResource
+     * @return UserApiResource
      */
-    public function tenantResource()
+    public function userApiResource()
     {
-        return $this->tenantResource;
+        return $this->userApiResource;
     }
 
     /**
-     * @param TenantApiResource $tenantResource
+     * @param UserApiResource $userApiResource
      *
      * @return BadgeApiResource
      */
-    private function setTenantResource(TenantApiResource $tenantResource)
+    private function setUserApiResource(UserApiResource $userApiResource)
     {
-        $this->tenantResource = $tenantResource;
+        $this->userApiResource = $userApiResource;
 
         return $this;
     }

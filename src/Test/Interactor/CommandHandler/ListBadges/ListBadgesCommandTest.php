@@ -26,7 +26,7 @@ class ListBadgesCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidListBadgesCommandException $invalidListBadgesCommandException) {
             $this->assertEquals(
-                InvalidListBadgesCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED,
+                InvalidListBadgesCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED,
                 $invalidListBadgesCommandException->code()
             );
         }
@@ -42,7 +42,7 @@ class ListBadgesCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidListBadgesCommandException $invalidListBadgesCommandException) {
             $this->assertEquals(
-                InvalidListBadgesCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED,
+                InvalidListBadgesCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED,
                 $invalidListBadgesCommandException->code()
             );
         }
@@ -58,7 +58,7 @@ class ListBadgesCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidListBadgesCommandException $invalidListBadgesCommandException) {
             $this->assertEquals(
-                InvalidListBadgesCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED,
+                InvalidListBadgesCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED,
                 $invalidListBadgesCommandException->code()
             );
         }
@@ -71,7 +71,7 @@ class ListBadgesCommandTest extends \PHPUnit_Framework_TestCase
     {
         $command = $this->buildListBadgesCommand(static::VALID_TENANT_ID_4321);
 
-        $this->assertTrue($command->tenantId() === static::VALID_TENANT_ID_4321);
+        $this->assertTrue($command->userId() === static::VALID_TENANT_ID_4321);
     }
 
     /**

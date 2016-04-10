@@ -23,6 +23,14 @@ class DoctrineUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
+    public function find($id)
+    {
+        return $this->entityRepository->find($id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findByUserName($userName)
     {
         return $this->entityRepository->findOneBy(['userName' => $userName]);

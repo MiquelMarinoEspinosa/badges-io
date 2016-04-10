@@ -7,7 +7,7 @@
     <services>
         <service id="gamification.interactor.command_handler.create_badge.create_badge_command_handler"
                  class="Interactor\CommandHandler\CreateBadge\CreateBadgeCommandHandler">
-            <argument type="service" id="gamification.domain.entity.tenant.tenant_repository" />
+            <argument type="service" id="gamification.domain.entity.user.user_repository" />
             <argument type="service" id="gamification.domain.entity.image.image_repository" />
             <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
             <argument type="service" id="gamification.domain.service.id_generator" />
@@ -29,7 +29,7 @@
         <service id="gamification.interactor.command_handler.list_badges.list_badges_command_handler"
                  class="Interactor\CommandHandler\ListBadges\ListBadgesCommandHandler">
             <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
-            <argument type="service" id="gamification.domain.entity.tenant.tenant_repository" />
+            <argument type="service" id="gamification.domain.entity.user.user_repository" />
             <argument type="service" id="gamification.domain.entity.badge.badge_collection_data_transformer" />
         </service>
 
@@ -50,7 +50,7 @@
 
         <service id="gamification.interactor.command_handler.update_badge.update_badge_command_handler"
                  class="Interactor\CommandHandler\UpdateBadge\UpdateBadgeCommandHandler">
-            <argument type="service" id="gamification.domain.entity.tenant.tenant_repository" />
+            <argument type="service" id="gamification.domain.entity.user.user_repository" />
             <argument type="service" id="gamification.domain.entity.image.image_repository" />
             <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
             <argument type="service" id="gamification.domain.entity.badge.badge_data_transformer" />

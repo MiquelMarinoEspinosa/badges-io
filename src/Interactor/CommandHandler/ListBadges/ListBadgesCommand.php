@@ -8,33 +8,33 @@ use Interactor\CommandHandler\ListBadges\Validator\ListBadgesCommandValidator;
 class ListBadgesCommand extends BaseCommand
 {
     /** @var string */
-    private $tenantId;
+    private $userId;
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      */
-    public function __construct($tenantId)
+    public function __construct($userId)
     {
-        $this->setTenantId($tenantId)
+        $this->setUserId($userId)
              ->validate();
     }
 
     /**
      * @return string
      */
-    public function tenantId()
+    public function userId()
     {
-        return $this->tenantId;
+        return $this->userId;
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return ListBadgesCommand
      */
-    private function setTenantId($tenantId)
+    private function setUserId($userId)
     {
-        $this->tenantId = $tenantId;
+        $this->userId = $userId;
 
         return $this;
     }

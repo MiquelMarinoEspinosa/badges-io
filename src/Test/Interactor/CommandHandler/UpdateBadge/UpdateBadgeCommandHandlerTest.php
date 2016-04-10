@@ -127,7 +127,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidUpdateBadgeCommandHandlerException $invalidUpdateBadgeCommandHandlerException) {
             $this->assertEquals(
-                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_FORBIDDEN,
+                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_FORBIDDEN,
                 $invalidUpdateBadgeCommandHandlerException->code()
             );
         }
@@ -177,7 +177,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidUpdateBadgeCommandHandlerException $invalidUpdateBadgeCommandHandlerException) {
             $this->assertEquals(
-                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_FOUND,
+                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND,
                 $invalidUpdateBadgeCommandHandlerException->code()
             );
         }
@@ -257,7 +257,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(
             $this->validateBadgeData($badge, $command)
-            && $this->validateTenantData($badge->tenant(), $command->tenantData())
+            && $this->validateTenantData($badge->tenant(), $command->userData())
             && $this->validateImageData($badge->image(), $command->imageData())
             && $this->isBadgeStillPersisted($badgeRepository, $badge)
             && $this->isImageStillPersisted($imageRepository, $badge->image())
@@ -517,7 +517,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
         return $badge->id() === $command->id()
         && $badge->name() === $command->name()
         && $badge->description() === $command->description()
-        && $badge->isMultiTenant() === $command->isMultiTenant();
+        && $badge->isMultiUser() === $command->isMultiUser();
     }
 
     /**

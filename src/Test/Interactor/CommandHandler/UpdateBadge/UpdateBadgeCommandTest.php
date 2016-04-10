@@ -350,7 +350,7 @@ class UpdateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidUpdateBadgeCommandException $invalidUpdateBadgeCommandException) {
             $this->assertEquals(
-                InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED,
+                InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED,
                 $invalidUpdateBadgeCommandException->code()
             );
         }
@@ -383,7 +383,7 @@ class UpdateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidUpdateBadgeCommandException $invalidUpdateBadgeCommandException) {
             $this->assertEquals(
-                InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED,
+                InvalidUpdateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED,
                 $invalidUpdateBadgeCommandException->code()
             );
         }
@@ -836,8 +836,8 @@ class UpdateBadgeCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(
             $command->name() === static::BADGE_NAME_VALID_BADGE_NAME
             && $command->description() === static::BADGE_DESCRIPTION_VALID_EMPTY
-            && $command->isMultiTenant() === static::BADGE_IS_MULTI_TENANT_VALID_TRUE
-            && $command->tenantData()->id() === static::TENANT_ID_VALID_1234
+            && $command->isMultiUser() === static::BADGE_IS_MULTI_TENANT_VALID_TRUE
+            && $command->userData()->id() === static::TENANT_ID_VALID_1234
             && $command->imageData()->name() === static::IMAGE_NAME_VALID_FLOWER
             && $command->imageData()->width() === static::IMAGE_WIDTH_VALID_4
             && $command->imageData()->height() === static::IMAGE_HEIGHT_VALID_5

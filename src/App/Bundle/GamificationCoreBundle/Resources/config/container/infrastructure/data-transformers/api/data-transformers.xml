@@ -9,10 +9,6 @@
                  class="Infrastructure\DataTransformer\Api\Domain\Entity\User\UserApiDataTransformer">
         </service>
 
-        <service id="gamification.infrastructure.data_transformer.api.domain.entity.tenant.tenant_api_data_transformer"
-                 class="Infrastructure\DataTransformer\Api\Domain\Entity\Tenant\TenantApiDataTransformer">
-        </service>
-
         <service id="gamification.infrastructure.data_transformer.api.domain.entity.image.image_api_data_transformer"
                  class="Infrastructure\DataTransformer\Api\Domain\Entity\Image\ImageApiDataTransformer">
         </service>
@@ -20,7 +16,7 @@
         <service id="gamification.infrastructure.data_transformer.api.domain.entity.badge.badge_api_data_transformer"
                  class="Infrastructure\DataTransformer\Api\Domain\Entity\Badge\BadgeApiDataTransformer">
             <argument type="service" id="gamification.infrastructure.data_transformer.api.domain.entity.image.image_api_data_transformer" />
-            <argument type="service" id="gamification.infrastructure.data_transformer.api.domain.entity.tenant.tenant_api_data_transformer" />
+            <argument type="service" id="gamification.infrastructure.data_transformer.api.domain.entity.user.user_api_data_transformer" />
         </service>
 
         <service id="gamification.infrastructure.data_transformer.api.domain.entity.badge.badge_api_collection_data_transformer"

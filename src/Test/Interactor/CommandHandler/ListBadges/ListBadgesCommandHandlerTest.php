@@ -82,7 +82,7 @@ class ListBadgesCommandHandlerTest extends \PHPUnit_Framework_TestCase
         } catch (InvalidListBadgesCommandHandlerException $invalidListBadgesCommandHandlerException) {
             $this->assertEquals(
                 $invalidListBadgesCommandHandlerException->code(),
-                InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_TENANT_NOT_FOUND
+                InvalidListBadgesCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND
             );
         }
     }
@@ -149,7 +149,7 @@ class ListBadgesCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $command = $this->buildListBadgesCommand();
         $badges = $commandHandler->handle($command);
 
-        $this->assertTrue($this->validateBadges($badges, $command->tenantId()));
+        $this->assertTrue($this->validateBadges($badges, $command->userId()));
     }
 
     /**
@@ -359,7 +359,7 @@ class ListBadgesCommandHandlerTest extends \PHPUnit_Framework_TestCase
      */
     private function isNotMultiTenant(Badge $badge)
     {
-        return !$badge->isMultiTenant();
+        return !$badge->isMultiUser();
     }
 
     /**

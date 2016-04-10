@@ -227,7 +227,7 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
             $this->assertEquals(
-                InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_PROVIDED,
+                InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED,
                 $invalidBadgeException->code()
             );
         }
@@ -248,7 +248,7 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
             $this->thisTestFails();
         } catch (InvalidBadgeException $invalidBadgeException) {
             $this->assertEquals(
-                InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED,
+                InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED,
                 $invalidBadgeException->code()
             );
         }
@@ -270,7 +270,7 @@ class BadgeTest extends \PHPUnit_Framework_TestCase
             $badge->id() === static::ID_VALID_1234
             && $badge->name() === static::NAME_VALID_BADGE_NAME
             && $badge->description() === static::DESCRIPTION_VALID_EMPTY
-            && $badge->isMultiTenant() === static::IS_MULTI_TENANT_VALID_TRUE
+            && $badge->isMultiUser() === static::IS_MULTI_TENANT_VALID_TRUE
             && $badge->tenant() instanceof Tenant
             && $badge->image() instanceof Image
         );

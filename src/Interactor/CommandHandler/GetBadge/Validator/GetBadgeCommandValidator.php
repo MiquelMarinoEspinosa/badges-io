@@ -22,7 +22,7 @@ class GetBadgeCommandValidator implements Validator
     public function validate()
     {
         $this->validateBadgeId()
-             ->validateTenantId();
+             ->validateUserId();
     }
 
     /**
@@ -82,10 +82,10 @@ class GetBadgeCommandValidator implements Validator
      * @return GetBadgeCommandValidator
      * @throws InvalidGetBadgeCommandException
      */
-    private function validateTenantId()
+    private function validateUserId()
     {
-        $this->checkTenantIdNotNull()
-            ->checkTenantIdFormat();
+        $this->checkUserIdNotNull()
+            ->checkUserIdFormat();
 
         return $this;
     }
@@ -94,12 +94,12 @@ class GetBadgeCommandValidator implements Validator
      * @return GetBadgeCommandValidator
      * @throws InvalidGetBadgeCommandException
      */
-    private function checkTenantIdNotNull()
+    private function checkUserIdNotNull()
     {
         $aNullId = null;
-        if ($this->getBadgeCommand->tenantId() === $aNullId) {
+        if ($this->getBadgeCommand->userId() === $aNullId) {
             throw $this->buildInvalidGetCommandException(
-                InvalidGetBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED
+                InvalidGetBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED
             );
         }
 
@@ -110,11 +110,11 @@ class GetBadgeCommandValidator implements Validator
      * @return GetBadgeCommandValidator
      * @throws InvalidGetBadgeCommandException
      */
-    private function checkTenantIdFormat()
+    private function checkUserIdFormat()
     {
-        if ($this->notValidTenantIdFormat($this->getBadgeCommand->tenantId())) {
+        if ($this->notValidUserIdFormat($this->getBadgeCommand->userId())) {
             throw $this->buildInvalidGetCommandException(
-                InvalidGetBadgeCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED
+                InvalidGetBadgeCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED
             );
         }
 
@@ -122,13 +122,13 @@ class GetBadgeCommandValidator implements Validator
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return bool
      */
-    private function notValidTenantIdFormat($tenantId)
+    private function notValidUserIdFormat($userId)
     {
-        return !is_string($tenantId) || '' === trim($tenantId);
+        return !is_string($userId) || '' === trim($userId);
     }
 
 

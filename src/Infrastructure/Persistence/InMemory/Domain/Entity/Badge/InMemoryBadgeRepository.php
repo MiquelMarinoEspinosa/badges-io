@@ -4,7 +4,7 @@ namespace Infrastructure\Persistence\InMemory\Domain\Entity\Badge;
 
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\BadgeRepository;
-use Domain\Entity\Tenant\Tenant;
+use Domain\Entity\User\User;
 
 class InMemoryBadgeRepository implements BadgeRepository
 {
@@ -58,11 +58,11 @@ class InMemoryBadgeRepository implements BadgeRepository
     /**
      * {@inheritdoc}
      */
-    public function findByTenant(Tenant $tenant)
+    public function findByUser(User $user)
     {
         $aListBadges = [];
         foreach ($this->badges as $aBadge) {
-            if ($aBadge->tenant()->id() === $tenant->id()) {
+            if ($aBadge->user()->id() === $user->id()) {
                 $aListBadges[] = $aBadge;
             }
         }
@@ -73,11 +73,11 @@ class InMemoryBadgeRepository implements BadgeRepository
     /**
      * {@inheritdoc}
      */
-    public function findMultiTenant()
+    public function findMultiUser()
     {
         $aListBadges = [];
         foreach ($this->badges as $aBadge) {
-            if ($aBadge->isMultiTenant()) {
+            if ($aBadge->isMultiUser()) {
                 $aListBadges[] = $aBadge;
             }
         }

@@ -12,11 +12,11 @@ class InvalidListBadgesCommandException extends BaseException
     public function __construct($statusCode)
     {
         switch ($statusCode) {
-            case InvalidListBadgesCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED:
-                $this->tenantIdNotProvided();
+            case InvalidListBadgesCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED:
+                $this->userIdNotProvided();
                 break;
-            case InvalidListBadgesCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED:
-                $this->tenantIdNotValidProvided();
+            case InvalidListBadgesCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED:
+                $this->userIdNotValidProvided();
                 break;
         }
 
@@ -26,18 +26,18 @@ class InvalidListBadgesCommandException extends BaseException
     /**
      * @return InvalidListBadgesCommandException
      */
-    private function tenantIdNotProvided()
+    private function userIdNotProvided()
     {
-        return $this->setCode(InvalidListBadgesCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_PROVIDED)
-                    ->setMessage(InvalidListBadgesCommandExceptionCode::MESSAGE_CODE_TENANT_ID_NOT_PROVIDED);
+        return $this->setCode(InvalidListBadgesCommandExceptionCode::STATUS_CODE_USER_ID_NOT_PROVIDED)
+                    ->setMessage(InvalidListBadgesCommandExceptionCode::MESSAGE_CODE_USER_ID_NOT_PROVIDED);
     }
 
     /**
      * @return InvalidListBadgesCommandException
      */
-    private function tenantIdNotValidProvided()
+    private function userIdNotValidProvided()
     {
-        return $this->setCode(InvalidListBadgesCommandExceptionCode::STATUS_CODE_TENANT_ID_NOT_VALID_PROVIDED)
-                    ->setMessage(InvalidListBadgesCommandExceptionCode::MESSAGE_CODE_TENANT_ID_NOT_VALID_PROVIDED);
+        return $this->setCode(InvalidListBadgesCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED)
+                    ->setMessage(InvalidListBadgesCommandExceptionCode::MESSAGE_CODE_USER_ID_NOT_VALID_PROVIDED);
     }
 }
