@@ -2,6 +2,7 @@
 
 namespace App\Bundle\GamificationBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\FOSRestController;
 use Interactor\CommandHandler\LogIn\LogInCommand;
 use Interactor\CommandHandler\SignIn\SignInCommand;
@@ -24,10 +25,11 @@ class UserController extends FOSRestController
      *      500="Returned when something when wrong",
      *  }
      * )
+     * @Put("/user/signin")
      */
-    public function putUserSigninAction(Request $request)
+    public function putUserSignInAction(Request $request)
     {
-        $signInCommand = $this->buildSignInCommand($request);
+        $signInCommand = $this->buildSignInCommandByRequest($request);
 
         return $this->container->get(
             'gamification.interactor.command_handler.sign_in.sign_in_command_handler'
@@ -39,7 +41,7 @@ class UserController extends FOSRestController
      *
      * @return SignInCommand
      */
-    private function buildSignInCommand(Request $request)
+    private function buildSignInCommandByRequest(Request $request)
     {
         return new SignInCommand(
             $request->get('email'),
@@ -65,7 +67,7 @@ class UserController extends FOSRestController
      */
     public function putUserLoginAction(Request $request)
     {
-        $logInCommand = $this->buildLogInCommand($request);
+        $logInCommand = $this->buildLogInCommandByRequest($request);
 
         return $this->container->get(
             'gamification.interactor.command_handler.log_in.log_in_command_handler'
@@ -77,7 +79,7 @@ class UserController extends FOSRestController
      *
      * @return LogInCommand
      */
-    private function buildLogInCommand(Request $request)
+    private function buildLogInCommandByRequest(Request $request)
     {
         $userId = $request->get('username') ? $request->get('username') : $request->get('email');
 
