@@ -1,0 +1,14 @@
+Infrastructure\Resource\Api\Domain\Entity\Badge\BadgeApiResource:
+    exclusion_policy: ALL
+    xml_root_name: badge
+
+    properties:
+        id:
+            expose: true
+            type: integer
+        name:
+            expose: true
+            type: string
+        description:
+            expose: true
+            type: string
