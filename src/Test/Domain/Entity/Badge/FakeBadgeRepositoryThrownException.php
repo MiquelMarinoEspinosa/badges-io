@@ -3,7 +3,7 @@
 namespace Test\Domain\Entity\Badge;
 
 use Domain\Entity\Badge\Badge;
-use Domain\Entity\Tenant\Tenant;
+use Domain\Entity\User\User;
 use Infrastructure\Persistence\InMemory\Domain\Entity\Badge\InMemoryBadgeRepository;
 
 class FakeBadgeRepositoryThrownException extends InMemoryBadgeRepository
@@ -11,8 +11,8 @@ class FakeBadgeRepositoryThrownException extends InMemoryBadgeRepository
     const PERSIST_THROW_EXCEPTION               = -1;
     const FIND_THROW_EXCEPTION                  = -2;
     const REMOVE_THROW_EXCEPTION                = -3;
-    const FIND_BY_TENANT_THROW_EXCEPTION        = -4;
-    const FIND_BY_MULTI_TENANT_THROW_EXCEPTION  = -5;
+    const FIND_BY_USER_THROW_EXCEPTION        = -4;
+    const FIND_BY_MULTI_USER_THROW_EXCEPTION  = -5;
 
     /**
      * @var int
@@ -60,19 +60,19 @@ class FakeBadgeRepositoryThrownException extends InMemoryBadgeRepository
     /**
      * {@inheritdoc}
      */
-    public function findByTenant(Tenant $tenant)
+    public function findByUser(User $user)
     {
-        $this->checkIfHasToThrownAnException(static::FIND_BY_TENANT_THROW_EXCEPTION);
-        return parent::findByTenant($tenant);
+        $this->checkIfHasToThrownAnException(static::FIND_BY_USER_THROW_EXCEPTION);
+        return parent::findByUser($user);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findMultiTenant()
+    public function findMultiUser()
     {
-        $this->checkIfHasToThrownAnException(static::FIND_BY_MULTI_TENANT_THROW_EXCEPTION);
-        return parent::findMultiTenant();
+        $this->checkIfHasToThrownAnException(static::FIND_BY_MULTI_USER_THROW_EXCEPTION);
+        return parent::findMultiUser();
     }
 
     /**

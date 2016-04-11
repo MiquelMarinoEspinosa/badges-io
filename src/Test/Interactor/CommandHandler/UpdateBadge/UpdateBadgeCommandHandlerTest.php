@@ -7,55 +7,55 @@ use Domain\Entity\Badge\BadgeDataTransformer;
 use Domain\Entity\Badge\BadgeRepository;
 use Domain\Entity\Image\Image;
 use Domain\Entity\Image\ImageRepository;
-use Domain\Entity\Tenant\Tenant;
-use Domain\Entity\Tenant\TenantRepository;
+use Domain\Entity\User\User;
+use Domain\Entity\User\UserRepository;
 use Domain\Service\IdGenerator;
 use Infrastructure\DataTransformer\NoOperation\Domain\Entity\Badge\BadgeNoOpDataTransformer;
 use Infrastructure\Persistence\InMemory\Domain\Entity\Badge\InMemoryBadgeRepository;
 use Infrastructure\Persistence\InMemory\Domain\Entity\Image\InMemoryImageRepository;
-use Infrastructure\Persistence\InMemory\Domain\Entity\Tenant\InMemoryTenantRepository;
+use Infrastructure\Persistence\InMemory\Domain\Entity\User\InMemoryUserRepository;
 use Interactor\CommandHandler\UpdateBadge\UpdateBadgeCommand;
 use Interactor\CommandHandler\UpdateBadge\UpdateBadgeCommandHandler;
 use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandHandlerException;
 use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandHandlerExceptionCode;
 use Interactor\CommandHandler\UpdateBadge\ImageData\ImageData;
-use Interactor\CommandHandler\UpdateBadge\TenantData\TenantData;
+use Interactor\CommandHandler\UpdateBadge\UserData\UserData;
 use Test\Domain\Entity\Badge\FakeBadgeBuilder;
 use Test\Domain\Entity\Badge\FakeBadgeRepositoryThrownException;
 use Test\Domain\Entity\Image\FakeImageBuilder;
-use Test\Domain\Entity\Tenant\FakeTenantBuilder;
-use Test\Domain\Entity\Tenant\FakeTenantRepositoryThrownException;
+use Test\Domain\Entity\User\FakeUserBuilder;
+use Test\Domain\Entity\User\FakeUserRepositoryThrownException;
 use Test\Domain\Entity\Image\FakeImageRepositoryThrownException;
 use Test\Domain\Service\FakeIdGenerator;
 
 class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    const BADGE_ID                              = '1234';
-    const BADGE_NAME                            = 'Badge Name';
-    const BADGE_DESCRIPTION                     = 'BADGE_DESCRIPTION';
-    const BADGE_IS_MULTI_TENANT                 = false;
-    const TENANT_ID                             = '4321';
-    const TENANT_ID_NOT_EXISTS                  = '56789';
-    const TENANT_ID_NOT_ALLOWED                 = '1256';
-    const TENANT_EMAIL                          = 'tenantMail@badges.com';
-    const TENANT_PASSWORD                       = 'B3fr33';
-    const IMAGE_ID                              = '4567';
-    const IMAGE_NAME                            = 'Image Name';
-    const IMAGE_WIDTH                           = 45;
-    const IMAGE_HEIGHT                          = 45;
-    const IMAGE_FORMAT                          = 'jpeg';
-    const TENANT_USERNAME                       = 'tenantName';
-    const BADGE_ID_VALID_NOT_EXISTS_4321        = '4321';
-    const BADGE_NAME_VALID_BADGE_NAME           = 'badgeName';
-    const BADGE_DESCRIPTION_VALID_EMPTY         = '';
-    const BADGE_IS_MULTI_TENANT_VALID_TRUE      = true;
-    const TENANT_EMAIL_VALID_TEST_BADGES_IO_COM = 'test@badges-io.com';
-    const TENANT_USERNAME_VALID_BADGES_USER     = 'badgesUser';
-    const TENANT_PASSWORD_VALID_BE_FREE         = 'B3FR33';
-    const IMAGE_NAME_VALID_FLOWER               = 'flower';
-    const IMAGE_WIDTH_VALID_4                   = 4;
-    const IMAGE_HEIGHT_VALID_5                  = 5;
-    const IMAGE_FORMAT_VALID_JPEG               = 'jpeg';
+    const BADGE_ID                            = '1234';
+    const BADGE_NAME                          = 'Badge Name';
+    const BADGE_DESCRIPTION                   = 'BADGE_DESCRIPTION';
+    const BADGE_IS_MULTI_USER                 = false;
+    const USER_ID                             = '4321';
+    const USER_ID_NOT_EXISTS                  = '56789';
+    const USER_ID_NOT_ALLOWED                 = '1256';
+    const USER_EMAIL                          = 'userMail@badges.com';
+    const USER_PASSWORD                       = 'B3fr33';
+    const IMAGE_ID                            = '4567';
+    const IMAGE_NAME                          = 'Image Name';
+    const IMAGE_WIDTH                         = 45;
+    const IMAGE_HEIGHT                        = 45;
+    const IMAGE_FORMAT                        = 'jpeg';
+    const USER_USERNAME                       = 'userName';
+    const BADGE_ID_VALID_NOT_EXISTS_4321      = '4321';
+    const BADGE_NAME_VALID_BADGE_NAME         = 'badgeName';
+    const BADGE_DESCRIPTION_VALID_EMPTY       = '';
+    const BADGE_IS_MULTI_USER_VALID_TRUE      = true;
+    const USER_EMAIL_VALID_TEST_BADGES_IO_COM = 'test@badges-io.com';
+    const USER_USERNAME_VALID_BADGES_USER     = 'badgesUser';
+    const USER_PASSWORD_VALID_BE_FREE         = 'B3FR33';
+    const IMAGE_NAME_VALID_FLOWER             = 'flower';
+    const IMAGE_WIDTH_VALID_4                 = 4;
+    const IMAGE_HEIGHT_VALID_5                = 5;
+    const IMAGE_FORMAT_VALID_JPEG             = 'jpeg';
 
     /**
      * @test
@@ -69,7 +69,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             );
 
             $commandHandler = $this->buildUpdateBadgeCommandHandler(
-                $this->buildTenantRepository($this->buildDefaultTenants()),
+                $this->buildUserRepository($this->buildDefaultUsers()),
                 $this->buildImageRepository(),
                 $badgeRepository,
                 $this->buildBadgeDataTransformer()
@@ -94,7 +94,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $badgeRepository = $this->buildBadgeRepository($this->buildDefaultBadges());
 
             $commandHandler = $this->buildUpdateBadgeCommandHandler(
-                $this->buildTenantRepository($this->buildDefaultTenants()),
+                $this->buildUserRepository($this->buildDefaultUsers()),
                 $this->buildImageRepository(),
                 $badgeRepository,
                 $this->buildBadgeDataTransformer()
@@ -113,16 +113,16 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function tenantIdDoesNotMatchTenantBadgeShouldThrownExceptionTenantForbiddenStatusCode()
+    public function userIdDoesNotMatchUserBadgeShouldThrownExceptionUserForbiddenStatusCode()
     {
         try {
             $commandHandler = $this->buildUpdateBadgeCommandHandler(
-                $this->buildTenantRepository($this->buildDefaultTenants()),
+                $this->buildUserRepository($this->buildDefaultUsers()),
                 $this->buildImageRepository(),
                 $this->buildBadgeRepository($this->buildDefaultBadges()),
                 $this->buildBadgeDataTransformer()
             );
-            $commandHandler->handle($this->buildCommand(static::BADGE_ID, static::TENANT_ID_NOT_ALLOWED));
+            $commandHandler->handle($this->buildCommand(static::BADGE_ID, static::USER_ID_NOT_ALLOWED));
 
             $this->thisTestFails();
         } catch (InvalidUpdateBadgeCommandHandlerException $invalidUpdateBadgeCommandHandlerException) {
@@ -136,15 +136,15 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function exceptionRepositoryWhenFindTenantShouldThrownExceptionBadgeNotUpdatedStatusCode()
+    public function exceptionRepositoryWhenFindUserShouldThrownExceptionBadgeNotUpdatedStatusCode()
     {
         try {
-            $tenantRepository = $this->buildFakeTenantRepositoryThrownException(
-                $this->buildDefaultTenants(),
-                FakeTenantRepositoryThrownException::FIND_THROW_EXCEPTION
+            $userRepository = $this->buildFakeUserRepositoryThrownException(
+                $this->buildDefaultUsers(),
+                FakeUserRepositoryThrownException::FIND_BY_ID_METHOD_THROW_EXCEPTION
             );
             $commandHandler = $this->buildUpdateBadgeCommandHandler(
-                $tenantRepository,
+                $userRepository,
                 $this->buildImageRepository(),
                 $this->buildBadgeRepository($this->buildDefaultBadges()),
                 $this->buildBadgeDataTransformer()
@@ -163,16 +163,16 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function tenantNotExistsShouldThrownExceptionTenantNotFoundStatusCode()
+    public function userNotExistsShouldThrownExceptionUserNotFoundStatusCode()
     {
         try {
             $commandHandler = $this->buildUpdateBadgeCommandHandler(
-                $this->buildTenantRepository($this->buildDefaultTenants()),
+                $this->buildUserRepository($this->buildDefaultUsers()),
                 $this->buildImageRepository(),
-                $this->buildBadgeRepository($this->buildDefaultBadges(static::TENANT_ID_NOT_EXISTS)),
+                $this->buildBadgeRepository($this->buildDefaultBadges(static::USER_ID_NOT_EXISTS)),
                 $this->buildBadgeDataTransformer()
             );
-            $commandHandler->handle($this->buildCommand(static::BADGE_ID, static::TENANT_ID_NOT_EXISTS));
+            $commandHandler->handle($this->buildCommand(static::BADGE_ID, static::USER_ID_NOT_EXISTS));
 
             $this->thisTestFails();
         } catch (InvalidUpdateBadgeCommandHandlerException $invalidUpdateBadgeCommandHandlerException) {
@@ -193,7 +193,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 FakeImageRepositoryThrownException::PERSIST_THROW_EXCEPTION
             );
             $commandHandler = $this->buildUpdateBadgeCommandHandler(
-                $this->buildTenantRepository($this->buildDefaultTenants()),
+                $this->buildUserRepository($this->buildDefaultUsers()),
                 $imageRepository,
                 $this->buildBadgeRepository($this->buildDefaultBadges()),
                 $this->buildBadgeDataTransformer()
@@ -220,7 +220,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 $this->buildDefaultBadges()
             );
             $commandHandler = $this->buildUpdateBadgeCommandHandler(
-                $this->buildTenantRepository($this->buildDefaultTenants()),
+                $this->buildUserRepository($this->buildDefaultUsers()),
                 $this->buildImageRepository(),
                 $badgeRepository,
                 $this->buildBadgeDataTransformer()
@@ -245,7 +245,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $badgeRepository = $this->buildBadgeRepository($this->buildDefaultBadges());
 
         $commandHandler = $this->buildUpdateBadgeCommandHandler(
-            $this->buildTenantRepository($this->buildDefaultTenants()),
+            $this->buildUserRepository($this->buildDefaultUsers()),
             $imageRepository,
             $badgeRepository,
             $this->buildBadgeDataTransformer()
@@ -257,7 +257,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(
             $this->validateBadgeData($badge, $command)
-            && $this->validateTenantData($badge->tenant(), $command->userData())
+            && $this->validateUserData($badge->user(), $command->userData())
             && $this->validateImageData($badge->image(), $command->imageData())
             && $this->isBadgeStillPersisted($badgeRepository, $badge)
             && $this->isImageStillPersisted($imageRepository, $badge->image())
@@ -266,18 +266,18 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string $badgeId
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return UpdateBadgeCommand
      */
-    private function buildCommand($badgeId = self::BADGE_ID, $tenantId = self::TENANT_ID)
+    private function buildCommand($badgeId = self::BADGE_ID, $userId = self::USER_ID)
     {
         return $this->buildUpdateBadgeCommand(
             $badgeId,
             static::BADGE_NAME_VALID_BADGE_NAME,
             static::BADGE_DESCRIPTION_VALID_EMPTY,
-            static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-            $tenantId,
+            static::BADGE_IS_MULTI_USER_VALID_TRUE,
+            $userId,
             static::IMAGE_NAME_VALID_FLOWER,
             static::IMAGE_WIDTH_VALID_4,
             static::IMAGE_HEIGHT_VALID_5,
@@ -289,8 +289,8 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
      * @param string $badgeId
      * @param string $badgeName
      * @param string $badgeDescription
-     * @param string $badgeIsMultiTenant
-     * @param string $tenantId
+     * @param string $badgeIsMultiUser
+     * @param string $userId
      * @param string $imageName
      * @param int $imageWidth
      * @param int $imageHeight
@@ -302,8 +302,8 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $badgeId,
         $badgeName,
         $badgeDescription,
-        $badgeIsMultiTenant,
-        $tenantId,
+        $badgeIsMultiUser,
+        $userId,
         $imageName,
         $imageWidth,
         $imageHeight,
@@ -313,8 +313,8 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $badgeId,
             $badgeName,
             $badgeDescription,
-            $badgeIsMultiTenant,
-            $this->buildTenantData($tenantId),
+            $badgeIsMultiUser,
+            $this->buildUserData($userId),
             $this->buildImageData($imageName, $imageWidth, $imageHeight, $imageFormat)
         );
     }
@@ -322,11 +322,11 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @param string $id
      *
-     * @return TenantData
+     * @return UserData
      */
-    private function buildTenantData($id)
+    private function buildUserData($id)
     {
-        return new TenantData($id);
+        return new UserData($id);
     }
 
     /**
@@ -343,7 +343,7 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param TenantRepository $tenantRepository
+     * @param UserRepository $userRepository
      * @param ImageRepository $imageRepository
      * @param BadgeRepository $badgeRepository
      * @param BadgeDataTransformer $badgeDataTransformer
@@ -351,13 +351,13 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
      * @return UpdateBadgeCommandHandler
      */
     private function buildUpdateBadgeCommandHandler(
-        TenantRepository $tenantRepository,
+        UserRepository $userRepository,
         ImageRepository $imageRepository,
         BadgeRepository $badgeRepository,
         BadgeDataTransformer $badgeDataTransformer
     ) {
         return new UpdateBadgeCommandHandler(
-            $tenantRepository,
+            $userRepository,
             $imageRepository,
             $badgeRepository,
             $badgeDataTransformer
@@ -365,15 +365,15 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Tenant[]
+     * @return User[]
      */
-    private function buildDefaultTenants()
+    private function buildDefaultUsers()
     {
-        return $this->buildTenants(
-            static::TENANT_ID,
-            static::TENANT_EMAIL_VALID_TEST_BADGES_IO_COM,
-            static::TENANT_USERNAME_VALID_BADGES_USER,
-            static::TENANT_PASSWORD_VALID_BE_FREE
+        return $this->buildUsers(
+            static::USER_ID,
+            static::USER_EMAIL_VALID_TEST_BADGES_IO_COM,
+            static::USER_USERNAME_VALID_BADGES_USER,
+            static::USER_PASSWORD_VALID_BE_FREE
         );
     }
 
@@ -383,11 +383,11 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
      * @param string $username
      * @param string $passWord
      *
-     * @return Tenant[]
+     * @return User[]
      */
-    private function buildTenants($id, $email, $username, $passWord)
+    private function buildUsers($id, $email, $username, $passWord)
     {
-        return [$this->buildTenant($id, $email, $username, $passWord)];
+        return [$this->buildUser($id, $email, $username, $passWord)];
     }
 
     /**
@@ -396,11 +396,11 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
      * @param string $username
      * @param string $passWord
      *
-     * @return Tenant
+     * @return User
      */
-    private function buildTenant($id, $email, $username, $passWord)
+    private function buildUser($id, $email, $username, $passWord)
     {
-        return FakeTenantBuilder::build($id, $email, $username, $passWord);
+        return FakeUserBuilder::build($id, $email, $username, $passWord);
     }
 
     /**
@@ -425,22 +425,22 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return Badge[]
      */
-    private function buildDefaultBadges($tenantId = self::TENANT_ID)
+    private function buildDefaultBadges($userId = self::USER_ID)
     {
         return [FakeBadgeBuilder::build(
             static::BADGE_ID,
             static::BADGE_NAME,
             static::BADGE_DESCRIPTION,
-            static::BADGE_IS_MULTI_TENANT,
-            FakeTenantBuilder::build(
-                $tenantId,
-                static::TENANT_EMAIL,
-                static::TENANT_USERNAME,
-                static::TENANT_PASSWORD
+            static::BADGE_IS_MULTI_USER,
+            FakeUserBuilder::build(
+                $userId,
+                static::USER_EMAIL,
+                static::USER_USERNAME,
+                static::USER_PASSWORD
             ),
             FakeImageBuilder::build(
                 static::IMAGE_ID,
@@ -453,24 +453,24 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param Tenant[] $tenants
+     * @param User[] $users
      * @param int $methodException
      *
-     * @return FakeTenantRepositoryThrownException
+     * @return FakeUserRepositoryThrownException
      */
-    private function buildFakeTenantRepositoryThrownException($tenants, $methodException)
+    private function buildFakeUserRepositoryThrownException($users, $methodException)
     {
-        return new FakeTenantRepositoryThrownException($tenants, $methodException);
+        return new FakeUserRepositoryThrownException($users, $methodException);
     }
 
     /**
-     * @param Tenant[] $tenants
+     * @param User[] $users
      *
-     * @return InMemoryTenantRepository
+     * @return InMemoryUserRepository
      */
-    private function buildTenantRepository($tenants)
+    private function buildUserRepository($users)
     {
-        return new InMemoryTenantRepository($tenants);
+        return new InMemoryUserRepository($users);
     }
 
     /**
@@ -521,14 +521,14 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param Tenant $tenant
-     * @param TenantData $tenantData
+     * @param User $user
+     * @param UserData $userData
      *
      * @return bool
      */
-    private function validateTenantData($tenant, $tenantData)
+    private function validateUserData($user, $userData)
     {
-        return $tenant->id() === $tenantData->id();
+        return $user->id() === $userData->id();
     }
 
     /**

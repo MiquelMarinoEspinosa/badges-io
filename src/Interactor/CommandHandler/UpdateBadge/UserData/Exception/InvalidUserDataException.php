@@ -12,7 +12,7 @@ class InvalidUserDataException extends BaseException
     public function __construct($statusCode)
     {
         switch ($statusCode) {
-            case InvalidTUserDataExceptionCode::STATUS_CODE_ID_NOT_PROVIDED:
+            case InvalidUserDataExceptionCode::STATUS_CODE_ID_NOT_PROVIDED:
                 $this->idNotProvided();
                 break;
             case InvalidUserDataExceptionCode::STATUS_CODE_ID_NOT_VALID_PROVIDED:

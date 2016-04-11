@@ -8,33 +8,33 @@ use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandExc
 use Interactor\CommandHandler\CreateBadge\ImageData\Exception\InvalidImageDataException;
 use Interactor\CommandHandler\CreateBadge\ImageData\Exception\InvalidImageDataExceptionCode;
 use Interactor\CommandHandler\CreateBadge\ImageData\ImageData;
-use Interactor\CommandHandler\CreateBadge\TenantData\Exception\InvalidTenantDataException;
-use Interactor\CommandHandler\CreateBadge\TenantData\Exception\InvalidTenantDataExceptionCode;
-use Interactor\CommandHandler\CreateBadge\TenantData\TenantData;
+use Interactor\CommandHandler\CreateBadge\UserData\Exception\InvalidUserDataException;
+use Interactor\CommandHandler\CreateBadge\UserData\Exception\InvalidUserDataExceptionCode;
+use Interactor\CommandHandler\CreateBadge\UserData\UserData;
 
 class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
 {
-    const BADGE_NAME_NOT_VALID_EMPTY             = ' ';
-    const BADGE_NAME_NOT_VALID_INT               = 12;
-    const BADGE_NAME_VALID_BADGE_NAME            = 'badgeName';
-    const BADGE_DESCRIPTION_NOT_VALID_FLOAT      = 1.4;
-    const BADGE_DESCRIPTION_VALID_EMPTY          = '';
-    const BADGE_IS_MULTI_TENANT_NOT_VALID_STRING = 'aString';
-    const BADGE_IS_MULTI_TENANT_VALID_TRUE       = true;
-    const TENANT_ID_NOT_VALID_INT                = 3;
-    const TENANT_ID_NOT_VALID_EMPTY              = ' ';
-    const TENANT_ID_VALID_1234                   = '1234';
-    const IMAGE_NAME_NOT_VALID_INT               = 23;
-    const IMAGE_NAME_NOT_VALID_EMPTY             = ' ';
-    const IMAGE_NAME_VALID_FLOWER                = 'flower';
-    const IMAGE_WIDTH_NOT_VALID_BOOLEAN          = false;
-    const IMAGE_WIDTH_NOT_VALID_MINUS_INTEGER    = -1;
-    const IMAGE_WIDTH_VALID_4                    = 4;
-    const IMAGE_HEIGHT_NOT_VALID_STRING          = 'string';
-    const IMAGE_HEIGHT_NOT_VALID_MINUS_INT       = -2;
-    const IMAGE_HEIGHT_VALID_5                   = 5;
-    const IMAGE_FORMAT_NOT_VALID_HRX             = 'hrx';
-    const IMAGE_FORMAT_VALID_JPEG                = 'jpeg';
+    const BADGE_NAME_NOT_VALID_EMPTY           = ' ';
+    const BADGE_NAME_NOT_VALID_INT             = 12;
+    const BADGE_NAME_VALID_BADGE_NAME          = 'badgeName';
+    const BADGE_DESCRIPTION_NOT_VALID_FLOAT    = 1.4;
+    const BADGE_DESCRIPTION_VALID_EMPTY        = '';
+    const BADGE_IS_MULTI_USER_NOT_VALID_STRING = 'aString';
+    const BADGE_IS_MULTI_USER_VALID_TRUE       = true;
+    const USER_ID_NOT_VALID_INT                = 3;
+    const USER_ID_NOT_VALID_EMPTY              = ' ';
+    const USER_ID_VALID_1234                   = '1234';
+    const IMAGE_NAME_NOT_VALID_INT             = 23;
+    const IMAGE_NAME_NOT_VALID_EMPTY           = ' ';
+    const IMAGE_NAME_VALID_FLOWER              = 'flower';
+    const IMAGE_WIDTH_NOT_VALID_BOOLEAN        = false;
+    const IMAGE_WIDTH_NOT_VALID_MINUS_INTEGER  = -1;
+    const IMAGE_WIDTH_VALID_4                  = 4;
+    const IMAGE_HEIGHT_NOT_VALID_STRING        = 'string';
+    const IMAGE_HEIGHT_NOT_VALID_MINUS_INT     = -2;
+    const IMAGE_HEIGHT_VALID_5                 = 5;
+    const IMAGE_FORMAT_NOT_VALID_HRX           = 'hrx';
+    const IMAGE_FORMAT_VALID_JPEG              = 'jpeg';
 
     /**
      * @test
@@ -42,20 +42,20 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithoutBadgeNameShouldThrownExceptionBadgeNameNotProvidedStatusCode()
     {
         try {
-            $aNullBadgeName             = null;
-            $aNullBadgeDescription      = null;
-            $aNullBadgeIsMultiTenant    = null;
-            $aNullTenantId              = null;
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullBadgeName         = null;
+            $aNullBadgeDescription  = null;
+            $aNullBadgeIsMultiUser  = null;
+            $aNullUserId            = null;
+            $aNullImageName         = null;
+            $aNullImageWidth        = null;
+            $aNullImageHeight       = null;
+            $aNullImageFormat       = null;
 
             $this->buildCreateBadgeCommand(
                 $aNullBadgeName,
                 $aNullBadgeDescription,
-                $aNullBadgeIsMultiTenant,
-                $aNullTenantId,
+                $aNullBadgeIsMultiUser,
+                $aNullUserId,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -77,19 +77,19 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandNotValidBadgeNameTypeProvidedShouldThrownExceptionNameNotValidProvidedStatusCode()
     {
         try {
-            $aNullBadgeDescription      = null;
-            $aNullBadgeIsMultiTenant    = null;
-            $aNullTenantId              = null;
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullBadgeDescription  = null;
+            $aNullBadgeIsMultiUser  = null;
+            $aNullUserId            = null;
+            $aNullImageName         = null;
+            $aNullImageWidth        = null;
+            $aNullImageHeight       = null;
+            $aNullImageFormat       = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_NOT_VALID_INT,
                 $aNullBadgeDescription,
-                $aNullBadgeIsMultiTenant,
-                $aNullTenantId,
+                $aNullBadgeIsMultiUser,
+                $aNullUserId,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -111,19 +111,19 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandNotValidBadgeNameProvidedShouldThrownExceptionNameNotValidProvidedStatusCode()
     {
         try {
-            $aNullBadgeDescription      = null;
-            $aNullBadgeIsMultiTenant    = null;
-            $aNullTenantId              = null;
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullBadgeDescription  = null;
+            $aNullBadgeIsMultiUser  = null;
+            $aNullUserId            = null;
+            $aNullImageName         = null;
+            $aNullImageWidth        = null;
+            $aNullImageHeight       = null;
+            $aNullImageFormat       = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_NOT_VALID_EMPTY,
                 $aNullBadgeDescription,
-                $aNullBadgeIsMultiTenant,
-                $aNullTenantId,
+                $aNullBadgeIsMultiUser,
+                $aNullUserId,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -145,19 +145,19 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithoutBadgeDescriptionProvidedShouldThrownExceptionNameNotProvidedStatusCode()
     {
         try {
-            $aNullBadgeDescription      = null;
-            $aNullBadgeIsMultiTenant    = null;
-            $aNullTenantId              = null;
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullBadgeDescription  = null;
+            $aNullBadgeIsMultiUser  = null;
+            $aNullUserId            = null;
+            $aNullImageName         = null;
+            $aNullImageWidth        = null;
+            $aNullImageHeight       = null;
+            $aNullImageFormat       = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 $aNullBadgeDescription,
-                $aNullBadgeIsMultiTenant,
-                $aNullTenantId,
+                $aNullBadgeIsMultiUser,
+                $aNullUserId,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -179,18 +179,18 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandBadgeDescriptionTypeNotValidProvidedShouldThrownExceptionNameNotProvidedStatusCode()
     {
         try {
-            $aNullBadgeIsMultiTenant    = null;
-            $aNullTenantId              = null;
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullBadgeIsMultiUser  = null;
+            $aNullUserId            = null;
+            $aNullImageName         = null;
+            $aNullImageWidth        = null;
+            $aNullImageHeight       = null;
+            $aNullImageFormat       = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_NOT_VALID_FLOAT,
-                $aNullBadgeIsMultiTenant,
-                $aNullTenantId,
+                $aNullBadgeIsMultiUser,
+                $aNullUserId,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -209,21 +209,21 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutIsMultiTenantProvidedShouldThrownExceptionIsMultiTenantNotValidProvidedStatusCode()
+    public function commandWithoutIsMultiUserProvidedShouldThrownExceptionIsMultiUserNotValidProvidedStatusCode()
     {
         try {
-            $aNullBadgeIsMultiTenant    = null;
-            $aNullTenantId              = null;
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullBadgeIsMultiUser  = null;
+            $aNullUserId            = null;
+            $aNullImageName         = null;
+            $aNullImageWidth        = null;
+            $aNullImageHeight       = null;
+            $aNullImageFormat       = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                $aNullBadgeIsMultiTenant,
-                $aNullTenantId,
+                $aNullBadgeIsMultiUser,
+                $aNullUserId,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -242,20 +242,20 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandNotValidIsMultiTenantProvidedShouldThrownExceptionIsMultiTenantNotProvidedStatusCode()
+    public function commandNotValidIsMultiUserProvidedShouldThrownExceptionIsMultiUserNotProvidedStatusCode()
     {
         try {
-            $aNullTenantId              = null;
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullUserId      = null;
+            $aNullImageName   = null;
+            $aNullImageWidth  = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_NOT_VALID_STRING,
-                $aNullTenantId,
+                static::BADGE_IS_MULTI_USER_NOT_VALID_STRING,
+                $aNullUserId,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -274,30 +274,30 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutTenantIdProvidedShouldThrownTenantDataExceptionIdNotProvidedStatusCode()
+    public function commandWithoutUserIdProvidedShouldThrownUserDataExceptionIdNotProvidedStatusCode()
     {
         try {
-            $aNullTenantId              = null;
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullUserId      = null;
+            $aNullImageName   = null;
+            $aNullImageWidth  = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                $aNullTenantId,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                $aNullUserId,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
                 $aNullImageFormat
             );
             $this->thisTestFails();
-        } catch (InvalidTenantDataException $invalidTenantDataException) {
+        } catch (InvalidUserDataException $invalidUserDataException) {
             $this->assertEquals(
-                InvalidTenantDataExceptionCode::STATUS_CODE_ID_NOT_PROVIDED,
-                $invalidTenantDataException->code()
+                InvalidUserDataExceptionCode::STATUS_CODE_ID_NOT_PROVIDED,
+                $invalidUserDataException->code()
             );
         }
 
@@ -306,29 +306,29 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithTenantIdNotValidTypeProvidedShouldThrownTenantDataExceptionIdNotValidProvidedStatusCode()
+    public function commandWithUserIdNotValidTypeProvidedShouldThrownUserDataExceptionIdNotValidProvidedStatusCode()
     {
         try {
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullImageName   = null;
+            $aNullImageWidth  = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_NOT_VALID_INT,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_NOT_VALID_INT,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
                 $aNullImageFormat
             );
             $this->thisTestFails();
-        } catch (InvalidTenantDataException $invalidTenantDataException) {
+        } catch (InvalidUserDataException $invalidUserDataException) {
             $this->assertEquals(
-                InvalidTenantDataExceptionCode::STATUS_CODE_ID_NOT_VALID_PROVIDED,
-                $invalidTenantDataException->code()
+                InvalidUserDataExceptionCode::STATUS_CODE_ID_NOT_VALID_PROVIDED,
+                $invalidUserDataException->code()
             );
         }
 
@@ -337,29 +337,29 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithTenantIdNotValidProvidedShouldThrownTenantDataExceptionIdNotValidProvidedStatusCode()
+    public function commandWithUserIdNotValidProvidedShouldThrownUserDataExceptionIdNotValidProvidedStatusCode()
     {
         try {
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullImageName   = null;
+            $aNullImageWidth  = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_NOT_VALID_EMPTY,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_NOT_VALID_EMPTY,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
                 $aNullImageFormat
             );
             $this->thisTestFails();
-        } catch (InvalidTenantDataException $invalidTenantDataException) {
+        } catch (InvalidUserDataException $invalidUserDataException) {
             $this->assertEquals(
-                InvalidTenantDataExceptionCode::STATUS_CODE_ID_NOT_VALID_PROVIDED,
-                $invalidTenantDataException->code()
+                InvalidUserDataExceptionCode::STATUS_CODE_ID_NOT_VALID_PROVIDED,
+                $invalidUserDataException->code()
             );
         }
 
@@ -371,16 +371,16 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithoutImageNameProvidedShouldThrownImageDataExceptionNameNotProvidedStatusCode()
     {
         try {
-            $aNullImageName             = null;
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullImageName   = null;
+            $aNullImageWidth  = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -409,8 +409,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 static::IMAGE_NAME_NOT_VALID_INT,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -439,8 +439,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 static::IMAGE_NAME_NOT_VALID_EMPTY,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -469,8 +469,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 static::IMAGE_NAME_VALID_FLOWER,
                 $aNullImageWidth,
                 $aNullImageHeight,
@@ -498,8 +498,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_NOT_VALID_BOOLEAN,
                 $aNullImageHeight,
@@ -527,8 +527,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_NOT_VALID_MINUS_INTEGER,
                 $aNullImageHeight,
@@ -556,8 +556,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 $aNullImageHeight,
@@ -584,8 +584,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 static::IMAGE_HEIGHT_NOT_VALID_STRING,
@@ -612,8 +612,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 static::IMAGE_HEIGHT_NOT_VALID_MINUS_INT,
@@ -640,8 +640,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 static::IMAGE_HEIGHT_VALID_5,
@@ -666,8 +666,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
                 static::BADGE_DESCRIPTION_VALID_EMPTY,
-                static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-                static::TENANT_ID_VALID_1234,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 static::IMAGE_HEIGHT_VALID_5,
@@ -691,8 +691,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
         $command = $this->buildCreateBadgeCommand(
             static::BADGE_NAME_VALID_BADGE_NAME,
             static::BADGE_DESCRIPTION_VALID_EMPTY,
-            static::BADGE_IS_MULTI_TENANT_VALID_TRUE,
-            static::TENANT_ID_VALID_1234,
+            static::BADGE_IS_MULTI_USER_VALID_TRUE,
+            static::USER_ID_VALID_1234,
             static::IMAGE_NAME_VALID_FLOWER,
             static::IMAGE_WIDTH_VALID_4,
             static::IMAGE_HEIGHT_VALID_5,
@@ -702,8 +702,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(
             $command->name() === static::BADGE_NAME_VALID_BADGE_NAME
             && $command->description() === static::BADGE_DESCRIPTION_VALID_EMPTY
-            && $command->isMultiUser() === static::BADGE_IS_MULTI_TENANT_VALID_TRUE
-            && $command->tenantData()->id() === static::TENANT_ID_VALID_1234
+            && $command->isMultiUser() === static::BADGE_IS_MULTI_USER_VALID_TRUE
+            && $command->UserData()->id() === static::USER_ID_VALID_1234
             && $command->imageData()->name() === static::IMAGE_NAME_VALID_FLOWER
             && $command->imageData()->width() === static::IMAGE_WIDTH_VALID_4
             && $command->imageData()->height() === static::IMAGE_HEIGHT_VALID_5
@@ -714,8 +714,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     private function buildCreateBadgeCommand(
         $badgeName,
         $badgeDescription,
-        $badgeIsMultiTenant,
-        $tenantId,
+        $badgeIsMultiUser,
+        $userId,
         $imageName,
         $imageWidth,
         $imageHeight,
@@ -724,8 +724,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
         return new CreateBadgeCommand(
             $badgeName,
             $badgeDescription,
-            $badgeIsMultiTenant,
-            $this->buildTenantData($tenantId),
+            $badgeIsMultiUser,
+            $this->buildUserData($userId),
             $this->buildImageData($imageName, $imageWidth, $imageHeight, $imageFormat)
         );
     }
@@ -733,11 +733,11 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @param string $id
      *
-     * @return TenantData
+     * @return UserData
      */
-    private function buildTenantData($id)
+    private function buildUserData($id)
     {
-        return new TenantData($id);
+        return new UserData($id);
     }
 
     /**

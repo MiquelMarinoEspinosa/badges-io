@@ -7,13 +7,13 @@ use Domain\Entity\User\UserRepository;
 use Domain\Service\PasswordCipher;
 use Infrastructure\DataTransformer\NoOperation\Domain\Entity\User\UserNoOpDataTransformer;
 use Infrastructure\Persistence\InMemory\Domain\Entity\User\InMemoryUserRepository;
-use Infrastructure\Services\Domain\PasswordCipher\MD5PasswordCipher;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerException;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerExceptionCode;
 use Interactor\CommandHandler\LogIn\LogInCommand;
 use Interactor\CommandHandler\LogIn\LoginCommandHandler;
 use Test\Domain\Entity\User\FakeUserBuilder;
 use Test\Domain\Entity\User\FakeUserRepositoryThrownException;
+use Test\Domain\Service\FakePasswordCipher;
 
 class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -280,7 +280,7 @@ class LoginCommandHandlerTest extends \PHPUnit_Framework_TestCase
      */
     private function buildPasswordCipher()
     {
-        return new MD5PasswordCipher();
+        return new FakePasswordCipher();
     }
 
     private function thisTestFails()

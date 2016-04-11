@@ -10,7 +10,6 @@ use Domain\Entity\Image\ImageRepository;
 use Domain\Entity\User\User;
 use Domain\Entity\User\UserRepository;
 use Domain\Service\IdGenerator;
-use Exception;
 use Interactor\CommandHandler\CommandHandler;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandHandlerException;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandHandlerExceptionCode;
@@ -80,7 +79,9 @@ class CreateBadgeCommandHandler implements CommandHandler
         try {
             $user = $this->userRepository->find($userId);
         } catch (\Exception $exception) {
-            throw $exception;
+            throw $this->buildInvalidCreateBadgeCommandHandlerException(
+                InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_CREATED
+            );
         }
 
         if ($aNullUser === $user) {
@@ -134,7 +135,9 @@ class CreateBadgeCommandHandler implements CommandHandler
         try {
             $this->badgeRepository->persist($badge);
         } catch (\Exception $exception) {
-            throw $exception;
+            throw $this->buildInvalidCreateBadgeCommandHandlerException(
+                InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_CREATED
+            );
         }
 
         return $badge;

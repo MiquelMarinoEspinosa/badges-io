@@ -13,25 +13,25 @@ use Interactor\CommandHandler\GetBadge\GetBadgeCommandHandler;
 use Test\Domain\Entity\Badge\FakeBadgeBuilder;
 use Test\Domain\Entity\Badge\FakeBadgeRepositoryThrownException;
 use Test\Domain\Entity\Image\FakeImageBuilder;
-use Test\Domain\Entity\Tenant\FakeTenantBuilder;
+use Test\Domain\Entity\User\FakeUserBuilder;
 
 class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    const BADGE_ID              = '1234';
-    const BADGE_ID_NOT_EXISTS   = '43321';
-    const BADGE_NAME            = 'Badge Name';
-    const BADGE_DESCRIPTION     = 'BADGE_DESCRIPTION';
-    const BADGE_IS_MULTI_TENANT = false;
-    const TENANT_ID             = '4321';
-    const TENANT_ID_NOT_EXISTS  = '56789';
-    const TENANT_EMAIL          = 'tenantMail@badges.com';
-    const TENANT_PASSWORD       = 'B3fr33';
-    const IMAGE_ID              = '4567';
-    const IMAGE_NAME            = 'Image Name';
-    const IMAGE_WIDTH           = 45;
-    const IMAGE_HEIGHT          = 45;
-    const IMAGE_FORMAT          = 'jpeg';
-    const TENANT_USERNAME       = 'tenantName';
+    const BADGE_ID            = '1234';
+    const BADGE_ID_NOT_EXISTS = '43321';
+    const BADGE_NAME          = 'Badge Name';
+    const BADGE_DESCRIPTION   = 'BADGE_DESCRIPTION';
+    const BADGE_IS_MULTI_USER = false;
+    const USER_ID             = '4321';
+    const USER_ID_NOT_EXISTS  = '56789';
+    const USER_EMAIL          = 'userMail@badges.com';
+    const USER_PASSWORD       = 'B3fr33';
+    const IMAGE_ID            = '4567';
+    const IMAGE_NAME          = 'Image Name';
+    const IMAGE_WIDTH         = 45;
+    const IMAGE_HEIGHT        = 45;
+    const IMAGE_FORMAT        = 'jpeg';
+    const USER_USERNAME       = 'userName';
 
     /**
      * @test
@@ -44,7 +44,7 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 $this->buildDefaultBadges()
             );
             $commandHandler = $this->buildGetBadgeCommandHandler($badgeRepository);
-            $command        = $this->buildGetBadgeCommand(static::BADGE_ID, static::TENANT_ID);
+            $command        = $this->buildGetBadgeCommand(static::BADGE_ID, static::USER_ID);
             $commandHandler->handle($command);
             $this->thisTestFails();
         } catch (InvalidGetBadgeCommandHandlerException $invalidGetBadgeCommandHandlerException) {
@@ -63,7 +63,7 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
         try {
             $badgeRepository = $this->buildBadgeRepository($this->buildDefaultBadges());
             $commandHandler  = $this->buildGetBadgeCommandHandler($badgeRepository);
-            $command         = $this->buildGetBadgeCommand(static::BADGE_ID_NOT_EXISTS, static::TENANT_ID);
+            $command         = $this->buildGetBadgeCommand(static::BADGE_ID_NOT_EXISTS, static::USER_ID);
             $commandHandler->handle($command);
             $this->thisTestFails();
         } catch (InvalidGetBadgeCommandHandlerException $invalidGetBadgeCommandHandlerException) {
@@ -77,12 +77,12 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function badgeFoundButNotValidTenantShouldThrownExceptionTenantNotValidStatusCode()
+    public function badgeFoundButNotValidUserShouldThrownExceptionUserNotValidStatusCode()
     {
         try {
             $badgeRepository = $this->buildBadgeRepository($this->buildDefaultBadges());
             $commandHandler  = $this->buildGetBadgeCommandHandler($badgeRepository);
-            $command         = $this->buildGetBadgeCommand(static::BADGE_ID, static::TENANT_ID_NOT_EXISTS);
+            $command         = $this->buildGetBadgeCommand(static::BADGE_ID, static::USER_ID_NOT_EXISTS);
             $commandHandler->handle($command);
             $this->thisTestFails();
         } catch (InvalidGetBadgeCommandHandlerException $invalidGetBadgeCommandHandlerException) {
@@ -100,12 +100,12 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $badgeRepository = $this->buildBadgeRepository($this->buildDefaultBadges());
         $commandHandler  = $this->buildGetBadgeCommandHandler($badgeRepository);
-        $command         = $this->buildGetBadgeCommand(static::BADGE_ID, static::TENANT_ID);
+        $command         = $this->buildGetBadgeCommand(static::BADGE_ID, static::USER_ID);
         /** @var Badge $badge */
         $badge           = $commandHandler->handle($command);
         $this->assertTrue(
             $badge->id() === $command->badgeId()
-            && $badge->tenant()->id() === $command->userId()
+            && $badge->user()->id() === $command->userId()
         );
     }
 
@@ -157,12 +157,12 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             static::BADGE_ID,
             static::BADGE_NAME,
             static::BADGE_DESCRIPTION,
-            static::BADGE_IS_MULTI_TENANT,
-            FakeTenantBuilder::build(
-                static::TENANT_ID,
-                static::TENANT_EMAIL,
-                static::TENANT_USERNAME,
-                static::TENANT_PASSWORD
+            static::BADGE_IS_MULTI_USER,
+            FakeUserBuilder::build(
+                static::USER_ID,
+                static::USER_EMAIL,
+                static::USER_USERNAME,
+                static::USER_PASSWORD
             ),
             FakeImageBuilder::build(
                 static::IMAGE_ID,
@@ -176,13 +176,13 @@ class GetBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string $badgeId
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return GetBadgeCommand
      */
-    private function buildGetBadgeCommand($badgeId, $tenantId)
+    private function buildGetBadgeCommand($badgeId, $userId)
     {
-        return new GetBadgeCommand($badgeId, $tenantId);
+        return new GetBadgeCommand($badgeId, $userId);
     }
 
     private function thisTestFails()

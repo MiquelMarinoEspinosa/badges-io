@@ -4,7 +4,7 @@ namespace Test\Domain\Entity\Badge;
 
 use Domain\Entity\Badge\Badge;
 use Domain\Entity\Image\Image;
-use Domain\Entity\Tenant\Tenant;
+use Domain\Entity\User\User;
 
 class FakeBadgeBuilder extends Badge
 {
@@ -13,13 +13,13 @@ class FakeBadgeBuilder extends Badge
      * @param string $name
      * @param string $description
      * @param bool $isMultiTenant
-     * @param Tenant $tenant
+     * @param User $user
      * @param Image $image
      *
      * @return FakeBadgeBuilder
      */
-    public static function build($id, $name, $description, $isMultiTenant, Tenant $tenant, Image $image)
+    public static function build($id, $name, $description, $isMultiTenant, User $user, Image $image)
     {
-        return new self($id, $name, $description, $isMultiTenant, $tenant, $image);
+        return new self($id, $name, $description, $isMultiTenant, $user, $image);
     }
 }

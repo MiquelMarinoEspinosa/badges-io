@@ -11,18 +11,18 @@ class ListBadgesCommandTest extends \PHPUnit_Framework_TestCase
     const NOT_VALID_FORMAT_BADGE_ID_INTEGER  = 1;
     const NOT_VALID_BADGE_ID_EMPTY           = ' ';
     const VALID_BADGE_ID_1234                = '1234';
-    const NOT_VALID_FORMAT_TENANT_ID_INTEGER = 2;
-    const NOT_VALID_TENANT_ID_EMPTY          = ' ';
-    const VALID_TENANT_ID_4321               = '4321';
+    const NOT_VALID_FORMAT_USER_ID_INTEGER   = 2;
+    const NOT_VALID_USER_ID_EMPTY            = ' ';
+    const VALID_USER_ID_4321                 = '4321';
 
     /**
      * @test
      */
-    public function commandWithoutTenantIdProvidedShouldThrownExceptionBadgeIdNotProvidedStatusCode()
+    public function commandWithoutUserIdProvidedShouldThrownExceptionBadgeIdNotProvidedStatusCode()
     {
         try {
-            $aNullTenantId = null;
-            $this->buildListBadgesCommand($aNullTenantId);
+            $aNullUserId = null;
+            $this->buildListBadgesCommand($aNullUserId);
             $this->thisTestFails();
         } catch (InvalidListBadgesCommandException $invalidListBadgesCommandException) {
             $this->assertEquals(
@@ -38,7 +38,7 @@ class ListBadgesCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithNotValidFormatIdProvidedShouldThrownExceptionBadgeIdNotValidProvidedStatusCode()
     {
         try {
-            $this->buildListBadgesCommand(static::NOT_VALID_FORMAT_TENANT_ID_INTEGER);
+            $this->buildListBadgesCommand(static::NOT_VALID_FORMAT_USER_ID_INTEGER);
             $this->thisTestFails();
         } catch (InvalidListBadgesCommandException $invalidListBadgesCommandException) {
             $this->assertEquals(
@@ -54,7 +54,7 @@ class ListBadgesCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithNotValidIdProvidedShouldThrownExceptionBadgeIdNotValidProvidedStatusCode()
     {
         try {
-            $this->buildListBadgesCommand(static::NOT_VALID_TENANT_ID_EMPTY);
+            $this->buildListBadgesCommand(static::NOT_VALID_USER_ID_EMPTY);
             $this->thisTestFails();
         } catch (InvalidListBadgesCommandException $invalidListBadgesCommandException) {
             $this->assertEquals(
@@ -69,19 +69,19 @@ class ListBadgesCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function commandWithAllTheParamsValidShouldReturnTheCommand()
     {
-        $command = $this->buildListBadgesCommand(static::VALID_TENANT_ID_4321);
+        $command = $this->buildListBadgesCommand(static::VALID_USER_ID_4321);
 
-        $this->assertTrue($command->userId() === static::VALID_TENANT_ID_4321);
+        $this->assertTrue($command->userId() === static::VALID_USER_ID_4321);
     }
 
     /**
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return ListBadgesCommand
      */
-    private function buildListBadgesCommand($tenantId)
+    private function buildListBadgesCommand($userId)
     {
-        return new ListBadgesCommand($tenantId);
+        return new ListBadgesCommand($userId);
     }
 
     private function thisTestFails()

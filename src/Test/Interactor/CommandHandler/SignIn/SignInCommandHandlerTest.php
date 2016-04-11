@@ -17,6 +17,7 @@ use Interactor\CommandHandler\SignIn\SignInCommandHandler;
 use Test\Domain\Service\FakeIdGenerator;
 use Test\Domain\Entity\User\FakeUserBuilder;
 use Test\Domain\Entity\User\FakeUserRepositoryThrownException;
+use Test\Domain\Service\FakePasswordCipher;
 
 class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -291,6 +292,6 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
      */
     private function buildPasswordCipher()
     {
-        return new MD5PasswordCipher();
+        return new FakePasswordCipher();
     }
 }

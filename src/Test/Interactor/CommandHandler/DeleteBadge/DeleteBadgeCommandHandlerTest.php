@@ -16,25 +16,25 @@ use Test\Domain\Entity\Badge\FakeBadgeBuilder;
 use Test\Domain\Entity\Badge\FakeBadgeRepositoryThrownException;
 use Test\Domain\Entity\Image\FakeImageBuilder;
 use Test\Domain\Entity\Image\FakeImageRepositoryThrownException;
-use Test\Domain\Entity\Tenant\FakeTenantBuilder;
+use Test\Domain\Entity\User\FakeUserBuilder;
 
 class DeleteBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    const BADGE_ID              = '1234';
-    const BADGE_ID_NOT_EXISTS   = '43321';
-    const BADGE_NAME            = 'Badge Name';
-    const BADGE_DESCRIPTION     = 'BADGE_DESCRIPTION';
-    const BADGE_IS_MULTI_TENANT = false;
-    const TENANT_ID             = '4321';
-    const TENANT_ID_NOT_EXISTS  = '56789';
-    const TENANT_EMAIL          = 'tenantMail@badges.com';
-    const TENANT_PASSWORD       = 'B3fr33';
-    const IMAGE_ID              = '4567';
-    const IMAGE_NAME            = 'Image Name';
-    const IMAGE_WIDTH           = 45;
-    const IMAGE_HEIGHT          = 45;
-    const IMAGE_FORMAT          = 'jpeg';
-    const TENANT_USERNAME       = 'tenantName';
+    const BADGE_ID            = '1234';
+    const BADGE_ID_NOT_EXISTS = '43321';
+    const BADGE_NAME          = 'Badge Name';
+    const BADGE_DESCRIPTION   = 'BADGE_DESCRIPTION';
+    const BADGE_IS_MULTI_USER = false;
+    const USER_ID             = '4321';
+    const USER_ID_NOT_EXISTS  = '56789';
+    const USER_EMAIL          = 'userMail@badges.com';
+    const USER_PASSWORD       = 'B3fr33';
+    const IMAGE_ID            = '4567';
+    const IMAGE_NAME          = 'Image Name';
+    const IMAGE_WIDTH         = 45;
+    const IMAGE_HEIGHT        = 45;
+    const IMAGE_FORMAT        = 'jpeg';
+    const USER_USERNAME       = 'userName';
 
     /**
      * @test
@@ -48,7 +48,7 @@ class DeleteBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             );
             $imageRepository = $this->buildImageRepository([$this->buildDefaultImage()]);
             $commandHandler  = $this->buildDeleteBadgeCommandHandler($badgeRepository, $imageRepository);
-            $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID, static::TENANT_ID);
+            $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID, static::USER_ID);
             $commandHandler->handle($command);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandHandlerException $invalidDeleteBadgeCommandHandlerException) {
@@ -68,7 +68,7 @@ class DeleteBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $badgeRepository = $this->buildBadgeRepository($this->buildDefaultBadges());
             $imageRepository = $this->buildImageRepository([$this->buildDefaultImage()]);
             $commandHandler  = $this->buildDeleteBadgeCommandHandler($badgeRepository, $imageRepository);
-            $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID_NOT_EXISTS, static::TENANT_ID);
+            $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID_NOT_EXISTS, static::USER_ID);
             $commandHandler->handle($command);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandHandlerException $invalidDeleteBadgeCommandHandlerException) {
@@ -82,13 +82,13 @@ class DeleteBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function badgeFoundButNotValidTenantShouldThrownExceptionTenantNotValidStatusCode()
+    public function badgeFoundButNotValidUserShouldThrownExceptionUserNotValidStatusCode()
     {
         try {
             $badgeRepository = $this->buildBadgeRepository($this->buildDefaultBadges());
             $imageRepository = $this->buildImageRepository([$this->buildDefaultImage()]);
             $commandHandler  = $this->buildDeleteBadgeCommandHandler($badgeRepository, $imageRepository);
-            $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID, static::TENANT_ID_NOT_EXISTS);
+            $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID, static::USER_ID_NOT_EXISTS);
             $commandHandler->handle($command);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandHandlerException $invalidDeleteBadgeCommandHandlerException) {
@@ -111,7 +111,7 @@ class DeleteBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 [$this->buildDefaultImage()]
             );
             $commandHandler  = $this->buildDeleteBadgeCommandHandler($badgeRepository, $imageRepository);
-            $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID, static::TENANT_ID);
+            $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID, static::USER_ID);
             $commandHandler->handle($command);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandHandlerException $invalidDeleteBadgeCommandHandlerException) {
@@ -134,7 +134,7 @@ class DeleteBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             );
             $imageRepository = $this->buildImageRepository([$this->buildDefaultImage()]);
             $commandHandler  = $this->buildDeleteBadgeCommandHandler($badgeRepository, $imageRepository);
-            $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID, static::TENANT_ID);
+            $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID, static::USER_ID);
             $commandHandler->handle($command);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandHandlerException $invalidDeleteBadgeCommandHandlerException) {
@@ -153,7 +153,7 @@ class DeleteBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $badgeRepository = $this->buildBadgeRepository($this->buildDefaultBadges());
         $imageRepository = $this->buildImageRepository([$this->buildDefaultImage()]);
         $commandHandler  = $this->buildDeleteBadgeCommandHandler($badgeRepository, $imageRepository);
-        $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID, static::TENANT_ID);
+        $command         = $this->buildDeleteBadgeCommand(static::BADGE_ID, static::USER_ID);
         $badge           = $badgeRepository->find($command->badgeId());
         $commandHandler->handle($command);
         $this->assertTrue(
@@ -225,12 +225,12 @@ class DeleteBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             static::BADGE_ID,
             static::BADGE_NAME,
             static::BADGE_DESCRIPTION,
-            static::BADGE_IS_MULTI_TENANT,
-            FakeTenantBuilder::build(
-                static::TENANT_ID,
-                static::TENANT_EMAIL,
-                static::TENANT_USERNAME,
-                static::TENANT_PASSWORD
+            static::BADGE_IS_MULTI_USER,
+            FakeUserBuilder::build(
+                static::USER_ID,
+                static::USER_EMAIL,
+                static::USER_USERNAME,
+                static::USER_PASSWORD
             ),
             $this->buildDefaultImage()
         )];
@@ -252,13 +252,13 @@ class DeleteBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string $badgeId
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return DeleteBadgeCommand
      */
-    private function buildDeleteBadgeCommand($badgeId, $tenantId)
+    private function buildDeleteBadgeCommand($badgeId, $userId)
     {
-        return new DeleteBadgeCommand($badgeId, $tenantId);
+        return new DeleteBadgeCommand($badgeId, $userId);
     }
 
     /**

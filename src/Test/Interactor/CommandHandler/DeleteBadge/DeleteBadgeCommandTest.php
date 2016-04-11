@@ -8,12 +8,12 @@ use Interactor\CommandHandler\DeleteBadge\DeleteBadgeCommand;
 
 class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
 {
-    const NOT_VALID_FORMAT_BADGE_ID_INTEGER  = 1;
-    const NOT_VALID_BADGE_ID_EMPTY           = ' ';
-    const VALID_BADGE_ID_1234                = '1234';
-    const NOT_VALID_FORMAT_TENANT_ID_INTEGER = 2;
-    const NOT_VALID_TENANT_ID_EMPTY          = ' ';
-    const VALID_TENANT_ID_4321               = '4321';
+    const NOT_VALID_FORMAT_BADGE_ID_INTEGER = 1;
+    const NOT_VALID_BADGE_ID_EMPTY          = ' ';
+    const VALID_BADGE_ID_1234               = '1234';
+    const NOT_VALID_FORMAT_USER_ID_INTEGER  = 2;
+    const NOT_VALID_USER_ID_EMPTY           = ' ';
+    const VALID_USER_ID_4321                = '4321';
 
     /**
      * @test
@@ -22,8 +22,8 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $aNullBadgeId  = null;
-            $aNullTenantId = null;
-            $this->buildDeleteBadgeCommand($aNullBadgeId, $aNullTenantId);
+            $aNullUserId = null;
+            $this->buildDeleteBadgeCommand($aNullBadgeId, $aNullUserId);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandException $invalidDeleteBadgeCommandException) {
             $this->assertEquals(
@@ -39,8 +39,8 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithNotValidBadgeIdFormatProvidedShouldThrownExceptionBadgeIdNotValidProvidedStatusCode()
     {
         try {
-            $aNullTenantId = null;
-            $this->buildDeleteBadgeCommand(static::NOT_VALID_FORMAT_BADGE_ID_INTEGER, $aNullTenantId);
+            $aNullUserId = null;
+            $this->buildDeleteBadgeCommand(static::NOT_VALID_FORMAT_BADGE_ID_INTEGER, $aNullUserId);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandException $invalidDeleteBadgeCommandException) {
             $this->assertEquals(
@@ -56,8 +56,8 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithNotValidBadgeIdProvidedShouldThrownExceptionBadgeIdNotValidProvidedStatusCode()
     {
         try {
-            $aNullTenantId = null;
-            $this->buildDeleteBadgeCommand(static::NOT_VALID_BADGE_ID_EMPTY, $aNullTenantId);
+            $aNullUserId = null;
+            $this->buildDeleteBadgeCommand(static::NOT_VALID_BADGE_ID_EMPTY, $aNullUserId);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandException $invalidDeleteBadgeCommandException) {
             $this->assertEquals(
@@ -70,11 +70,11 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandWithoutTenantIdProvidedShouldThrownExceptionBadgeIdNotProvidedStatusCode()
+    public function commandWithoutUserIdProvidedShouldThrownExceptionBadgeIdNotProvidedStatusCode()
     {
         try {
-            $aNullTenantId = null;
-            $this->buildDeleteBadgeCommand(static::VALID_BADGE_ID_1234, $aNullTenantId);
+            $aNullUserId = null;
+            $this->buildDeleteBadgeCommand(static::VALID_BADGE_ID_1234, $aNullUserId);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandException $invalidDeleteBadgeCommandException) {
             $this->assertEquals(
@@ -90,7 +90,7 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithNotValidFormatIdProvidedShouldThrownExceptionBadgeIdNotValidProvidedStatusCode()
     {
         try {
-            $this->buildDeleteBadgeCommand(static::VALID_BADGE_ID_1234, static::NOT_VALID_FORMAT_TENANT_ID_INTEGER);
+            $this->buildDeleteBadgeCommand(static::VALID_BADGE_ID_1234, static::NOT_VALID_FORMAT_USER_ID_INTEGER);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandException $invalidDeleteBadgeCommandException) {
             $this->assertEquals(
@@ -106,7 +106,7 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithNotValidIdProvidedShouldThrownExceptionBadgeIdNotValidProvidedStatusCode()
     {
         try {
-            $this->buildDeleteBadgeCommand(static::VALID_BADGE_ID_1234, static::NOT_VALID_TENANT_ID_EMPTY);
+            $this->buildDeleteBadgeCommand(static::VALID_BADGE_ID_1234, static::NOT_VALID_USER_ID_EMPTY);
             $this->thisTestFails();
         } catch (InvalidDeleteBadgeCommandException $invalidDeleteBadgeCommandException) {
             $this->assertEquals(
@@ -121,23 +121,23 @@ class DeleteBadgeCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function commandWithAllTheParamsValidShouldReturnTheCommand()
     {
-        $command = $this->buildDeleteBadgeCommand(static::VALID_BADGE_ID_1234, static::VALID_TENANT_ID_4321);
+        $command = $this->buildDeleteBadgeCommand(static::VALID_BADGE_ID_1234, static::VALID_USER_ID_4321);
 
         $this->assertTrue(
             $command->badgeId() === static::VALID_BADGE_ID_1234
-            && $command->userId() === static::VALID_TENANT_ID_4321
+            && $command->userId() === static::VALID_USER_ID_4321
         );
     }
 
     /**
      * @param string $badgeId
-     * @param string $tenantId
+     * @param string $userId
      *
      * @return DeleteBadgeCommand
      */
-    private function buildDeleteBadgeCommand($badgeId, $tenantId)
+    private function buildDeleteBadgeCommand($badgeId, $userId)
     {
-        return new DeleteBadgeCommand($badgeId, $tenantId);
+        return new DeleteBadgeCommand($badgeId, $userId);
     }
 
     private function thisTestFails()
