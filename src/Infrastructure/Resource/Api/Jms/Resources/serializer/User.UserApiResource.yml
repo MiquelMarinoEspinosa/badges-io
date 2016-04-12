@@ -6,9 +6,11 @@ Infrastructure\Resource\Api\Domain\Entity\User\UserApiResource:
         id:
             expose: true
             type: string
+
         username:
             expose: true
             type: string
+
         email:
             expose: true
             type: string

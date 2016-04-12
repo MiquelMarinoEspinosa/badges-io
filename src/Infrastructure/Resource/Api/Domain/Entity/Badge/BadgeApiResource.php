@@ -16,7 +16,7 @@ class BadgeApiResource
     /** @var  bool */
     private $isMultiUser;
     /** @var UserApiResource */
-    private $userApiResource;
+    private $userResource;
     /** @var ImageApiResource */
     private $imageResource;
 
@@ -32,7 +32,7 @@ class BadgeApiResource
              ->setName($name)
              ->setDescription($description)
              ->setIsMultiUser($isMultiUser)
-             ->setUserApiResource($userApiResource)
+             ->setUserResource($userApiResource)
              ->setImageResource($imageResource);
     }
 
@@ -119,19 +119,19 @@ class BadgeApiResource
     /**
      * @return UserApiResource
      */
-    public function userApiResource()
+    public function userResource()
     {
-        return $this->userApiResource;
+        return $this->userResource;
     }
 
     /**
-     * @param UserApiResource $userApiResource
+     * @param UserApiResource $userResource
      *
      * @return BadgeApiResource
      */
-    private function setUserApiResource(UserApiResource $userApiResource)
+    private function setUserResource(UserApiResource $userResource)
     {
-        $this->userApiResource = $userApiResource;
+        $this->userResource = $userResource;
 
         return $this;
     }

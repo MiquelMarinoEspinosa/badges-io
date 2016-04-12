@@ -5,10 +5,29 @@ Infrastructure\Resource\Api\Domain\Entity\Badge\BadgeApiResource:
     properties:
         id:
             expose: true
-            type: integer
+            type: string
+
         name:
             expose: true
             type: string
+
         description:
             expose: true
             type: string
+
+        isMultiUser:
+            expose: true
+            type: boolean
+
+    relations:
+        -
+            rel: badge:image
+            title: Badge Image
+            embedded:
+                content: expr(object.imageResource())
+
+        -
+            rel: badge:user
+            title: Badge User
+            embedded:
+                content: expr(object.userResource())
