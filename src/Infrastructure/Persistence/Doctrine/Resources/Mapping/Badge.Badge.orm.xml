@@ -9,6 +9,9 @@
         <field name="description" type="string" length="200" />
         <field name="isMultiUser" type="boolean" />
         <one-to-one field="image" target-entity="Domain\Entity\Image\Image">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
             <join-column name="imageId" referenced-column-name="id" />
         </one-to-one>
         <many-to-one field="user" target-entity="Domain\Entity\User\User">
