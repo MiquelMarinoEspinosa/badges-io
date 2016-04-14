@@ -250,6 +250,32 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function exceptionRepositoryWhenPersistImageShouldThrownExceptionBadgeNotUpdatedStatusCode()
+    {
+        try {
+            $imageRepository = $this->buildFakeImageRepositoryThrownException(
+                FakeImageRepositoryThrownException::PERSIST_THROW_EXCEPTION
+            );
+            $commandHandler = $this->buildUpdateBadgeCommandHandler(
+                $this->buildUserRepository($this->buildDefaultUsers()),
+                $imageRepository,
+                $this->buildBadgeRepository($this->buildDefaultBadges()),
+                $this->buildBadgeDataTransformer()
+            );
+            $commandHandler->handle($this->buildCommand());
+
+            $this->thisTestFails();
+        } catch (InvalidUpdateBadgeCommandHandlerException $invalidUpdateBadgeCommandHandlerException) {
+            $this->assertEquals(
+                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_UPDATED,
+                $invalidUpdateBadgeCommandHandlerException->code()
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
     public function exceptionRepositoryWhenPersistBadgeShouldThrownExceptionBadgeNotUpdatedStatusCode()
     {
         try {

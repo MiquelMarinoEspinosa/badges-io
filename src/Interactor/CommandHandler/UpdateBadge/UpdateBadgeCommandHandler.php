@@ -71,7 +71,7 @@ class UpdateBadgeCommandHandler implements CommandHandler
         $this->removePreviousBadge($previousBadge);
         $this->removePreviousImage($previousBadge->image()->id());
         $user           = $this->tryToFindUserByUserId($command->userData()->id());
-        $updatedImage   = $this->updateImage($previousBadge->image()->id(), $command->imageData());
+        $updatedImage   = $this->tryToUpdateImage($previousBadge->image()->id(), $command->imageData());
         $updatedBadge   = $this->tryToUpdateBadge($command, $previousBadge, $user, $updatedImage);
 
         return $this->badgeDataTransformer->transform($updatedBadge);
@@ -167,6 +167,21 @@ class UpdateBadgeCommandHandler implements CommandHandler
         }
 
         return $user;
+    }
+
+    /**
+     * @param string $imageId
+     * @param ImageData $imageData
+     *
+     * @return Image
+     * @throws InvalidUpdateBadgeCommandHandlerException
+     */
+    private function tryToUpdateImage($imageId, ImageData $imageData)
+    {
+        $image = $this->updateImage($imageId, $imageData);
+        $this->imageRepository->persist($image);
+
+        return $image;
     }
 
     /**
