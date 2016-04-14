@@ -1,10 +1,12 @@
 <?php
 namespace App\Bundle\GamificationBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\FOSRestController;
 use Interactor\CommandHandler\CreateBadge\CreateBadgeCommand;
 use Interactor\CommandHandler\CreateBadge\ImageData\ImageData;
+use Interactor\CommandHandler\GetBadge\GetBadgeCommand;
 use Interactor\CommandHandler\UpdateBadge\ImageData\ImageData as UpdateImageData;
 use Interactor\CommandHandler\CreateBadge\UserData\UserData;
 use Interactor\CommandHandler\UpdateBadge\UserData\UserData as UpdateUserData;
@@ -209,5 +211,39 @@ class BadgeController extends FOSRestController
             (int) $request->get('imageHeight'),
             $request->get('imageFormat')
         );
+    }
+
+    /**
+     * @ApiDoc(
+     *  description = "Create a new badge",
+     *  requirements={
+     *    {"name"="id", "dataType"="string", "format"="\s+", "description"=" Badge id", "required"="true"},
+     *    {"name"="userId", "dataType"="string", "format"="\s+", "description"=" User id", "required"="true"},
+     * },
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      500="Returned when something when wrong",
+     *  }
+     * )
+     * @Get("/badge/{id}/{userId}")
+     */
+    public function getBadgeAction($id, $userId)
+    {
+        $createBadgeCommand = $this->buildGetBadgeCommandByRequest($id, $userId);
+
+        return $this->container->get(
+            'gamification.interactor.command_handler.get_badge.get_badge_command_handler'
+        )->handle($createBadgeCommand);
+    }
+
+    /**
+     * @param string $id
+     * @param $userId
+     *
+     * @return GetBadgeCommand
+     */
+    private function buildGetBadgeCommandByRequest($id, $userId)
+    {
+        return new GetBadgeCommand($id, $userId);
     }
 }
