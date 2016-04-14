@@ -37,8 +37,8 @@ class DeleteBadgeCommandHandler implements CommandHandler
     {
         $badge = $this->tryToFindBadge($command->badgeId());
         $this->validateBadge($badge, $command->userId());
-        $this->tryToRemoveTheImage($badge->image());
         $this->tryToRemoveTheBadge($badge);
+        $this->tryToRemoveTheImage($badge->image());
     }
 
     /**

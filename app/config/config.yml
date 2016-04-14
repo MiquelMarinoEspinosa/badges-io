@@ -117,9 +117,6 @@ nelmio_api_doc:
         #delivery: header
         #enabled:  true
         accept_type: application/hal+json
-        body_format:
-            formats: ~
-            default_format: json
         request_format:
             method: accept_header
             default_format: json

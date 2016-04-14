@@ -1,11 +1,13 @@
 <?php
 namespace App\Bundle\GamificationBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\FOSRestController;
 use Interactor\CommandHandler\CreateBadge\CreateBadgeCommand;
 use Interactor\CommandHandler\CreateBadge\ImageData\ImageData;
+use Interactor\CommandHandler\DeleteBadge\DeleteBadgeCommand;
 use Interactor\CommandHandler\GetBadge\GetBadgeCommand;
 use Interactor\CommandHandler\UpdateBadge\ImageData\ImageData as UpdateImageData;
 use Interactor\CommandHandler\CreateBadge\UserData\UserData;
@@ -229,21 +231,60 @@ class BadgeController extends FOSRestController
      */
     public function getBadgeAction($id, $userId)
     {
-        $createBadgeCommand = $this->buildGetBadgeCommandByRequest($id, $userId);
+        $getBadgeCommand = $this->buildGetBadgeCommandByRequest($id, $userId);
 
         return $this->container->get(
             'gamification.interactor.command_handler.get_badge.get_badge_command_handler'
-        )->handle($createBadgeCommand);
+        )->handle($getBadgeCommand);
     }
 
     /**
      * @param string $id
-     * @param $userId
+     * @param string $userId
      *
      * @return GetBadgeCommand
      */
     private function buildGetBadgeCommandByRequest($id, $userId)
     {
         return new GetBadgeCommand($id, $userId);
+    }
+
+    /**
+     * @ApiDoc(
+     *  description = "Create a new badge",
+     *  requirements={
+     *    {"name"="id", "dataType"="string", "format"="\s+", "description"=" Badge id", "required"="true"},
+     *    {"name"="userId", "dataType"="string", "format"="\s+", "description"=" User id", "required"="true"}
+     * },
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      500="Returned when something when wrong",
+     *  }
+     * )
+     * @Delete("/badge/{id}/{userId}")
+     */
+    public function deleteBadgeAction($id, $userId)
+    {
+        $deleteBadgeCommand = $this->buildDeleteBadgeCommandByRequest($id, $userId);
+
+        $this->container->get(
+            'gamification.interactor.command_handler.delete_badge.delete_badge_command_handler'
+        )->handle($deleteBadgeCommand);
+
+        return [
+            'status'  => "OK",
+            'message' => "The badge $id has been removed successfully"
+        ];
+    }
+
+    /**
+     * @param string $id
+     * @param string $userId
+     *
+     * @return GetBadgeCommand
+     */
+    private function buildDeleteBadgeCommandByRequest($id, $userId)
+    {
+        return new DeleteBadgeCommand($id, $userId);
     }
 }
