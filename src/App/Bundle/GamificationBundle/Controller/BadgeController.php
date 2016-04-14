@@ -75,7 +75,7 @@ class BadgeController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  description = "Create a new badge",
+     *  description = "Update a previous badge",
      *  parameters={
      *    {"name"="id", "dataType"="string", "format"="\s+", "description"=" Badge id", "required"="true"},
      *    {"name"="name", "dataType"="string", "format"="\s+", "description"=" Badge name", "required"="true"},
@@ -218,7 +218,7 @@ class BadgeController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  description = "Create a new badge",
+     *  description = "Get a by id badge",
      *  requirements={
      *    {"name"="id", "dataType"="string", "format"="\s+", "description"=" Badge id", "required"="true"},
      *    {"name"="userId", "dataType"="string", "format"="\s+", "description"=" User id", "required"="true"},
@@ -252,7 +252,7 @@ class BadgeController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  description = "Create a new badge",
+     *  description = "Delete a badge",
      *  requirements={
      *    {"name"="id", "dataType"="string", "format"="\s+", "description"=" Badge id", "required"="true"},
      *    {"name"="userId", "dataType"="string", "format"="\s+", "description"=" User id", "required"="true"}
@@ -291,7 +291,7 @@ class BadgeController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  description = "Create a new badge",
+     *  description = "Get a list of badges",
      *  requirements={
      *    {"name"="userId", "dataType"="string", "format"="\s+", "description"=" User id", "required"="true"}
      * },
