@@ -48,7 +48,9 @@ class ListBadgesCommandHandler implements CommandHandler
         $badgesByUser    = $this->tryToFindBadgesByUser($command->userId());
         $badgesMultiUser = $this->tryToFindMultiUserBadges();
 
-        return $this->badgeCollectionDataTransformer->transform(array_merge($badgesByUser, $badgesMultiUser));
+        return $this->badgeCollectionDataTransformer->transform(
+            $this->mixBadgesResult($badgesByUser, $badgesMultiUser)
+        );
     }
 
     /**
@@ -123,5 +125,31 @@ class ListBadgesCommandHandler implements CommandHandler
     private function buildListBadgesCommandHandlerException($statusCode)
     {
         return new InvalidListBadgesCommandHandlerException($statusCode);
+    }
+
+    /**
+     * @param Badge[] $badgesByUser
+     * @param Badge[] $badgesMultiUser
+     *
+     * @return array
+     */
+    private function mixBadgesResult($badgesByUser, $badgesMultiUser)
+    {
+        $badgeMultiUserHasToInclude = [];
+        $badgesByUserIds = [];
+
+        foreach ($badgesByUser as $badgeByUser) {
+            $badgesByUserIds[] = $badgeByUser->id();
+        }
+
+        foreach ($badgesMultiUser as $badgeMultiUser) {
+            if (!in_array($badgeMultiUser->id(), $badgesByUserIds)) {
+                $badgeMultiUserHasToInclude[] = $badgeMultiUser;
+            }
+        }
+
+        return array_unique(
+            array_merge($badgesByUser, $badgeMultiUserHasToInclude)
+        );
     }
 }

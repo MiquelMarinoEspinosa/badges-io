@@ -1,0 +1,11 @@
+Infrastructure\Resource\Api\Domain\Entity\Badge\BadgeApiCollectionResource:
+    exclusion_policy: ALL
+    xml_root_name: badge_list
+
+    properties:
+        badges:
+            expose: true
+            type: array<Infrastructure\Resource\Api\Domain\Entity\Badge\BadgeApiResource>
+            xml_list:
+                inline: true
+                entry_name: badge

@@ -64,7 +64,7 @@ class DoctrineBadgeRepository implements BadgeRepository
 
         return $queryBuilder
             ->where(
-                $queryBuilder->expr()->eq('isMultiUser', 1)
+                $queryBuilder->expr()->eq('badges.isMultiUser', 1)
             )->getQuery()
              ->getResult();
     }

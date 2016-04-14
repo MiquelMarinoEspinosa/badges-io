@@ -9,6 +9,7 @@ use Interactor\CommandHandler\CreateBadge\CreateBadgeCommand;
 use Interactor\CommandHandler\CreateBadge\ImageData\ImageData;
 use Interactor\CommandHandler\DeleteBadge\DeleteBadgeCommand;
 use Interactor\CommandHandler\GetBadge\GetBadgeCommand;
+use Interactor\CommandHandler\ListBadges\ListBadgesCommand;
 use Interactor\CommandHandler\UpdateBadge\ImageData\ImageData as UpdateImageData;
 use Interactor\CommandHandler\CreateBadge\UserData\UserData;
 use Interactor\CommandHandler\UpdateBadge\UserData\UserData as UpdateUserData;
@@ -281,10 +282,42 @@ class BadgeController extends FOSRestController
      * @param string $id
      * @param string $userId
      *
-     * @return GetBadgeCommand
+     * @return DeleteBadgeCommand
      */
     private function buildDeleteBadgeCommandByRequest($id, $userId)
     {
         return new DeleteBadgeCommand($id, $userId);
+    }
+
+    /**
+     * @ApiDoc(
+     *  description = "Create a new badge",
+     *  requirements={
+     *    {"name"="userId", "dataType"="string", "format"="\s+", "description"=" User id", "required"="true"}
+     * },
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      500="Returned when something when wrong",
+     *  }
+     * )
+     * @Get("/badges/list/{userId}")
+     */
+    public function getBadgesListAction($userId)
+    {
+        $listBadgesCommand = $this->buildListBadgesCommandByRequest($userId);
+
+        return $this->container->get(
+            'gamification.interactor.command_handler.list_badges.list_badges_command_handler'
+        )->handle($listBadgesCommand);
+    }
+
+    /**
+     * @param string $userId
+     *
+     * @return ListBadgesCommand
+     */
+    private function buildListBadgesCommandByRequest($userId)
+    {
+        return new ListBadgesCommand($userId);
     }
 }
