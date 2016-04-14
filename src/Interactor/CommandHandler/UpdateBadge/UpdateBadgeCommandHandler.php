@@ -69,19 +69,45 @@ class UpdateBadgeCommandHandler implements CommandHandler
     {
         $previousBadge  = $this->tryToFindBadgeByBadgeIdAndUserId($command->id(), $command->userData()->id());
         $this->removePreviousBadge($previousBadge);
-        $user           = $this->tryToFindUserByUserId($command->userData()->id());
-        $updatedImage   = $this->tryToUpdateImage($previousBadge->image()->id(), $command->imageData());
-        $updatedBadge   = $this->tryToUpdateBadge($command, $previousBadge, $user, $updatedImage);
         $this->removePreviousImage($previousBadge->image()->id());
+        $user           = $this->tryToFindUserByUserId($command->userData()->id());
+        $updatedImage   = $this->updateImage($previousBadge->image()->id(), $command->imageData());
+        $updatedBadge   = $this->tryToUpdateBadge($command, $previousBadge, $user, $updatedImage);
+
         return $this->badgeDataTransformer->transform($updatedBadge);
     }
 
     /**
      * @param Badge $previousBadge
+     *
+     * @throws InvalidUpdateBadgeCommandHandlerException
      */
     private function removePreviousBadge($previousBadge)
     {
-        $this->badgeRepository->remove($previousBadge);
+        try {
+            $this->badgeRepository->remove($previousBadge);
+        } catch (\Exception $exception) {
+            throw $this->buildInvalidUpdateBadgeCommandHandlerException(
+                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_UPDATED
+            );
+        }
+    }
+
+    /**
+     * @param int $previousImageId
+     *
+     * @throws InvalidUpdateBadgeCommandHandlerException
+     */
+    private function removePreviousImage($previousImageId)
+    {
+        try {
+            $previousImage = $this->imageRepository->find($previousImageId);
+            $this->imageRepository->remove($previousImage);
+        } catch (\Exception $exception) {
+            throw $this->buildInvalidUpdateBadgeCommandHandlerException(
+                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_UPDATED
+            );
+        }
     }
 
     /**
@@ -148,31 +174,11 @@ class UpdateBadgeCommandHandler implements CommandHandler
      * @param ImageData $imageData
      *
      * @return Image
-     * @throws InvalidUpdateBadgeCommandHandlerException
-     */
-    private function tryToUpdateImage($imageId, ImageData $imageData)
-    {
-        try {
-            $image = $this->updateImage($imageId, $imageData);
-        } catch (\Exception $exception) {
-            throw $this->buildInvalidUpdateBadgeCommandHandlerException(
-                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_UPDATED
-            );
-        }
-
-        return $image;
-    }
-
-    /**
-     * @param string $imageId
-     * @param ImageData $imageData
-     *
-     * @return Image
      */
     private function updateImage($imageId, ImageData $imageData)
     {
         return new Image(
-            $this->idGenerator->generateId(),
+            $imageId,
             $imageData->name(),
             $imageData->width(),
             $imageData->height(),
@@ -231,14 +237,5 @@ class UpdateBadgeCommandHandler implements CommandHandler
     private function buildInvalidUpdateBadgeCommandHandlerException($statusCode)
     {
         return new InvalidUpdateBadgeCommandHandlerException($statusCode);
-    }
-
-    /**
-     * @param int $previousImageId
-     */
-    private function removePreviousImage($previousImageId)
-    {
-        $previousImage = $this->imageRepository->find($previousImageId);
-        $this->imageRepository->remove($previousImage);
     }
 }

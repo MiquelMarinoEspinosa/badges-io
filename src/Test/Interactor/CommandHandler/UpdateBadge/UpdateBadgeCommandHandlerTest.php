@@ -60,6 +60,70 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function exceptionRepositoryWhenRemoveBadgeShouldThrownExceptionBadgeNotUpdatedStatusCode()
+    {
+        try {
+            $badgeRepository = $this->buildFakeBadgeRepositoryThrownException(
+                FakeBadgeRepositoryThrownException::REMOVE_THROW_EXCEPTION,
+                $this->buildDefaultBadges()
+            );
+
+            $commandHandler = $this->buildUpdateBadgeCommandHandler(
+                $this->buildUserRepository($this->buildDefaultUsers()),
+                $this->buildImageRepository(),
+                $badgeRepository,
+                $this->buildBadgeDataTransformer()
+            );
+            $commandHandler->handle($this->buildCommand(static::BADGE_ID));
+
+            $this->thisTestFails();
+        } catch (InvalidUpdateBadgeCommandHandlerException $invalidUpdateBadgeCommandHandlerException) {
+            $this->assertEquals(
+                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_UPDATED,
+                $invalidUpdateBadgeCommandHandlerException->code()
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function exceptionRepositoryWhenRemoveImageShouldThrownExceptionBadgeNotUpdatedStatusCode()
+    {
+        try {
+            $imageRepository = $this->buildFakeImageRepositoryThrownException(
+                FakeBadgeRepositoryThrownException::REMOVE_THROW_EXCEPTION,
+                [
+                    FakeImageBuilder::build(
+                        static::IMAGE_ID,
+                        static::IMAGE_NAME,
+                        static::IMAGE_WIDTH,
+                        static::IMAGE_HEIGHT,
+                        static::IMAGE_FORMAT
+                    )
+                ]
+            );
+
+            $commandHandler = $this->buildUpdateBadgeCommandHandler(
+                $this->buildUserRepository($this->buildDefaultUsers()),
+                $imageRepository,
+                $this->buildBadgeRepository($this->buildDefaultBadges()),
+                $this->buildBadgeDataTransformer()
+            );
+            $commandHandler->handle($this->buildCommand(static::BADGE_ID));
+
+            $this->thisTestFails();
+        } catch (InvalidUpdateBadgeCommandHandlerException $invalidUpdateBadgeCommandHandlerException) {
+            $this->assertEquals(
+                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_UPDATED,
+                $invalidUpdateBadgeCommandHandlerException->code()
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
     public function exceptionRepositoryWhenFindBadgeShouldThrownExceptionBadgeNotUpdatedStatusCode()
     {
         try {
@@ -186,32 +250,6 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function exceptionRepositoryWhenPersistImageShouldThrownExceptionBadgeNotUpdatedStatusCode()
-    {
-        try {
-            $imageRepository = $this->buildFakeImageRepositoryThrownException(
-                FakeImageRepositoryThrownException::PERSIST_THROW_EXCEPTION
-            );
-            $commandHandler = $this->buildUpdateBadgeCommandHandler(
-                $this->buildUserRepository($this->buildDefaultUsers()),
-                $imageRepository,
-                $this->buildBadgeRepository($this->buildDefaultBadges()),
-                $this->buildBadgeDataTransformer()
-            );
-            $commandHandler->handle($this->buildCommand());
-
-            $this->thisTestFails();
-        } catch (InvalidUpdateBadgeCommandHandlerException $invalidUpdateBadgeCommandHandlerException) {
-            $this->assertEquals(
-                InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_UPDATED,
-                $invalidUpdateBadgeCommandHandlerException->code()
-            );
-        }
-    }
-
-    /**
-     * @test
-     */
     public function exceptionRepositoryWhenPersistBadgeShouldThrownExceptionBadgeNotUpdatedStatusCode()
     {
         try {
@@ -260,7 +298,6 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             && $this->validateUserData($badge->user(), $command->userData())
             && $this->validateImageData($badge->image(), $command->imageData())
             && $this->isBadgeStillPersisted($badgeRepository, $badge)
-            && $this->isImageStillPersisted($imageRepository, $badge->image())
         );
     }
 
@@ -360,7 +397,8 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             $userRepository,
             $imageRepository,
             $badgeRepository,
-            $badgeDataTransformer
+            $badgeDataTransformer,
+            $this->buildIdGenerator()
         );
     }
 
@@ -478,7 +516,17 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
      */
     private function buildImageRepository()
     {
-        return new InMemoryImageRepository();
+        return new InMemoryImageRepository(
+            [
+                FakeImageBuilder::build(
+                    static::IMAGE_ID,
+                    static::IMAGE_NAME,
+                    static::IMAGE_WIDTH,
+                    static::IMAGE_HEIGHT,
+                    static::IMAGE_FORMAT
+                )
+            ]
+        );
     }
 
     /**
