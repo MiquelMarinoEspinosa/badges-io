@@ -12,8 +12,8 @@ class InvalidCreateBadgeCommandExceptionCode
     const MESSAGE_CODE_DESCRIPTION_NOT_PROVIDED             = 'Description not provided';
     const STATUS_CODE_DESCRIPTION_NOT_VALID_PROVIDED        = -4;
     const MESSAGE_CODE_DESCRIPTION_NOT_VALID_PROVIDED       = 'Description not valid provided';
-    const STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED          = -5;
-    const MESSAGE_CODE_IS_MULTI_TENANT_NOT_PROVIDED         = 'IsMultiTenant not provided';
-    const STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED    = -6;
-    const MESSAGE_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED   = 'IsMultiTenant not valid provided';
+    const STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED            = -5;
+    const MESSAGE_CODE_IS_MULTI_USER_NOT_PROVIDED           = 'IsMultiUser not provided';
+    const STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED      = -6;
+    const MESSAGE_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED     = 'IsMultiUser not valid provided';
 }

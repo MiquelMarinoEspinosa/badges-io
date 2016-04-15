@@ -85,7 +85,7 @@ class InvalidCreateBadgeCommandException extends BaseException
     private function isMultiTenantNotProvided()
     {
         $this->setCode(InvalidCreateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED)
-             ->setMessage(InvalidCreateBadgeCommandExceptionCode::MESSAGE_CODE_IS_MULTI_TENANT_NOT_PROVIDED);
+             ->setMessage(InvalidCreateBadgeCommandExceptionCode::MESSAGE_CODE_IS_MULTI_USER_NOT_PROVIDED);
 
         return $this;
     }
@@ -96,7 +96,7 @@ class InvalidCreateBadgeCommandException extends BaseException
     private function isMultiTenantNotValidProvided()
     {
         $this->setCode(InvalidCreateBadgeCommandExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED)
-             ->setMessage(InvalidCreateBadgeCommandExceptionCode::MESSAGE_CODE_IS_MULTI_TENANT_NOT_VALID_PROVIDED);
+             ->setMessage(InvalidCreateBadgeCommandExceptionCode::MESSAGE_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED);
 
         return $this;
     }

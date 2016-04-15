@@ -10,16 +10,33 @@ use Interactor\CommandHandler\CreateBadge\ImageData\ImageData;
 use Interactor\CommandHandler\DeleteBadge\DeleteBadgeCommand;
 use Interactor\CommandHandler\GetBadge\GetBadgeCommand;
 use Interactor\CommandHandler\ListBadges\ListBadgesCommand;
+use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandException;
+use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandHandlerException;
+use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandHandlerExceptionCode;
 use Interactor\CommandHandler\UpdateBadge\ImageData\ImageData as UpdateImageData;
 use Interactor\CommandHandler\CreateBadge\UserData\UserData;
 use Interactor\CommandHandler\UpdateBadge\UserData\UserData as UpdateUserData;
 use Interactor\CommandHandler\UpdateBadge\UpdateBadgeCommand;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class BadgeController extends FOSRestController
 {
+    const UPDATE_BADGE_MAP_HTTP_CODE_EXCEPTION = [
+        InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_FOUND =>
+            Response::HTTP_NOT_FOUND,
+        InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_FORBIDDEN =>
+            Response::HTTP_UNAUTHORIZED,
+        InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_UPDATED =>
+            Response::HTTP_INTERNAL_SERVER_ERROR,
+        InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND =>
+            Response::HTTP_NOT_FOUND,
+
+    ];
+
     /**
      * @ApiDoc(
      *  description = "Create a new badge",
@@ -122,13 +139,34 @@ class BadgeController extends FOSRestController
      */
     public function postBadgeUpdateAction(Request $request)
     {
-        $createBadgeCommand = $this->buildUpdateBadgeCommandByRequest($request);
+        try {
+            $createBadgeCommand = $this->buildUpdateBadgeCommandByRequest($request);
 
-        return $this->container->get(
-            'gamification.interactor.command_handler.update_badge.update_badge_command_handler'
-        )->handle($createBadgeCommand);
+            return $this->container->get(
+                'gamification.interactor.command_handler.update_badge.update_badge_command_handler'
+            )->handle($createBadgeCommand);
+        } catch (\Exception $applicationException) {
+            throw $this->applicationExceptionToHttpException($applicationException);
+        }
     }
 
+    /**
+     * @param \Exception $applicationException
+     *
+     * @return HttpException
+     */
+    private function applicationExceptionToHttpException(\Exception $applicationException)
+    {
+        if ($applicationException instanceof InvalidUpdateBadgeCommandException) {
+            $statusCode = Response::HTTP_BAD_REQUEST;
+        } elseif ($applicationException instanceof InvalidUpdateBadgeCommandHandlerException) {
+            $statusCode = static::UPDATE_BADGE_MAP_HTTP_CODE_EXCEPTION[$applicationException->getCode()];
+        } else {
+            $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        }
+
+        return new HttpException($statusCode, $applicationException->getMessage());
+    }
 
     /**
      * @param Request $request
