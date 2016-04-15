@@ -49,7 +49,10 @@ class ListBadgesCommandHandler implements CommandHandler
         $badgesMultiUser = $this->tryToFindMultiUserBadges();
 
         return $this->badgeCollectionDataTransformer->transform(
-            $this->mixBadgesResult($badgesByUser, $badgesMultiUser)
+            $this->mixBadgesResult(
+                $badgesByUser,
+                $badgesMultiUser
+            )
         );
     }
 
@@ -113,18 +116,7 @@ class ListBadgesCommandHandler implements CommandHandler
             );
         }
 
-
         return $badgesMultiUser;
-    }
-
-    /**
-     * @param int $statusCode
-     *
-     * @return InvalidListBadgesCommandHandlerException
-     */
-    private function buildListBadgesCommandHandlerException($statusCode)
-    {
-        return new InvalidListBadgesCommandHandlerException($statusCode);
     }
 
     /**
@@ -135,21 +127,64 @@ class ListBadgesCommandHandler implements CommandHandler
      */
     private function mixBadgesResult($badgesByUser, $badgesMultiUser)
     {
-        $badgeMultiUserHasToInclude = [];
+        $badgesByUserIds        = $this->extractBadgesByUserIds($badgesByUser);
+        $uniqueBadgesMultiUser  = $this->extractUniqueBadgesMultiUser($badgesMultiUser, $badgesByUserIds);
+
+        return array_merge($badgesByUser, $uniqueBadgesMultiUser);
+    }
+
+    /**
+     * @param Badge[] $badgesByUser
+     *
+     * @return array
+     */
+    private function extractBadgesByUserIds($badgesByUser)
+    {
         $badgesByUserIds = [];
 
         foreach ($badgesByUser as $badgeByUser) {
             $badgesByUserIds[] = $badgeByUser->id();
         }
 
+        return $badgesByUserIds;
+    }
+
+    /**
+     * @param Badge[] $badgesMultiUser
+     * @param array $badgesByUserIds
+     *
+     * @return array
+     */
+    private function extractUniqueBadgesMultiUser($badgesMultiUser, $badgesByUserIds)
+    {
+        $badgeMultiUserHasToInclude = [];
         foreach ($badgesMultiUser as $badgeMultiUser) {
-            if (!in_array($badgeMultiUser->id(), $badgesByUserIds)) {
+            if ($this->isTheBadgeUnique($badgesByUserIds, $badgeMultiUser)) {
                 $badgeMultiUserHasToInclude[] = $badgeMultiUser;
             }
         }
 
-        return array_unique(
-            array_merge($badgesByUser, $badgeMultiUserHasToInclude)
-        );
+        return $badgeMultiUserHasToInclude;
+    }
+
+    /**
+     * @param array $badgesByUserIds
+     * @param Badge $badgeMultiUser
+     *
+     * @return bool
+     */
+    private function isTheBadgeUnique($badgesByUserIds, $badgeMultiUser)
+    {
+        return !in_array($badgeMultiUser->id(), $badgesByUserIds);
+    }
+
+    /**
+     * @param int $statusCode
+     *
+     * @return InvalidListBadgesCommandHandlerException
+     */
+    private function buildListBadgesCommandHandlerException($statusCode)
+    {
+        return new InvalidListBadgesCommandHandlerException($statusCode);
     }
 }

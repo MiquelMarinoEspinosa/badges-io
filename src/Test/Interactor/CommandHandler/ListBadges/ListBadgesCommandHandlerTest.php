@@ -22,6 +22,7 @@ use Test\Domain\Entity\User\FakeUserRepositoryThrownException;
 class ListBadgesCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
     const BADGE_ID                = '1234';
+    const BADGE_ANOTHER_ID        = '4321';
     const BADGE_NAME              = 'Badge Name';
     const BADGE_DESCRIPTION       = 'BADGE_DESCRIPTION';
     const BADGE_IS_MULTI_USER     = true;
@@ -140,7 +141,7 @@ class ListBadgesCommandHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function commandHandlerWithValidParametersReturnSomeOrNoneBadges()
+    public function commandHandlerWithValidParametersReturnSomeDistinctOrNoneBadges()
     {
         $commandHandler = $this->buildListBadgesCommandHandler(
             $this->buildBadgeRepository($this->buildDefaultBadges()),
@@ -149,7 +150,10 @@ class ListBadgesCommandHandlerTest extends \PHPUnit_Framework_TestCase
         $command = $this->buildListBadgesCommand();
         $badges = $commandHandler->handle($command);
 
-        $this->assertTrue($this->validateBadges($badges, $command->userId()));
+        $this->assertTrue(
+            $this->validateBadges($badges, $command->userId())
+            && $this->validateBadgesAreDistinct($badges)
+        );
     }
 
     /**
@@ -248,7 +252,7 @@ class ListBadgesCommandHandlerTest extends \PHPUnit_Framework_TestCase
     private function buildOtherDefaultBadge()
     {
         return FakeBadgeBuilder::build(
-            static::BADGE_ID,
+            static::BADGE_ANOTHER_ID,
             static::BADGE_NAME,
             static::BADGE_DESCRIPTION,
             static::BADGE_IS_MULTI_USER,
@@ -328,11 +332,6 @@ class ListBadgesCommandHandlerTest extends \PHPUnit_Framework_TestCase
         return FakeUserBuilder::build($id, $email, $username, $passWord);
     }
 
-    private function thisTestFails()
-    {
-        $this->assertTrue(false);
-    }
-
     /**
      * @param Badge[] $badges
      * @param string $userId
@@ -371,5 +370,31 @@ class ListBadgesCommandHandlerTest extends \PHPUnit_Framework_TestCase
     private function userIsNotTheOwner(Badge $badge, $userId)
     {
         return $badge->user()->id() !== $userId;
+    }
+
+    /**
+     * @param Badge[] $badges
+     *
+     * @return bool
+     */
+    private function validateBadgesAreDistinct($badges)
+    {
+        $someBadgesAreTheSame = false;
+        $allBadgesAreDistinct = true;
+        $visitedBadges = [];
+        foreach ($badges as $aBadge) {
+            if (in_array($aBadge->id(), $visitedBadges)) {
+                return $someBadgesAreTheSame;
+            }
+
+            $visitedBadges[] = $aBadge->id();
+        }
+
+        return $allBadgesAreDistinct;
+    }
+
+    private function thisTestFails()
+    {
+        $this->assertTrue(false);
     }
 }
