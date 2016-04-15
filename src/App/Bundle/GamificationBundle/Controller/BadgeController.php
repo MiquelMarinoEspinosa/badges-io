@@ -16,6 +16,7 @@ use Interactor\CommandHandler\UpdateBadge\UserData\UserData as UpdateUserData;
 use Interactor\CommandHandler\UpdateBadge\UpdateBadgeCommand;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class BadgeController extends FOSRestController
 {
@@ -272,9 +273,55 @@ class BadgeController extends FOSRestController
             'gamification.interactor.command_handler.delete_badge.delete_badge_command_handler'
         )->handle($deleteBadgeCommand);
 
+        return $this->buildDeleteMessageResponse($id, $userId);
+    }
+
+    /**
+     * @param string $id
+     * @param string $userId
+     *
+     * @return array
+     */
+    private function buildDeleteMessageResponse($id, $userId)
+    {
         return [
             'status'  => "OK",
-            'message' => "The badge $id has been removed successfully"
+            'message' => "The badge $id has been removed successfully",
+            '_links'  => $this->buildDeleteLinksResources($id, $userId)
+        ];
+    }
+
+    /**
+     * @param string $id
+     * @param string $userId
+     *
+     * @return array
+     */
+    private function buildDeleteLinksResources($id, $userId)
+    {
+        $mandatoryParameters = $this->buildDeleteLinksMandatoryParameters($id, $userId);
+        $absoluteUrl         = UrlGeneratorInterface::ABSOLUTE_URL;
+
+        return  [
+            'self'          => ['href' => $this->generateUrl('delete_badge', $mandatoryParameters, $absoluteUrl)],
+            'create_badge'  => ['href' => $this->generateUrl('post_badge_create', [], $absoluteUrl)],
+            'get_badge'     => ['href' => $this->generateUrl('get_badge', $mandatoryParameters, $absoluteUrl)],
+            'update_badge'  => ['href' => $this->generateUrl('post_badge_update', [], $absoluteUrl)],
+            'list_badges'   => ['href' => $this->generateUrl('get_badges_list', $mandatoryParameters, $absoluteUrl)],
+        ];
+    }
+
+    /**
+     * @param string $id
+     * @param string $userId
+     *
+     * @return array
+     */
+    private function buildDeleteLinksMandatoryParameters($id, $userId)
+    {
+        return $mandatoryParameters = [
+            'id' => $id,
+            'userId' => $userId
         ];
     }
 
