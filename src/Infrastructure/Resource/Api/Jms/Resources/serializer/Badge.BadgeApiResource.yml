@@ -27,7 +27,7 @@ Infrastructure\Resource\Api\Domain\Entity\Badge\BadgeApiResource:
                 content: expr(object.imageResource())
 
         -
-            rel: badge:user
-            title: Badge User
+            rel: badge:owner
+            title: Badge Owner
             embedded:
                 content: expr(object.userResource())
