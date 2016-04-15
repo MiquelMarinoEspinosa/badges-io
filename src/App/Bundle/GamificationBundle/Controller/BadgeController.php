@@ -218,7 +218,7 @@ class BadgeController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  description = "Get a by id badge",
+     *  description = "Get a badge by Badge Id",
      *  requirements={
      *    {"name"="id", "dataType"="string", "format"="\s+", "description"=" Badge id", "required"="true"},
      *    {"name"="userId", "dataType"="string", "format"="\s+", "description"=" User id", "required"="true"},
@@ -291,7 +291,7 @@ class BadgeController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  description = "Get a list of badges",
+     *  description = "Get a list of badges by User Id",
      *  requirements={
      *    {"name"="userId", "dataType"="string", "format"="\s+", "description"=" User id", "required"="true"}
      * },
