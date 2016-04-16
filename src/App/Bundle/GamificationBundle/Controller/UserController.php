@@ -2,6 +2,7 @@
 
 namespace App\Bundle\GamificationBundle\Controller;
 
+use App\Bundle\GamificationBundle\Controller\HttpExceptionManager\UserHttpExceptionManager;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\FOSRestController;
 use Interactor\CommandHandler\LogIn\LogInCommand;
@@ -22,19 +23,27 @@ class UserController extends FOSRestController
      *  },
      *  statusCodes={
      *      200="Returned when successful",
-     *      500="Returned when something when wrong",
+     *      400="Returned when some required parameter is missing or the format its is not correct or
+            email / username already exists",
+     *      500="Returned when something when wrong"
      *  }
      * )
      * @Put("/user/signin")
      */
     public function putUserSignInAction(Request $request)
     {
-        $signInCommand = $this->buildSignInCommandByRequest($request);
+        try {
+            $signInCommand = $this->buildSignInCommandByRequest($request);
 
-        return $this->container->get(
-            'gamification.interactor.command_handler.sign_in.sign_in_command_handler'
-        )->handle($signInCommand);
+            return $this->container->get(
+                'gamification.interactor.command_handler.sign_in.sign_in_command_handler'
+            )->handle($signInCommand);
+        } catch (\Exception $applicationException) {
+            throw $this->buildUserHttpExceptionManager()
+                ->applicationSignInExceptionToHttpException($applicationException);
+        }
     }
+
 
     /**
      * @param Request $request
@@ -61,17 +70,25 @@ class UserController extends FOSRestController
      *  },
      *  statusCodes={
      *      200="Returned when successful",
-     *      500="Returned when something when wrong",
+     *      400="Returned when some required parameter is missing or the format its is not correct",
+     *      404="User not found",
+     *      403="Login failed",
+     *      500="Returned when something when wrong"
      *  }
      * )
      */
     public function putUserLoginAction(Request $request)
     {
-        $logInCommand = $this->buildLogInCommandByRequest($request);
+        try {
+            $logInCommand = $this->buildLogInCommandByRequest($request);
 
-        return $this->container->get(
-            'gamification.interactor.command_handler.log_in.log_in_command_handler'
-        )->handle($logInCommand);
+            return $this->container->get(
+                'gamification.interactor.command_handler.log_in.log_in_command_handler'
+            )->handle($logInCommand);
+        } catch (\Exception $applicationException) {
+            throw $this->buildUserHttpExceptionManager()
+                ->applicationLoginExceptionToHttpException($applicationException);
+        }
     }
 
     /**
@@ -86,6 +103,16 @@ class UserController extends FOSRestController
         return new LogInCommand(
             $userId,
             $request->get('password')
+        );
+    }
+
+    /**
+     * @return UserHttpExceptionManager
+     */
+    private function buildUserHttpExceptionManager()
+    {
+        return $this->container->get(
+            'gamification.app.bundle.gamification_bundle.controller.http_exception.manager.user_http_exception_manager'
         );
     }
 }
