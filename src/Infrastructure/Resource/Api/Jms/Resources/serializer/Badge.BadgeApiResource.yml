@@ -22,6 +22,16 @@ Infrastructure\Resource\Api\Domain\Entity\Badge\BadgeApiResource:
     relations:
         -
             rel: self
+            title: Get the badge
+            href:
+                route: get_badge
+                absolute: true
+                parameters:
+                    id: expr(object.id())
+                    userId: expr(object.userResource().id())
+
+        -
+            rel: create_badge
             title: Create a new badge
             href:
                 route: post_badge_create
@@ -37,15 +47,6 @@ Infrastructure\Resource\Api\Domain\Entity\Badge\BadgeApiResource:
                     id: expr(object.id())
                     userId: expr(object.userResource().id())
 
-        -
-            rel: get_badge
-            title: Get the badge
-            href:
-                route: get_badge
-                absolute: true
-                parameters:
-                    id: expr(object.id())
-                    userId: expr(object.userResource().id())
         -
             rel: update_badge
             title: Get the badge

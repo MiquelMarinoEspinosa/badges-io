@@ -14,3 +14,18 @@ Infrastructure\Resource\Api\Domain\Entity\User\UserApiResource:
         email:
             expose: true
             type: string
+
+    relations:
+        -
+            rel: login
+            title: Login into the system
+            href:
+                route: put_user_login
+                absolute: true
+
+        -
+            rel: signin
+            title: Sign in to the system
+            href:
+                route: put_user_sign_in
+                absolute: true
