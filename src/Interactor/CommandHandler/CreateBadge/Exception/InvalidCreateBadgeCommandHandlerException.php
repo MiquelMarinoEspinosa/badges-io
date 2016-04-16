@@ -40,7 +40,7 @@ class InvalidCreateBadgeCommandHandlerException extends BaseException
     private function tenantNotFound()
     {
         $this->setCode(InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_FOUND)
-             ->setMessage(InvalidCreateBadgeCommandHandlerExceptionCode::MESSAGE_CODE_TENANT_NOT_FOUND);
+             ->setMessage(InvalidCreateBadgeCommandHandlerExceptionCode::MESSAGE_CODE_USER_NOT_FOUND);
 
         return $this;
     }
