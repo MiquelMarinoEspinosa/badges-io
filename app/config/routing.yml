@@ -1,6 +1,6 @@
 main:
     type: rest
-    resource: "@GamificationBundle/Resources/config/gamification-routes.xml"
+    resource: "@GamificationCoreBundle/Resources/config/api-routes/gamification-api-routes.xml"
     prefix: api
 
 NelmioApiDocBundle:
