@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bundle\GamificationBundle\Controller\HttpExceptionManager;
+namespace App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager;
 
 use Interactor\CommandHandler\LogIn\Exception\InvalidLogInCommandException;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerException;
@@ -11,7 +11,7 @@ use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerExcept
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class UserHttpExceptionManager
+class UserApiHttpExceptionManager
 {
     const SIGN_IN_MAP_HTTP_CODE_EXCEPTION = [
         InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED =>

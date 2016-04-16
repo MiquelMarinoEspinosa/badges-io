@@ -1,7 +1,8 @@
 <?php
-namespace App\Bundle\GamificationBundle\Controller;
+namespace App\Bundle\GamificationApiBundle\Controller;
 
-use App\Bundle\GamificationBundle\Controller\HttpExceptionManager\BadgeHttpExceptionManager;
+
+use App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\BadgeApiHttpExceptionManager;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
@@ -19,7 +20,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class BadgeController extends FOSRestController
+class BadgeApiController extends FOSRestController
 {
 
     /**
@@ -407,12 +408,14 @@ class BadgeController extends FOSRestController
     }
 
     /**
-     * @return BadgeHttpExceptionManager
+     * @return BadgeApiHttpExceptionManager
      */
     private function buildBadgeHttpExceptionManager()
     {
+        // @codingStandardsIgnoreStart
         return $this->container->get(
-            'gamification.app.bundle.gamification_bundle.controller.http_exception.manager.badge_http_exception_manager'
+            'gamification.app.bundle.gamification_api_bundle.controller.api_http_exception_manager.badge_api_http_exception_manager'
         );
+        // @codingStandardsIgnoreEnd
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bundle\GamificationBundle\Controller\HttpExceptionManager;
+namespace App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandException;
@@ -20,7 +20,7 @@ use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandHan
 use Interactor\CommandHandler\UpdateBadge\Exception\InvalidUpdateBadgeCommandHandlerExceptionCode;
 use Symfony\Component\HttpFoundation\Response;
 
-class BadgeHttpExceptionManager
+class BadgeApiHttpExceptionManager
 {
     const UPDATE_BADGE_MAP_HTTP_CODE_EXCEPTION = [
         InvalidUpdateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_FOUND =>

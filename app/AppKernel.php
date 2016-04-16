@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
 
-            new App\Bundle\GamificationBundle\GamificationBundle(),
+            new App\Bundle\GamificationApiBundle\GamificationApiBundle(),
             new App\Bundle\GamificationCoreBundle\GamificationCoreBundle()
         ];
 

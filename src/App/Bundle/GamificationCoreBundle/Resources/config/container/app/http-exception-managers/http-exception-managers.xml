@@ -5,11 +5,11 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="gamification.app.bundle.gamification_bundle.controller.http_exception.manager.user_http_exception_manager"
-                 class="App\Bundle\GamificationBundle\Controller\HttpExceptionManager\UserHttpExceptionManager">
+        <service id="gamification.app.bundle.gamification_api_bundle.controller.api_http_exception_manager.user_api_http_exception_manager"
+                 class="App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\UserApiHttpExceptionManager">
         </service>
-        <service id="gamification.app.bundle.gamification_bundle.controller.http_exception.manager.badge_http_exception_manager"
-                 class="App\Bundle\GamificationBundle\Controller\HttpExceptionManager\BadgeHttpExceptionManager">
+        <service id="gamification.app.bundle.gamification_api_bundle.controller.api_http_exception_manager.badge_api_http_exception_manager"
+                 class="App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\BadgeApiHttpExceptionManager">
         </service>
     </services>
 

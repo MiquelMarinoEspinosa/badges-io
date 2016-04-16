@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Bundle\GamificationBundle\Controller;
+namespace App\Bundle\GamificationApiBundle\Controller;
 
-use App\Bundle\GamificationBundle\Controller\HttpExceptionManager\UserHttpExceptionManager;
+use App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\UserApiHttpExceptionManager;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\FOSRestController;
 use Interactor\CommandHandler\LogIn\LogInCommand;
@@ -10,7 +10,7 @@ use Interactor\CommandHandler\SignIn\SignInCommand;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 
-class UserController extends FOSRestController
+class UserApiController extends FOSRestController
 {
     /**
      * @ApiDoc(
@@ -107,12 +107,14 @@ class UserController extends FOSRestController
     }
 
     /**
-     * @return UserHttpExceptionManager
+     * @return UserApiHttpExceptionManager
      */
     private function buildUserHttpExceptionManager()
     {
+        // @codingStandardsIgnoreStart
         return $this->container->get(
-            'gamification.app.bundle.gamification_bundle.controller.http_exception.manager.user_http_exception_manager'
+            'gamification.app.bundle.gamification_api_bundle.controller.api_http_exception_manager.user_api_http_exception_manager'
         );
+        // @codingStandardsIgnoreEnd
     }
 }
