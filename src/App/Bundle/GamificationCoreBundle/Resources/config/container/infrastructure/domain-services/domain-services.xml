@@ -12,6 +12,10 @@
         <service id="gamification.infrastructure.services.domain.password_cipher.md5_password_cipher"
                  class="Infrastructure\Services\Domain\PasswordCipher\Md5PasswordCipher">
         </service>
+
+        <service id="gamification.infrastructure.services.domain.image_manager.disk_image_manager"
+                 class="Infrastructure\Services\Domain\ImageManager\DiskImageManager">
+        </service>
     </services>
 
 </container>

@@ -123,7 +123,8 @@ class BadgeApiController extends FOSRestController
             $request->get('imageName'),
             (int) $request->get('imageWidth'),
             (int) $request->get('imageHeight'),
-            $request->get('imageFormat')
+            $request->get('imageFormat'),
+            $request->files->get('imageFile')->getPathname()
         );
     }
 

@@ -10,6 +10,7 @@ use Domain\Entity\Image\ImageRepository;
 use Domain\Entity\User\User;
 use Domain\Entity\User\UserRepository;
 use Domain\Service\IdGenerator;
+use Domain\Service\ImageManager;
 use Interactor\CommandHandler\CommandHandler;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandHandlerException;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandHandlerExceptionCode;
@@ -37,19 +38,25 @@ class CreateBadgeCommandHandler implements CommandHandler
      * @var BadgeDataTransformer
      */
     private $badgeDataTransformer;
+    /**
+     * @var ImageManager
+     */
+    private $imageManager;
 
     public function __construct(
-        UserRepository $userRepository,
-        ImageRepository $imageRepository,
-        BadgeRepository $badgeRepository,
-        IdGenerator $idGenerator,
-        BadgeDataTransformer $badgeDataTransformer
+        UserRepository          $userRepository,
+        ImageRepository         $imageRepository,
+        BadgeRepository         $badgeRepository,
+        IdGenerator             $idGenerator,
+        ImageManager            $imageManager,
+        BadgeDataTransformer    $badgeDataTransformer
     ) {
         $this->userRepository       = $userRepository;
         $this->imageRepository      = $imageRepository;
         $this->badgeRepository      = $badgeRepository;
         $this->idGenerator          = $idGenerator;
         $this->badgeDataTransformer = $badgeDataTransformer;
+        $this->imageManager         = $imageManager;
     }
 
     /**
@@ -102,6 +109,18 @@ class CreateBadgeCommandHandler implements CommandHandler
     private function tryToPersistImage($imageData)
     {
         $image = $this->buildImage($imageData);
+        $this->tryToPersistImageData($image);
+        $this->tryToPersistImageToPath($imageData, $image->id());
+
+        return $image;
+    }
+
+    /**
+     * @param Image$image
+     * @throws InvalidCreateBadgeCommandHandlerException
+     */
+    private function tryToPersistImageData(Image $image)
+    {
         try {
             $this->imageRepository->persist($image);
         } catch (\Exception $exception) {
@@ -109,8 +128,23 @@ class CreateBadgeCommandHandler implements CommandHandler
                 InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_CREATED
             );
         }
+    }
 
-        return $image;
+    /**
+     * @param ImageData $imageData
+     * @param string $imageId
+     *
+     * @throws InvalidCreateBadgeCommandHandlerException
+     */
+    private function tryToPersistImageToPath(ImageData $imageData, $imageId)
+    {
+        try {
+            $this->imageManager->upload($imageData->path(), $imageId, $imageData->format());
+        } catch (\Exception $exception) {
+            throw $this->buildInvalidCreateBadgeCommandHandlerException(
+                InvalidCreateBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_CREATED
+            );
+        }
     }
 
     /**
