@@ -2,6 +2,10 @@
 
 namespace App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager;
 
+use Interactor\CommandHandler\CreateBadge\ImageData\Exception\InvalidImageDataException;
+use Interactor\CommandHandler\CreateBadge\UserData\Exception\InvalidUserDataException;
+use Interactor\CommandHandler\UpdateBadge\ImageData\Exception\InvalidImageDataException as InvalidUpdateImageDataException;
+use Interactor\CommandHandler\UpdateBadge\UserData\Exception\InvalidUserDataException as InvalidUpdateUserDataException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandException;
 use Interactor\CommandHandler\CreateBadge\Exception\InvalidCreateBadgeCommandHandlerException;
@@ -70,7 +74,10 @@ class BadgeApiHttpExceptionManager
      */
     public function applicationCreateBadgeExceptionToHttpException(\Exception $applicationException)
     {
-        if ($applicationException instanceof InvalidCreateBadgeCommandException) {
+        if ($applicationException instanceof InvalidCreateBadgeCommandException
+            || $applicationException instanceof InvalidImageDataException
+            || $applicationException instanceof InvalidUserDataException
+        ) {
             $statusCode = Response::HTTP_BAD_REQUEST;
         } elseif ($applicationException instanceof InvalidCreateBadgeCommandHandlerException) {
             $statusCode = static::CREATE_BADGE_MAP_HTTP_CODE_EXCEPTION[$applicationException->getCode()];
@@ -88,7 +95,10 @@ class BadgeApiHttpExceptionManager
      */
     public function applicationUpdateBadgeExceptionToHttpException(\Exception $applicationException)
     {
-        if ($applicationException instanceof InvalidUpdateBadgeCommandException) {
+        if ($applicationException instanceof InvalidUpdateBadgeCommandException
+            || $applicationException instanceof InvalidUpdateImageDataException
+            || $applicationException instanceof InvalidUpdateUserDataException
+        ) {
             $statusCode = Response::HTTP_BAD_REQUEST;
         } elseif ($applicationException instanceof InvalidUpdateBadgeCommandHandlerException) {
             $statusCode = static::UPDATE_BADGE_MAP_HTTP_CODE_EXCEPTION[$applicationException->getCode()];
