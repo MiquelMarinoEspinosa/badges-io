@@ -6,7 +6,7 @@ use App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\UserApiH
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\FOSRestController;
 use Interactor\CommandHandler\LogIn\LogInCommand;
-use Interactor\CommandHandler\SignIn\SignInCommand;
+use Interactor\CommandHandler\SignUp\SignUpCommand;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,19 +28,19 @@ class UserApiController extends FOSRestController
      *      500="Returned when something when wrong"
      *  }
      * )
-     * @Put("/user/signin")
+     * @Put("/user/signup")
      */
-    public function putUserSignInAction(Request $request)
+    public function putUserSignUpAction(Request $request)
     {
         try {
-            $signInCommand = $this->buildSignInCommandByRequest($request);
+            $signUpCommand = $this->buildSignUpCommandByRequest($request);
 
             return $this->container->get(
-                'gamification.interactor.command_handler.sign_in.sign_in_command_handler'
-            )->handle($signInCommand);
+                'gamification.interactor.command_handler.sign_up.sign_up_command_handler'
+            )->handle($signUpCommand);
         } catch (\Exception $applicationException) {
             throw $this->buildUserHttpExceptionManager()
-                ->applicationSignInExceptionToHttpException($applicationException);
+                ->applicationSignUpExceptionToHttpException($applicationException);
         }
     }
 
@@ -48,11 +48,11 @@ class UserApiController extends FOSRestController
     /**
      * @param Request $request
      *
-     * @return SignInCommand
+     * @return SignUpCommand
      */
-    private function buildSignInCommandByRequest(Request $request)
+    private function buildSignUpCommandByRequest(Request $request)
     {
-        return new SignInCommand(
+        return new SignUpCommand(
             $request->get('email'),
             $request->get('username'),
             $request->get('password')

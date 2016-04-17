@@ -1,8 +1,8 @@
 <?php
 
-namespace Interactor\CommandHandler\SignIn\Exception;
+namespace Interactor\CommandHandler\SignUp\Exception;
 
-class InvalidSignInCommandHandlerExceptionCode
+class InvalidSignUpCommandHandlerExceptionCode
 {
     const STATUS_CODE_USER_NOT_CREATED          = -1;
     const MESSAGE_CODE_USER_NOT_CREATED         = 'User not created';

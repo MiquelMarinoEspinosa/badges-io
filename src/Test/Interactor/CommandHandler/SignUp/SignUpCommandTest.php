@@ -1,12 +1,12 @@
 <?php
 
-namespace Test\Interactor\CommandHandler\SignIn;
+namespace Test\Interactor\CommandHandler\SignUp;
 
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandException;
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandExceptionCode;
-use Interactor\CommandHandler\SignIn\SignInCommand;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandException;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandExceptionCode;
+use Interactor\CommandHandler\SignUp\SignUpCommand;
 
-class SignInCommandTest extends \PHPUnit_Framework_TestCase
+class SignUpCommandTest extends \PHPUnit_Framework_TestCase
 {
     const EMAIL_NOT_VALID_TEST              = 'test';
     const EMAIL_VALID_TEST_BADGES_IO_COM    = 'test@badges-io.com';
@@ -28,9 +28,9 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
             $aNullPassWord = null;
             $this->buildCommand($aNullEmail, $aNullUserName, $aNullPassWord);
             $this->thisTestFails();
-        } catch (InvalidSignInCommandException $invalidCommandException) {
+        } catch (InvalidSignUpCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_EMAIL_NOT_PROVIDED,
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_EMAIL_NOT_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -46,9 +46,9 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
             $aNullPassWord = null;
             $this->buildCommand(static::EMAIL_NOT_VALID_TEST, $aNullUserName, $aNullPassWord);
             $this->thisTestFails();
-        } catch (InvalidSignInCommandException $invalidCommandException) {
+        } catch (InvalidSignUpCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_EMAIL_NOT_VALID_PROVIDED,
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_EMAIL_NOT_VALID_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -64,9 +64,9 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
             $aNullPassWord = null;
             $this->buildCommand(static::EMAIL_VALID_TEST_BADGES_IO_COM, $aNullUserName, $aNullPassWord);
             $this->thisTestFails();
-        } catch (InvalidSignInCommandException $invalidCommandException) {
+        } catch (InvalidSignUpCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_PROVIDED,
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_USERNAME_NOT_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -85,9 +85,9 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullPassWord
             );
             $this->thisTestFails();
-        } catch (InvalidSignInCommandException $invalidCommandException) {
+        } catch (InvalidSignUpCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED,
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -106,9 +106,9 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullPassWord
             );
             $this->thisTestFails();
-        } catch (InvalidSignInCommandException $invalidCommandException) {
+        } catch (InvalidSignUpCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED,
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -127,9 +127,9 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullPassWord
             );
             $this->thisTestFails();
-        } catch (InvalidSignInCommandException $invalidCommandException) {
+        } catch (InvalidSignUpCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_PROVIDED,
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -146,9 +146,9 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
                 static::USERNAME_VALID_BADGES_USER,
                 static::PASSWORD_NOT_VALID_EMPTY
             );
-        } catch (InvalidSignInCommandException $invalidCommandException) {
+        } catch (InvalidSignUpCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED,
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -165,9 +165,9 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
                 static::USERNAME_VALID_BADGES_USER,
                 static::PASSWORD_NOT_VALID_FLOAT
             );
-        } catch (InvalidSignInCommandException $invalidCommandException) {
+        } catch (InvalidSignUpCommandException $invalidCommandException) {
             $this->assertEquals(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED,
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED,
                 $invalidCommandException->code()
             );
         }
@@ -196,11 +196,11 @@ class SignInCommandTest extends \PHPUnit_Framework_TestCase
      * @param string $userName
      * @param string $passWord
      *
-     * @return SignInCommand
+     * @return SignUpCommand
      */
     private function buildCommand($email, $userName, $passWord)
     {
-        return new SignInCommand($email, $userName, $passWord);
+        return new SignUpCommand($email, $userName, $passWord);
     }
 
     private function thisTestFails()

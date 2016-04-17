@@ -24,8 +24,8 @@ Infrastructure\Resource\Api\Domain\Entity\User\UserApiResource:
                 absolute: true
 
         -
-            rel: signin
+            rel: signup
             title: Sign in to the system
             href:
-                route: put_user_sign_in
+                route: put_user_sign_up
                 absolute: true

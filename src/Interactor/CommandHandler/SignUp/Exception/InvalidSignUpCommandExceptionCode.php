@@ -1,8 +1,8 @@
 <?php
 
-namespace Interactor\CommandHandler\SignIn\Exception;
+namespace Interactor\CommandHandler\SignUp\Exception;
 
-class InvalidSignInCommandExceptionCode
+class InvalidSignUpCommandExceptionCode
 {
     const STATUS_CODE_EMAIL_NOT_PROVIDED            = -1;
     const MESSAGE_CODE_EMAIL_NOT_PROVIDED           = 'Email not provided';

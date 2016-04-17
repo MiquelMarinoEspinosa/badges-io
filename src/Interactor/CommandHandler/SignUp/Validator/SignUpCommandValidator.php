@@ -1,20 +1,20 @@
 <?php
 
-namespace Interactor\CommandHandler\SignIn\Validator;
+namespace Interactor\CommandHandler\SignUp\Validator;
 
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandException;
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandExceptionCode;
-use Interactor\CommandHandler\SignIn\SignInCommand;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandException;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandExceptionCode;
+use Interactor\CommandHandler\SignUp\SignUpCommand;
 use Interactor\Validator\Validator;
 
-class SignInCommandValidator implements Validator
+class SignUpCommandValidator implements Validator
 {
     /**
-     * @var SignInCommand
+     * @var SignUpCommand
      */
     private $singInCommand;
 
-    public function __construct(SignInCommand $singInCommand)
+    public function __construct(SignUpCommand $singInCommand)
     {
         $this->singInCommand = $singInCommand;
     }
@@ -27,8 +27,8 @@ class SignInCommandValidator implements Validator
     }
 
     /**
-     * @return SignInCommandValidator
-     * @throws InvalidSignInCommandException
+     * @return SignUpCommandValidator
+     * @throws InvalidSignUpCommandException
      */
     private function validateEmail()
     {
@@ -39,15 +39,15 @@ class SignInCommandValidator implements Validator
     }
 
     /**
-     * @return SignInCommandValidator
-     * @throws InvalidSignInCommandException
+     * @return SignUpCommandValidator
+     * @throws InvalidSignUpCommandException
      */
     private function checkEmailNotNull()
     {
         $aNullEmail = null;
         if ($aNullEmail === $this->singInCommand->email()) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_EMAIL_NOT_PROVIDED
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_EMAIL_NOT_PROVIDED
             );
         }
 
@@ -55,14 +55,14 @@ class SignInCommandValidator implements Validator
     }
 
     /**
-     * @return SignInCommandValidator
-     * @throws InvalidSignInCommandException
+     * @return SignUpCommandValidator
+     * @throws InvalidSignUpCommandException
      */
     private function checkEmailFormat()
     {
         if ($this->notValidEmailFormat($this->singInCommand->email())) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_EMAIL_NOT_VALID_PROVIDED
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_EMAIL_NOT_VALID_PROVIDED
             );
         }
 
@@ -80,8 +80,8 @@ class SignInCommandValidator implements Validator
     }
 
     /**
-     * @return SignInCommandValidator
-     * @throws InvalidSignInCommandException
+     * @return SignUpCommandValidator
+     * @throws InvalidSignUpCommandException
      */
     private function validateUserName()
     {
@@ -92,15 +92,15 @@ class SignInCommandValidator implements Validator
     }
 
     /**
-     * @return SignInCommandValidator
-     * @throws InvalidSignInCommandException
+     * @return SignUpCommandValidator
+     * @throws InvalidSignUpCommandException
      */
     private function checkUserNameNotNull()
     {
         $aNullUserName = null;
         if ($aNullUserName === $this->singInCommand->userName()) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_PROVIDED
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_USERNAME_NOT_PROVIDED
             );
         }
 
@@ -108,14 +108,14 @@ class SignInCommandValidator implements Validator
     }
 
     /**
-     * @return SignInCommandValidator
-     * @throws InvalidSignInCommandException
+     * @return SignUpCommandValidator
+     * @throws InvalidSignUpCommandException
      */
     private function checkUserNameFormat()
     {
         if ($this->notValidUserNameFormat($this->singInCommand->userName())) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_USERNAME_NOT_VALID_PROVIDED
             );
         }
 
@@ -133,8 +133,8 @@ class SignInCommandValidator implements Validator
     }
 
     /**
-     * @return SignInCommandValidator
-     * @throws InvalidSignInCommandException
+     * @return SignUpCommandValidator
+     * @throws InvalidSignUpCommandException
      */
     private function validatePassWord()
     {
@@ -145,15 +145,15 @@ class SignInCommandValidator implements Validator
     }
 
     /**
-     * @return SignInCommandValidator
-     * @throws InvalidSignInCommandException
+     * @return SignUpCommandValidator
+     * @throws InvalidSignUpCommandException
      */
     private function validatePassWordNotNull()
     {
         $aNullPassWord = null;
         if ($aNullPassWord === $this->singInCommand->passWord()) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_PROVIDED
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_PROVIDED
             );
         }
 
@@ -161,14 +161,14 @@ class SignInCommandValidator implements Validator
     }
 
     /**
-     * @return SignInCommandValidator
-     * @throws InvalidSignInCommandException
+     * @return SignUpCommandValidator
+     * @throws InvalidSignUpCommandException
      */
     private function validatePassWordFormat()
     {
         if ($this->notValidPassWordFormat($this->singInCommand->passWord())) {
             throw $this->buildInvalidCommandException(
-                InvalidSignInCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED
+                InvalidSignUpCommandExceptionCode::STATUS_CODE_PASSWORD_NOT_VALID_PROVIDED
             );
         }
 
@@ -188,10 +188,10 @@ class SignInCommandValidator implements Validator
     /**
      * @param int $statusCode
      *
-     * @return InvalidSignInCommandException
+     * @return InvalidSignUpCommandException
      */
     private function buildInvalidCommandException($statusCode)
     {
-        return new InvalidSignInCommandException($statusCode);
+        return new InvalidSignUpCommandException($statusCode);
     }
 }

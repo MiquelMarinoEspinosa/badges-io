@@ -1,6 +1,6 @@
 <?php
 
-namespace Interactor\CommandHandler\SignIn;
+namespace Interactor\CommandHandler\SignUp;
 
 use Domain\Service\IdGenerator;
 use Domain\Entity\User\User;
@@ -8,10 +8,10 @@ use Domain\Entity\User\UserDataTransformer;
 use Domain\Entity\User\UserRepository;
 use Domain\Service\PasswordCipher;
 use Interactor\CommandHandler\CommandHandler;
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerException;
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandHandlerException;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandHandlerExceptionCode;
 
-class SignInCommandHandler implements CommandHandler
+class SignUpCommandHandler implements CommandHandler
 {
     /**
      * @var UserRepository
@@ -43,10 +43,10 @@ class SignInCommandHandler implements CommandHandler
     }
 
     /**
-     * @param SignInCommand $command
+     * @param SignUpCommand $command
      *
      * @return mixed
-     * @throws InvalidSignInCommandHandlerException
+     * @throws InvalidSignUpCommandHandlerException
      */
     public function handle($command)
     {
@@ -58,9 +58,9 @@ class SignInCommandHandler implements CommandHandler
     }
 
     /**
-     * @param SignInCommand $command
+     * @param SignUpCommand $command
      *
-     * @throws InvalidSignInCommandHandlerException
+     * @throws InvalidSignUpCommandHandlerException
      */
     private function validate($command)
     {
@@ -71,7 +71,7 @@ class SignInCommandHandler implements CommandHandler
     /**
      * @param string $email
      *
-     * @throws InvalidSignInCommandHandlerException
+     * @throws InvalidSignUpCommandHandlerException
      */
     private function checkNoUserExistsWithThisEmail($email)
     {
@@ -85,7 +85,7 @@ class SignInCommandHandler implements CommandHandler
 
         if ($aNullUser !== $user) {
             throw $this->buildInvalidSigInCommandHandlerException(
-                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_EMAIL_ALREADY_EXISTS
+                InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_EMAIL_ALREADY_EXISTS
             );
         }
     }
@@ -93,7 +93,7 @@ class SignInCommandHandler implements CommandHandler
     /**
      * @param string $userName
      *
-     * @throws InvalidSignInCommandHandlerException
+     * @throws InvalidSignUpCommandHandlerException
      */
     private function checkNoUserExistsWithThisUserName($userName)
     {
@@ -107,13 +107,13 @@ class SignInCommandHandler implements CommandHandler
 
         if ($aNullUser !== $user) {
             throw $this->buildInvalidSigInCommandHandlerException(
-                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USERNAME_ALREADY_EXISTS
+                InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_USERNAME_ALREADY_EXISTS
             );
         }
     }
 
     /**
-     * @param SignInCommand $command
+     * @param SignUpCommand $command
      *
      * @return User
      */
@@ -140,23 +140,23 @@ class SignInCommandHandler implements CommandHandler
     }
 
     /**
-     * @throws InvalidSignInCommandHandlerException
+     * @throws InvalidSignUpCommandHandlerException
      */
     private function throwUserNotCreatedException()
     {
         throw $this->buildInvalidSigInCommandHandlerException(
-            InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED
+            InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED
         );
     }
 
     /**
      * @param int $statusCode
      *
-     * @return InvalidSignInCommandHandlerException
+     * @return InvalidSignUpCommandHandlerException
      */
     private function buildInvalidSigInCommandHandlerException($statusCode)
     {
-        return new InvalidSignInCommandHandlerException(
+        return new InvalidSignUpCommandHandlerException(
             $statusCode
         );
     }

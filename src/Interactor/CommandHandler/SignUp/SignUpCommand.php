@@ -1,11 +1,11 @@
 <?php
 
-namespace Interactor\CommandHandler\SignIn;
+namespace Interactor\CommandHandler\SignUp;
 
 use Interactor\CommandHandler\BaseCommand;
-use Interactor\CommandHandler\SignIn\Validator\SignInCommandValidator;
+use Interactor\CommandHandler\SignUp\Validator\SignUpCommandValidator;
 
-class SignInCommand extends BaseCommand
+class SignUpCommand extends BaseCommand
 {
     /** @var  string */
     private $email;
@@ -30,7 +30,7 @@ class SignInCommand extends BaseCommand
     /**
      * @param string $email
      *
-     * @return SignInCommand
+     * @return SignUpCommand
      */
     private function setMail($email)
     {
@@ -50,7 +50,7 @@ class SignInCommand extends BaseCommand
     /**
      * @param string $userName
      *
-     * @return SignInCommand
+     * @return SignUpCommand
      */
     private function setUserName($userName)
     {
@@ -70,7 +70,7 @@ class SignInCommand extends BaseCommand
     /**
      * @param string $passWord
      *
-     * @return SignInCommand
+     * @return SignUpCommand
      */
     private function setPassWord($passWord)
     {
@@ -92,6 +92,6 @@ class SignInCommand extends BaseCommand
      */
     protected function buildValidator()
     {
-        return new SignInCommandValidator($this);
+        return new SignUpCommandValidator($this);
     }
 }

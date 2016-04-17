@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Interactor\CommandHandler\SignIn;
+namespace Test\Interactor\CommandHandler\SignUp;
 
 use Domain\Entity\User\Exception\InvalidUserException;
 use Domain\Entity\User\Exception\InvalidUserExceptionCode;

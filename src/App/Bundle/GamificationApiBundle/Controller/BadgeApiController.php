@@ -352,7 +352,7 @@ class BadgeApiController extends FOSRestController
             'create_badge'  => ['href' => $this->generateUrl('post_badge_create', [], $absoluteUrl)],
             'list_badges'   => ['href' => $this->generateUrl('get_badges_list', $mandatoryParameters, $absoluteUrl)],
             'login'         => ['href' => $this->generateUrl('put_user_login', [], $absoluteUrl)],
-            'signin'        => ['href' => $this->generateUrl('put_user_sign_in', [], $absoluteUrl)],
+            'signup'        => ['href' => $this->generateUrl('put_user_sign_up', [], $absoluteUrl)],
         ];
     }
 

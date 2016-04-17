@@ -5,20 +5,20 @@ namespace App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLogInCommandException;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerException;
 use Interactor\CommandHandler\LogIn\Exception\InvalidLoginCommandHandlerExceptionCode;
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandException;
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerException;
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandException;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandHandlerException;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandHandlerExceptionCode;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UserApiHttpExceptionManager
 {
     const SIGN_IN_MAP_HTTP_CODE_EXCEPTION = [
-        InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED =>
+        InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED =>
             Response::HTTP_INTERNAL_SERVER_ERROR,
-        InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_EMAIL_ALREADY_EXISTS =>
+        InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_EMAIL_ALREADY_EXISTS =>
             Response::HTTP_BAD_REQUEST,
-        InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USERNAME_ALREADY_EXISTS =>
+        InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_USERNAME_ALREADY_EXISTS =>
             Response::HTTP_BAD_REQUEST
     ];
 
@@ -34,11 +34,11 @@ class UserApiHttpExceptionManager
      *
      * @return HttpException
      */
-    public function applicationSignInExceptionToHttpException(\Exception $applicationException)
+    public function applicationSignUpExceptionToHttpException(\Exception $applicationException)
     {
-        if ($applicationException instanceof InvalidSignInCommandException) {
+        if ($applicationException instanceof InvalidSignUpCommandException) {
             $statusCode = Response::HTTP_BAD_REQUEST;
-        } elseif ($applicationException instanceof InvalidSignInCommandHandlerException) {
+        } elseif ($applicationException instanceof InvalidSignUpCommandHandlerException) {
             $statusCode = static::SIGN_IN_MAP_HTTP_CODE_EXCEPTION[$applicationException->getCode()];
         } else {
             $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;

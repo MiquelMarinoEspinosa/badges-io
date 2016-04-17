@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Interactor\CommandHandler\SignIn;
+namespace Test\Interactor\CommandHandler\SignUp;
 
 use Domain\Service\IdGenerator;
 use Domain\Entity\User\User;
@@ -9,17 +9,16 @@ use Domain\Entity\User\UserRepository;
 use Domain\Service\PasswordCipher;
 use Infrastructure\DataTransformer\NoOperation\Domain\Entity\User\UserNoOpDataTransformer;
 use Infrastructure\Persistence\InMemory\Domain\Entity\User\InMemoryUserRepository;
-use Infrastructure\Services\Domain\PasswordCipher\MD5PasswordCipher;
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerException;
-use Interactor\CommandHandler\SignIn\Exception\InvalidSignInCommandHandlerExceptionCode;
-use Interactor\CommandHandler\SignIn\SignInCommand;
-use Interactor\CommandHandler\SignIn\SignInCommandHandler;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandHandlerException;
+use Interactor\CommandHandler\SignUp\Exception\InvalidSignUpCommandHandlerExceptionCode;
+use Interactor\CommandHandler\SignUp\SignUpCommand;
+use Interactor\CommandHandler\SignUp\SignUpCommandHandler;
 use Test\Domain\Service\FakeIdGenerator;
 use Test\Domain\Entity\User\FakeUserBuilder;
 use Test\Domain\Entity\User\FakeUserRepositoryThrownException;
 use Test\Domain\Service\FakePasswordCipher;
 
-class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
+class SignUpCommandHandlerTest extends \PHPUnit_Framework_TestCase
 {
     const USER_ID                               = '123';
     const EMAIL_EXISTS_TEST_BADGES_IO_COM       = 'test@badges-io.com';
@@ -43,10 +42,10 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 )
             );
             $this->thisTestFails();
-        } catch (InvalidSignInCommandHandlerException $invalidSignInCommandHandlerException) {
+        } catch (InvalidSignUpCommandHandlerException $invalidSignUpCommandHandlerException) {
             $this->assertEquals(
-                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_EMAIL_ALREADY_EXISTS,
-                $invalidSignInCommandHandlerException->code()
+                InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_EMAIL_ALREADY_EXISTS,
+                $invalidSignUpCommandHandlerException->code()
             );
         }
     }
@@ -66,10 +65,10 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 )
             );
             $this->thisTestFails();
-        } catch (InvalidSignInCommandHandlerException $invalidSignInCommandHandlerException) {
+        } catch (InvalidSignUpCommandHandlerException $invalidSignUpCommandHandlerException) {
             $this->assertEquals(
-                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USERNAME_ALREADY_EXISTS,
-                $invalidSignInCommandHandlerException->code()
+                InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_USERNAME_ALREADY_EXISTS,
+                $invalidSignUpCommandHandlerException->code()
             );
         }
     }
@@ -97,10 +96,10 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 )
             );
             $this->thisTestFails();
-        } catch (InvalidSignInCommandHandlerException $invalidSignInCommandHandlerException) {
+        } catch (InvalidSignUpCommandHandlerException $invalidSignUpCommandHandlerException) {
             $this->assertEquals(
-                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED,
-                $invalidSignInCommandHandlerException->code()
+                InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED,
+                $invalidSignUpCommandHandlerException->code()
             );
         }
     }
@@ -128,10 +127,10 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 )
             );
             $this->thisTestFails();
-        } catch (InvalidSignInCommandHandlerException $invalidSignInCommandHandlerException) {
+        } catch (InvalidSignUpCommandHandlerException $invalidSignUpCommandHandlerException) {
             $this->assertEquals(
-                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED,
-                $invalidSignInCommandHandlerException->code()
+                InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED,
+                $invalidSignUpCommandHandlerException->code()
             );
         }
     }
@@ -159,10 +158,10 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 )
             );
             $this->thisTestFails();
-        } catch (InvalidSignInCommandHandlerException $invalidSignInCommandHandlerException) {
+        } catch (InvalidSignUpCommandHandlerException $invalidSignUpCommandHandlerException) {
             $this->assertEquals(
-                InvalidSignInCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED,
-                $invalidSignInCommandHandlerException->code()
+                InvalidSignUpCommandHandlerExceptionCode::STATUS_CODE_USER_NOT_CREATED,
+                $invalidSignUpCommandHandlerException->code()
             );
         }
     }
@@ -201,21 +200,21 @@ class SignInCommandHandlerTest extends \PHPUnit_Framework_TestCase
      * @param $userName
      * @param $passWord
      *
-     * @return SignInCommand
+     * @return SignUpCommand
      */
     private function buildCommand($email, $userName, $passWord)
     {
-        return new SignInCommand($email, $userName, $passWord);
+        return new SignUpCommand($email, $userName, $passWord);
     }
 
     /**
      * @param UserRepository $userRepository
      *
-     * @return SignInCommandHandler
+     * @return SignUpCommandHandler
      */
     private function buildCommandHandler(UserRepository $userRepository)
     {
-        return new SignInCommandHandler(
+        return new SignUpCommandHandler(
             $userRepository,
             $this->buildUserDataTransformer(),
             $this->buildIdGenerator(),
