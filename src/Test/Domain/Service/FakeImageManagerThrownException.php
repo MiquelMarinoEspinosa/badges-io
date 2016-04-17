@@ -5,6 +5,7 @@ namespace Test\Domain\Service;
 class FakeImageManagerThrownException extends FakeImageManager
 {
     const UPLOAD_THROW_EXCEPTION = -1;
+    const REMOVE_THROW_EXCEPTION = -2;
 
     /**
      * @var int
@@ -23,6 +24,12 @@ class FakeImageManagerThrownException extends FakeImageManager
     {
         $this->checkIfHasToThrownAnException(static::UPLOAD_THROW_EXCEPTION);
         parent::upload($toPath, $id, $format);
+    }
+
+    public function remove($id, $format)
+    {
+        $this->checkIfHasToThrownAnException(static::REMOVE_THROW_EXCEPTION);
+        parent::remove($id, $format);
     }
 
     /**

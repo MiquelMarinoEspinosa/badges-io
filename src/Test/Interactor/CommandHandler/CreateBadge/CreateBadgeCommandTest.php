@@ -36,7 +36,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     const IMAGE_FORMAT_NOT_VALID_HRX           = 'hrx';
     const IMAGE_FORMAT_VALID_JPEG              = 'jpeg';
     const IMAGE_PATH_NOT_VALID_INT_1           = 1;
-    const IMAGE_VALID_PATH_TMP_X452            = '/tmp/x452';
+    const IMAGE_PATH_VALID_TMP_X452            = '/tmp/x452';
 
     /**
      * @test
@@ -775,7 +775,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             static::IMAGE_WIDTH_VALID_4,
             static::IMAGE_HEIGHT_VALID_5,
             static::IMAGE_FORMAT_VALID_JPEG,
-            static::IMAGE_VALID_PATH_TMP_X452
+            static::IMAGE_PATH_VALID_TMP_X452
         );
 
         $this->assertTrue(
@@ -787,7 +787,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             && $command->imageData()->width()   === static::IMAGE_WIDTH_VALID_4
             && $command->imageData()->height()  === static::IMAGE_HEIGHT_VALID_5
             && $command->imageData()->format()  === static::IMAGE_FORMAT_VALID_JPEG
-            && $command->imageData()->path()    === static::IMAGE_VALID_PATH_TMP_X452
+            && $command->imageData()->path()    === static::IMAGE_PATH_VALID_TMP_X452
         );
     }
 

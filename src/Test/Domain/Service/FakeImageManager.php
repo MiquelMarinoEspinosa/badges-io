@@ -14,13 +14,17 @@ class FakeImageManager implements ImageManager
     }
 
     /**
-     * @param string $id
-     * @param string $format
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function buildPath($id, $format)
     {
         return $id.$format;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove($id, $format)
+    {
     }
 }

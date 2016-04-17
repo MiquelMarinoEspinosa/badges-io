@@ -33,7 +33,8 @@ class ImageDataValidator implements Validator
         $this->validateName()
              ->validateWidth()
              ->validateHeight()
-             ->validateFormat();
+             ->validateFormat()
+             ->validatePath();
     }
 
     /**
@@ -242,6 +243,56 @@ class ImageDataValidator implements Validator
     private function isNotFormatAllowed($format)
     {
         return !in_array($format, $this->formatsAllowed);
+    }
+
+    /**
+     * @throws InvalidImageDataException
+     */
+    private function validatePath()
+    {
+        $this->checkPathNotNull()
+            ->checkPathFormat();
+    }
+
+    /**
+     * @return ImageDataValidator
+     * @throws InvalidImageDataException
+     */
+    private function checkPathNotNull()
+    {
+        $aNullPath = null;
+        if ($this->imageData->path() === $aNullPath) {
+            throw $this->buildInvalidImageDataException(
+                InvalidImageDataExceptionCode::STATUS_CODE_PATH_NOT_PROVIDED
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ImageDataValidator
+     * @throws InvalidImageDataException
+     */
+    private function checkPathFormat()
+    {
+        if ($this->isNotValidPath($this->imageData->path())) {
+            throw $this->buildInvalidImageDataException(
+                InvalidImageDataExceptionCode::STATUS_CODE_PATH_NOT_VALID_PROVIDED
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    private function isNotValidPath($name)
+    {
+        return !is_string($name) || '' === trim($name);
     }
 
     /**

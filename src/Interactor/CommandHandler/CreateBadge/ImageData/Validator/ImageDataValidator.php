@@ -14,7 +14,8 @@ class ImageDataValidator implements Validator
         'tiff',
         'gif',
         'bmp',
-        'png'
+        'png',
+        'jpg'
     ];
 
     /**
@@ -249,6 +250,9 @@ class ImageDataValidator implements Validator
         return !in_array($format, $this->formatsAllowed);
     }
 
+    /**
+     * @throws InvalidImageDataException
+     */
     private function validatePath()
     {
         $this->checkPathNotNull()

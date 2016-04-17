@@ -43,7 +43,7 @@ class CreateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     const IMAGE_HEIGHT_VALID_5                = 5;
     const IMAGE_FORMAT_VALID_JPEG             = 'jpeg';
     const USER_ID_NOT_EXISTS_12345            = '12345';
-    const IMAGE_VALID_PATH_TMP_X452           = '/tmp/x452';
+    const IMAGE_PATH_VALID_TMP_X452           = '/tmp/x452';
 
     /**
      * @test
@@ -89,7 +89,7 @@ class CreateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_WIDTH_VALID_4,
                 static::IMAGE_HEIGHT_VALID_5,
                 static::IMAGE_FORMAT_VALID_JPEG,
-                static::IMAGE_VALID_PATH_TMP_X452
+                static::IMAGE_PATH_VALID_TMP_X452
             );
 
             $commandHandler = $this->buildCreateBadgeCommandHandler(
@@ -241,7 +241,7 @@ class CreateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
             static::IMAGE_WIDTH_VALID_4,
             static::IMAGE_HEIGHT_VALID_5,
             static::IMAGE_FORMAT_VALID_JPEG,
-            static::IMAGE_VALID_PATH_TMP_X452
+            static::IMAGE_PATH_VALID_TMP_X452
         );
     }
 

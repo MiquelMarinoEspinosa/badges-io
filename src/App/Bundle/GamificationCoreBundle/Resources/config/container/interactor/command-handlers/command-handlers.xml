@@ -54,9 +54,9 @@
             <argument type="service" id="gamification.domain.entity.user.user_repository" />
             <argument type="service" id="gamification.domain.entity.image.image_repository" />
             <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
-            <argument type="service" id="gamification.domain.entity.badge.badge_data_transformer" />
-            <argument type="service" id="gamification.domain.service.image_manager" />
             <argument type="service" id="gamification.domain.service.id_generator" />
+            <argument type="service" id="gamification.domain.service.image_manager" />
+            <argument type="service" id="gamification.domain.entity.badge.badge_data_transformer" />
         </service>
     </services>
 </container>

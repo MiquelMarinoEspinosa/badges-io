@@ -55,16 +55,16 @@ class UpdateBadgeCommandHandler implements CommandHandler
         UserRepository          $userRepository,
         ImageRepository         $imageRepository,
         BadgeRepository         $badgeRepository,
-        BadgeDataTransformer    $badgeDataTransformer,
+        IdGenerator             $idGenerator,
         ImageManager            $imageManager,
-        IdGenerator             $idGenerator
+        BadgeDataTransformer    $badgeDataTransformer
     ) {
         $this->userRepository       = $userRepository;
         $this->imageRepository      = $imageRepository;
         $this->badgeRepository      = $badgeRepository;
-        $this->badgeDataTransformer = $badgeDataTransformer;
-        $this->imageManager         = $imageManager;
         $this->idGenerator          = $idGenerator;
+        $this->imageManager         = $imageManager;
+        $this->badgeDataTransformer = $badgeDataTransformer;
     }
 
     /**
