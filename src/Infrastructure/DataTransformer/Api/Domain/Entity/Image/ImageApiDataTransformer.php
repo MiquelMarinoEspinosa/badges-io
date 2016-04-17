@@ -9,7 +9,7 @@ use Infrastructure\Services\Domain\ImageManager\DiskImageManager;
 
 class ImageApiDataTransformer implements ImageDataTransformer
 {
-    const DOMAIN_NAME = 'http://badges-io-dev/';
+    const DOMAIN_NAME = 'https://badges-io-dev/';
 
     /**
      * @var DiskImageManager
