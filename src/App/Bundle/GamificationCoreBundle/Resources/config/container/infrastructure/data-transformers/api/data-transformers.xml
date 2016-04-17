@@ -11,6 +11,7 @@
 
         <service id="gamification.infrastructure.data_transformer.api.domain.entity.image.image_api_data_transformer"
                  class="Infrastructure\DataTransformer\Api\Domain\Entity\Image\ImageApiDataTransformer">
+            <argument type="service" id="gamification.infrastructure.services.domain.image_manager.disk_image_manager" />
         </service>
 
         <service id="gamification.infrastructure.data_transformer.api.domain.entity.badge.badge_api_data_transformer"

@@ -22,3 +22,7 @@ Infrastructure\Resource\Api\Domain\Entity\Image\ImageApiResource:
         format:
             expose: true
             type: string
+
+        url:
+            expose: true
+            type: string

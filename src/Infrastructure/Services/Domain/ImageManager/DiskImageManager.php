@@ -6,53 +6,67 @@ use Domain\Service\ImageManager;
 
 class DiskImageManager implements ImageManager
 {
-    const ROOT_IMAGE_PATH = __DIR__ . '/../../../../../badgesio/bundles/gamification/';
+    const ROOT_IMAGE_PATH = __DIR__ . '/../../../../../badgesio/bundles/gamification/images/';
 
     /**
      * {@inheritdoc}
      */
-    public function upload($toPath, $imageId, $imageFormat)
+    public function upload($toPath, $id, $format)
     {
         $this->buildRootImageDirIfNotExists();
-        $this->tryToSaveImageToDisk($toPath, $this->buildFileName($imageId, $imageFormat));
+        $this->tryToSaveImageToDisk($toPath, $this->buildImagePath($id, $format));
     }
 
     private function buildRootImageDirIfNotExists()
     {
         if (!is_dir(static::ROOT_IMAGE_PATH)) {
-            mkdir(static::ROOT_IMAGE_PATH);
+            mkdir(static::ROOT_IMAGE_PATH, 0777, true);
         }
     }
 
     /**
-     * @param string $imageId
-     * @param string $imageFormat
+     * @param string $id
+     * @param string $format
      *
      * @return string
      */
-    private function buildFileName($imageId, $imageFormat)
+    private function buildImagePath($id, $format)
     {
-        return static::ROOT_IMAGE_PATH . $imageId . "." . $imageFormat;
+        return static::ROOT_IMAGE_PATH . $this->buildImageFileName($id, $format);
     }
 
     /**
      * @param string $toPath
-     * @param string $imageFileName
+     * @param string $fileName
      *
      * @throws \Exception
      */
-    private function tryToSaveImageToDisk($toPath, $imageFileName)
+    private function tryToSaveImageToDisk($toPath, $fileName)
     {
-        if (!move_uploaded_file($toPath, $imageFileName)) {
+        if (!move_uploaded_file($toPath, $fileName)) {
             throw new \Exception('Not able to create the image file');
         }
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $id
+     * @param string $format
+     *
+     * @return string
      */
-    public function buildPath($id)
+    public function buildPath($id, $format)
     {
-        // TODO: Implement buildPath() method.
+        return $this->buildImageFileName($id, $format);
+    }
+
+    /**
+     * @param string $id
+     * @param string $format
+     *
+     * @return string
+     */
+    private function buildImageFileName($id, $format)
+    {
+        return $id . "." . $format;
     }
 }

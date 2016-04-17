@@ -264,7 +264,7 @@ class ImageDataValidator implements Validator
         $aNullPath = null;
         if ($this->imageData->path() === $aNullPath) {
             throw $this->buildInvalidImageDataException(
-                InvalidImageDataExceptionCode::STATUS_CODE_IMAGE_PATH_NOT_PROVIDED
+                InvalidImageDataExceptionCode::STATUS_CODE_PATH_NOT_PROVIDED
             );
         }
 
@@ -279,7 +279,7 @@ class ImageDataValidator implements Validator
     {
         if ($this->isNotValidPath($this->imageData->path())) {
             throw $this->buildInvalidImageDataException(
-                InvalidImageDataExceptionCode::STATUS_CODE_IMAGE_PATH_NOT_VALID_PROVIDED
+                InvalidImageDataExceptionCode::STATUS_CODE_PATH_NOT_VALID_PROVIDED
             );
         }
 

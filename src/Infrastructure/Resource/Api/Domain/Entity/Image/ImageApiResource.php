@@ -14,14 +14,17 @@ class ImageApiResource
     private $height;
     /** @var  string */
     private $format;
+    /** @var  string */
+    private $url;
 
-    public function __construct($id, $name, $width, $height, $format)
+    public function __construct($id, $name, $width, $height, $format, $url)
     {
         $this->setId($id)
              ->setName($name)
              ->setWidth($width)
              ->setHeight($height)
-             ->setFormat($format);
+             ->setFormat($format)
+             ->setUrl($url);
     }
 
     /**
@@ -120,6 +123,26 @@ class ImageApiResource
     private function setFormat($format)
     {
         $this->format = $format;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function url()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return ImageApiResource
+     */
+    private function setUrl($url)
+    {
+        $this->url = $url;
 
         return $this;
     }

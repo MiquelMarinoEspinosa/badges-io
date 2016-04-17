@@ -6,13 +6,14 @@ interface ImageManager
 {
     /**
      * @param string $toPath
-     * @param string $imageId
-     * @param string $imageFormat
+     * @param string $id
+     * @param string $format
      */
-    public function upload($toPath, $imageId, $imageFormat);
+    public function upload($toPath, $id, $format);
 
     /**
      * @param string $id
+     * @param string $format
      */
-    public function buildPath($id);
+    public function buildPath($id, $format);
 }

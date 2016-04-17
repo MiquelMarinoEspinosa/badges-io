@@ -35,6 +35,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     const IMAGE_HEIGHT_VALID_5                 = 5;
     const IMAGE_FORMAT_NOT_VALID_HRX           = 'hrx';
     const IMAGE_FORMAT_VALID_JPEG              = 'jpeg';
+    const IMAGE_PATH_NOT_VALID_INT_1           = 1;
+    const IMAGE_VALID_PATH_TMP_X452            = '/tmp/x452';
 
     /**
      * @test
@@ -50,6 +52,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth        = null;
             $aNullImageHeight       = null;
             $aNullImageFormat       = null;
+            $aNullImagePath         = null;
 
             $this->buildCreateBadgeCommand(
                 $aNullBadgeName,
@@ -59,7 +62,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidCreateBadgeCommandException $invalidCreateBadgeCommandException) {
@@ -68,7 +72,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidCreateBadgeCommandException->code()
             );
         }
-
     }
 
     /**
@@ -84,6 +87,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth        = null;
             $aNullImageHeight       = null;
             $aNullImageFormat       = null;
+            $aNullImagePath         = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_NOT_VALID_INT,
@@ -93,7 +97,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidCreateBadgeCommandException $invalidCreateBadgeCommandException) {
@@ -102,7 +107,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidCreateBadgeCommandException->code()
             );
         }
-
     }
 
     /**
@@ -118,6 +122,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth        = null;
             $aNullImageHeight       = null;
             $aNullImageFormat       = null;
+            $aNullImagePath         = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_NOT_VALID_EMPTY,
@@ -127,7 +132,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidCreateBadgeCommandException $invalidCreateBadgeCommandException) {
@@ -136,7 +142,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidCreateBadgeCommandException->code()
             );
         }
-
     }
 
     /**
@@ -152,6 +157,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth        = null;
             $aNullImageHeight       = null;
             $aNullImageFormat       = null;
+            $aNullImagePath         = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -161,7 +167,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidCreateBadgeCommandException $invalidCreateBadgeCommandException) {
@@ -170,7 +177,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidCreateBadgeCommandException->code()
             );
         }
-
     }
 
     /**
@@ -185,6 +191,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth        = null;
             $aNullImageHeight       = null;
             $aNullImageFormat       = null;
+            $aNullImagePath         = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -194,7 +201,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidCreateBadgeCommandException $invalidCreateBadgeCommandException) {
@@ -203,7 +211,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidCreateBadgeCommandException->code()
             );
         }
-
     }
 
     /**
@@ -218,6 +225,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth        = null;
             $aNullImageHeight       = null;
             $aNullImageFormat       = null;
+            $aNullImagePath         = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -227,7 +235,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidCreateBadgeCommandException $invalidCreateBadgeCommandException) {
@@ -236,7 +245,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidCreateBadgeCommandException->code()
             );
         }
-
     }
 
     /**
@@ -250,6 +258,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth  = null;
             $aNullImageHeight = null;
             $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -259,7 +268,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidCreateBadgeCommandException $invalidCreateBadgeCommandException) {
@@ -268,7 +278,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidCreateBadgeCommandException->code()
             );
         }
-
     }
 
     /**
@@ -282,6 +291,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth  = null;
             $aNullImageHeight = null;
             $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -291,7 +301,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidUserDataException $invalidUserDataException) {
@@ -300,7 +311,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidUserDataException->code()
             );
         }
-
     }
 
     /**
@@ -313,6 +323,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth  = null;
             $aNullImageHeight = null;
             $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -322,7 +333,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidUserDataException $invalidUserDataException) {
@@ -331,7 +343,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidUserDataException->code()
             );
         }
-
     }
 
     /**
@@ -344,6 +355,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth  = null;
             $aNullImageHeight = null;
             $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -353,7 +365,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidUserDataException $invalidUserDataException) {
@@ -362,7 +375,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidUserDataException->code()
             );
         }
-
     }
 
     /**
@@ -375,6 +387,7 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             $aNullImageWidth  = null;
             $aNullImageHeight = null;
             $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -384,7 +397,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $aNullImageName,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
@@ -393,7 +407,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
@@ -402,9 +415,10 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithImageNameNotValidTypeShouldThrownImageDataExceptionNameNotValidProvidedStatusCode()
     {
         try {
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullImageWidth  = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -414,7 +428,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_NOT_VALID_INT,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
@@ -423,7 +438,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
@@ -432,9 +446,10 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithImageNameNotValidShouldThrownImageDataExceptionNameNotValidProvidedStatusCode()
     {
         try {
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullImageWidth  = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -444,7 +459,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_NOT_VALID_EMPTY,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
@@ -453,7 +469,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
@@ -462,9 +477,10 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithoutImageWidthShouldThrownImageDataExceptionWidthNotProvidedStatusCode()
     {
         try {
-            $aNullImageWidth            = null;
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullImageWidth  = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -474,7 +490,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_VALID_FLOWER,
                 $aNullImageWidth,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
@@ -483,7 +500,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
@@ -492,8 +508,9 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithImageWidthTypeNotValidShouldThrownImageDataExceptionWidthNotValidProvidedStatusCode()
     {
         try {
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -503,7 +520,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_NOT_VALID_BOOLEAN,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
@@ -512,7 +530,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
@@ -521,8 +538,9 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithImageWidthNotValidShouldThrownImageDataExceptionWidthNotValidProvidedStatusCode()
     {
         try {
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -532,7 +550,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_NOT_VALID_MINUS_INTEGER,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
@@ -541,7 +560,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
@@ -550,8 +568,9 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithoutImageHeightShouldThrownImageDataExceptionHeightNotProvidedStatusCode()
     {
         try {
-            $aNullImageHeight           = null;
-            $aNullImageFormat           = null;
+            $aNullImageHeight = null;
+            $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -561,7 +580,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 $aNullImageHeight,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
@@ -570,7 +590,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
@@ -579,7 +598,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithImageHeightTypeNotValidShouldThrownImageDataExceptionHeightNotValidProvidedStatusCode()
     {
         try {
-            $aNullImageFormat           = null;
+            $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -589,7 +609,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 static::IMAGE_HEIGHT_NOT_VALID_STRING,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
@@ -598,7 +619,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
@@ -607,7 +627,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandHeightImageWidthNotValidShouldThrownImageDataExceptionHeightNotValidProvidedStatusCode()
     {
         try {
-            $aNullImageFormat           = null;
+            $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -617,7 +638,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 static::IMAGE_HEIGHT_NOT_VALID_MINUS_INT,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
@@ -626,7 +648,6 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
@@ -635,7 +656,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
     public function commandWithoutFormatImageShouldThrownImageDataExceptionFormatNotProvidedStatusCode()
     {
         try {
-            $aNullImageFormat           = null;
+            $aNullImageFormat = null;
+            $aNullImagePath   = null;
 
             $this->buildCreateBadgeCommand(
                 static::BADGE_NAME_VALID_BADGE_NAME,
@@ -645,7 +667,8 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 static::IMAGE_HEIGHT_VALID_5,
-                $aNullImageFormat
+                $aNullImageFormat,
+                $aNullImagePath
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
@@ -654,13 +677,68 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
      * @test
      */
     public function commandWithFormatNotValidImageShouldThrownImageDataExceptionFormatNotValidProvidedStatusCode()
+    {
+        try {
+            $aNullImagePath = null;
+
+            $this->buildCreateBadgeCommand(
+                static::BADGE_NAME_VALID_BADGE_NAME,
+                static::BADGE_DESCRIPTION_VALID_EMPTY,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
+                static::IMAGE_NAME_VALID_FLOWER,
+                static::IMAGE_WIDTH_VALID_4,
+                static::IMAGE_HEIGHT_VALID_5,
+                static::IMAGE_FORMAT_NOT_VALID_HRX,
+                $aNullImagePath
+            );
+            $this->thisTestFails();
+        } catch (InvalidImageDataException $invalidImageDataException) {
+            $this->assertEquals(
+                InvalidImageDataExceptionCode::STATUS_CODE_FORMAT_NOT_VALID_PROVIDED,
+                $invalidImageDataException->code()
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function commandWithoutPathImageShouldThrownImageDataExceptionPAthNotProvidedStatusCode()
+    {
+        try {
+            $aNullImagePath   = null;
+
+            $this->buildCreateBadgeCommand(
+                static::BADGE_NAME_VALID_BADGE_NAME,
+                static::BADGE_DESCRIPTION_VALID_EMPTY,
+                static::BADGE_IS_MULTI_USER_VALID_TRUE,
+                static::USER_ID_VALID_1234,
+                static::IMAGE_NAME_VALID_FLOWER,
+                static::IMAGE_WIDTH_VALID_4,
+                static::IMAGE_HEIGHT_VALID_5,
+                static::IMAGE_FORMAT_VALID_JPEG,
+                $aNullImagePath
+            );
+            $this->thisTestFails();
+        } catch (InvalidImageDataException $invalidImageDataException) {
+            $this->assertEquals(
+                InvalidImageDataExceptionCode::STATUS_CODE_PATH_NOT_PROVIDED,
+                $invalidImageDataException->code()
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function commandWithPathNotValidImageShouldThrownImageDataExceptionPathNotValidProvidedStatusCode()
     {
         try {
             $this->buildCreateBadgeCommand(
@@ -671,16 +749,16 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
                 static::IMAGE_NAME_VALID_FLOWER,
                 static::IMAGE_WIDTH_VALID_4,
                 static::IMAGE_HEIGHT_VALID_5,
-                static::IMAGE_FORMAT_NOT_VALID_HRX
+                static::IMAGE_FORMAT_VALID_JPEG,
+                static::IMAGE_PATH_NOT_VALID_INT_1
             );
             $this->thisTestFails();
         } catch (InvalidImageDataException $invalidImageDataException) {
             $this->assertEquals(
-                InvalidImageDataExceptionCode::STATUS_CODE_FORMAT_NOT_VALID_PROVIDED,
+                InvalidImageDataExceptionCode::STATUS_CODE_PATH_NOT_VALID_PROVIDED,
                 $invalidImageDataException->code()
             );
         }
-
     }
 
     /**
@@ -696,18 +774,20 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
             static::IMAGE_NAME_VALID_FLOWER,
             static::IMAGE_WIDTH_VALID_4,
             static::IMAGE_HEIGHT_VALID_5,
-            static::IMAGE_FORMAT_VALID_JPEG
+            static::IMAGE_FORMAT_VALID_JPEG,
+            static::IMAGE_VALID_PATH_TMP_X452
         );
 
         $this->assertTrue(
-            $command->name() === static::BADGE_NAME_VALID_BADGE_NAME
-            && $command->description() === static::BADGE_DESCRIPTION_VALID_EMPTY
-            && $command->isMultiUser() === static::BADGE_IS_MULTI_USER_VALID_TRUE
-            && $command->UserData()->id() === static::USER_ID_VALID_1234
-            && $command->imageData()->name() === static::IMAGE_NAME_VALID_FLOWER
-            && $command->imageData()->width() === static::IMAGE_WIDTH_VALID_4
-            && $command->imageData()->height() === static::IMAGE_HEIGHT_VALID_5
-            && $command->imageData()->format() === static::IMAGE_FORMAT_VALID_JPEG
+            $command->name()                    === static::BADGE_NAME_VALID_BADGE_NAME
+            && $command->description()          === static::BADGE_DESCRIPTION_VALID_EMPTY
+            && $command->isMultiUser()          === static::BADGE_IS_MULTI_USER_VALID_TRUE
+            && $command->UserData()->id()       === static::USER_ID_VALID_1234
+            && $command->imageData()->name()    === static::IMAGE_NAME_VALID_FLOWER
+            && $command->imageData()->width()   === static::IMAGE_WIDTH_VALID_4
+            && $command->imageData()->height()  === static::IMAGE_HEIGHT_VALID_5
+            && $command->imageData()->format()  === static::IMAGE_FORMAT_VALID_JPEG
+            && $command->imageData()->path()    === static::IMAGE_VALID_PATH_TMP_X452
         );
     }
 
@@ -719,14 +799,15 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
         $imageName,
         $imageWidth,
         $imageHeight,
-        $imageFormat
+        $imageFormat,
+        $imagePath
     ) {
         return new CreateBadgeCommand(
             $badgeName,
             $badgeDescription,
             $badgeIsMultiUser,
             $this->buildUserData($userId),
-            $this->buildImageData($imageName, $imageWidth, $imageHeight, $imageFormat)
+            $this->buildImageData($imageName, $imageWidth, $imageHeight, $imageFormat, $imagePath)
         );
     }
 
@@ -744,13 +825,14 @@ class CreateBadgeCommandTest extends \PHPUnit_Framework_TestCase
      * @param string $name
      * @param int $width
      * @param int $height
-     * @param int $imageFormat
+     * @param int $format
+     * @param string $path
      *
      * @return ImageData
      */
-    private function buildImageData($name, $width, $height, $imageFormat)
+    private function buildImageData($name, $width, $height, $format, $path)
     {
-        return new ImageData($name, $width, $height, $imageFormat);
+        return new ImageData($name, $width, $height, $format, $path);
     }
 
     private function thisTestFails()

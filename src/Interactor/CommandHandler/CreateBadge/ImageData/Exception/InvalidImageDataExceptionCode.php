@@ -20,8 +20,8 @@ class InvalidImageDataExceptionCode
     const MESSAGE_CODE_FORMAT_NOT_PROVIDED           = 'Format not provided';
     const STATUS_CODE_FORMAT_NOT_VALID_PROVIDED      = -8;
     const MESSAGE_CODE_FORMAT_NOT_VALID_PROVIDED     = 'Format not valid provided';
-    const STATUS_CODE_IMAGE_PATH_NOT_PROVIDED        = -9;
-    const MESSAGE_CODE_IMAGE_PATH_NOT_PROVIDED       = 'Image path not provided';
-    const STATUS_CODE_IMAGE_PATH_NOT_VALID_PROVIDED  = -10;
-    const MESSAGE_CODE_IMAGE_PATH_NOT_VALID_PROVIDED = 'Image path not valid provided';
+    const STATUS_CODE_PATH_NOT_PROVIDED              = -9;
+    const MESSAGE_CODE_PATH_NOT_PROVIDED             = 'Path not provided';
+    const STATUS_CODE_PATH_NOT_VALID_PROVIDED        = -10;
+    const MESSAGE_CODE_PATH_NOT_VALID_PROVIDED       = 'Path not valid provided';
 }

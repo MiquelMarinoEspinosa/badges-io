@@ -14,7 +14,8 @@ class ImageDataValidator implements Validator
         'tiff',
         'gif',
         'bmp',
-        'png'
+        'png',
+        'jpg'
     ];
 
     /**

@@ -36,10 +36,10 @@ class InvalidImageDataException extends BaseException
             case InvalidImageDataExceptionCode::STATUS_CODE_FORMAT_NOT_VALID_PROVIDED:
                 $this->formatNotValidProvided();
                 break;
-            case InvalidImageDataExceptionCode::STATUS_CODE_IMAGE_PATH_NOT_PROVIDED:
+            case InvalidImageDataExceptionCode::STATUS_CODE_PATH_NOT_PROVIDED:
                 $this->imagePathNotProvided();
                 break;
-            case InvalidImageDataExceptionCode::STATUS_CODE_IMAGE_PATH_NOT_VALID_PROVIDED:
+            case InvalidImageDataExceptionCode::STATUS_CODE_PATH_NOT_VALID_PROVIDED:
                 $this->imagePathNotValidProvided();
                 break;
         }
@@ -140,8 +140,8 @@ class InvalidImageDataException extends BaseException
      */
     private function imagePathNotProvided()
     {
-        $this->setCode(InvalidImageDataExceptionCode::STATUS_CODE_IMAGE_PATH_NOT_PROVIDED)
-             ->setMessage(InvalidImageDataExceptionCode::MESSAGE_CODE_IMAGE_PATH_NOT_PROVIDED);
+        $this->setCode(InvalidImageDataExceptionCode::STATUS_CODE_PATH_NOT_PROVIDED)
+             ->setMessage(InvalidImageDataExceptionCode::MESSAGE_CODE_PATH_NOT_PROVIDED);
 
         return $this;
     }
@@ -151,8 +151,8 @@ class InvalidImageDataException extends BaseException
      */
     private function imagePathNotValidProvided()
     {
-        $this->setCode(InvalidImageDataExceptionCode::STATUS_CODE_IMAGE_PATH_NOT_VALID_PROVIDED)
-             ->setMessage(InvalidImageDataExceptionCode::MESSAGE_CODE_IMAGE_PATH_NOT_VALID_PROVIDED);
+        $this->setCode(InvalidImageDataExceptionCode::STATUS_CODE_PATH_NOT_VALID_PROVIDED)
+             ->setMessage(InvalidImageDataExceptionCode::MESSAGE_CODE_PATH_NOT_VALID_PROVIDED);
 
         return $this;
     }
