@@ -6,11 +6,20 @@
     image: nginx:latest
     state: started
     ports:
-      - "80:80"
+      - "443:443"
     links:
       - php
     volumes:
       - /var/deployments/badges-io/releases/1:/var/deployments/badges-io/releases/1
+
+- name: copy ssl private key
+  sudo: yes
+  shell: docker cp /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/nginx/key.pem nginx:/etc/nginx/
+
+- name: config sll certificate
+  sudo: yes
+  shell: docker cp /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/nginx/cert.pem nginx:/etc/nginx/
+
 
 - name: config nginx container
   sudo: yes

@@ -6,11 +6,19 @@
      image: httpd:latest
      state: started
      ports:
-      - "8080:80"
+      - "4443:443"
      links:
        - php
      volumes:
        - /var/deployments/badges-io/releases/1:/var/deployments/badges-io/releases/1
+
+- name: copy ssl private key
+  sudo: yes
+  shell: docker cp /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/apache/key.pem apache:/usr/local/apache2
+
+- name: copy ssl certificate
+  sudo: yes
+  shell: docker cp /var/deployments/badges-io/releases/1/environment/devel/provision/ansible/templates/apache/cert.pem apache:/usr/local/apache2
 
 - name: config apache container
   sudo: yes
