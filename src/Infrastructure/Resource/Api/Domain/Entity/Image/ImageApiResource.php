@@ -15,16 +15,16 @@ class ImageApiResource
     /** @var  string */
     private $format;
     /** @var  string */
-    private $url;
+    private $href;
 
-    public function __construct($id, $name, $width, $height, $format, $url)
+    public function __construct($id, $name, $width, $height, $format, $href)
     {
         $this->setId($id)
              ->setName($name)
              ->setWidth($width)
              ->setHeight($height)
              ->setFormat($format)
-             ->setUrl($url);
+             ->setHref($href);
     }
 
     /**
@@ -130,19 +130,19 @@ class ImageApiResource
     /**
      * @return string
      */
-    public function url()
+    public function href()
     {
-        return $this->url;
+        return $this->href;
     }
 
     /**
-     * @param string $url
+     * @param string $href
      *
      * @return ImageApiResource
      */
-    private function setUrl($url)
+    private function setHref($href)
     {
-        $this->url = $url;
+        $this->href = $href;
 
         return $this;
     }

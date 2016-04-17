@@ -12,13 +12,16 @@ class ImageData
     private $height;
     /** @var  string */
     private $format;
+    /** @var  string */
+    private $path;
 
-    public function __construct($name, $width, $height, $format)
+    public function __construct($name, $width, $height, $format, $path)
     {
         $this->setName($name)
              ->setWidth($width)
              ->setHeight($height)
-             ->setFormat($format);
+             ->setFormat($format)
+             ->setPath($path);
     }
 
     /**
@@ -97,6 +100,26 @@ class ImageData
     private function setFormat($format)
     {
         $this->format = $format;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function path()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return ImageData
+     */
+    private function setPath($path)
+    {
+        $this->path = $path;
 
         return $this;
     }

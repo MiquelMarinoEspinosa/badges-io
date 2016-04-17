@@ -23,6 +23,6 @@ Infrastructure\Resource\Api\Domain\Entity\Image\ImageApiResource:
             expose: true
             type: string
 
-        url:
+        href:
             expose: true
             type: string

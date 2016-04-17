@@ -16,4 +16,10 @@ interface ImageManager
      * @param string $format
      */
     public function buildPath($id, $format);
+
+    /**
+     * @param string $id
+     * @param string $format
+     */
+    public function remove($id, $format);
 }

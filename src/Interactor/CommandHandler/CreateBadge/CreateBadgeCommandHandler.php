@@ -35,13 +35,13 @@ class CreateBadgeCommandHandler implements CommandHandler
      */
     private $idGenerator;
     /**
-     * @var BadgeDataTransformer
-     */
-    private $badgeDataTransformer;
-    /**
      * @var ImageManager
      */
     private $imageManager;
+    /**
+     * @var BadgeDataTransformer
+     */
+    private $badgeDataTransformer;
 
     public function __construct(
         UserRepository          $userRepository,
@@ -55,8 +55,8 @@ class CreateBadgeCommandHandler implements CommandHandler
         $this->imageRepository      = $imageRepository;
         $this->badgeRepository      = $badgeRepository;
         $this->idGenerator          = $idGenerator;
-        $this->badgeDataTransformer = $badgeDataTransformer;
         $this->imageManager         = $imageManager;
+        $this->badgeDataTransformer = $badgeDataTransformer;
     }
 
     /**

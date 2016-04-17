@@ -1,6 +1,6 @@
 <?php
-namespace App\Bundle\GamificationApiBundle\Controller;
 
+namespace App\Bundle\GamificationApiBundle\Controller;
 
 use App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\BadgeApiHttpExceptionManager;
 use FOS\RestBundle\Controller\Annotations\Delete;
@@ -231,7 +231,8 @@ class BadgeApiController extends FOSRestController
             $request->get('imageName'),
             (int) $request->get('imageWidth'),
             (int) $request->get('imageHeight'),
-            $request->get('imageFormat')
+            $request->get('imageFormat'),
+            $request->files->get('imageFile')->getPathname()
         );
     }
 

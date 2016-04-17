@@ -69,4 +69,26 @@ class DiskImageManager implements ImageManager
     {
         return $id . "." . $format;
     }
+
+    /**
+     * @param string $id
+     * @param string $format
+     */
+    public function remove($id, $format)
+    {
+        $this->tryToRemoveImageFromDisk($id, $format);
+    }
+
+    /**
+     * @param string $id
+     * @param string $format
+     *
+     * @throws \Exception
+     */
+    private function tryToRemoveImageFromDisk($id, $format)
+    {
+        if (!unlink($this->buildImagePath($id, $format))) {
+            throw new \Exception('Not able to remove the image file');
+        }
+    }
 }
