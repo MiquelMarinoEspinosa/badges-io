@@ -6,7 +6,7 @@ use Domain\Service\ImageManager;
 
 class DiskImageManager implements ImageManager
 {
-    const ROOT_IMAGE_PATH = __DIR__ . '/../../../../../badgesio/bundles/gamification/images/';
+    const ROOT_IMAGE_PATH = __DIR__ . '/../../../../../badgesio/bundles/gamification/images';
 
     /**
      * {@inheritdoc}
@@ -32,7 +32,7 @@ class DiskImageManager implements ImageManager
      */
     private function buildImagePath($id, $format)
     {
-        return static::ROOT_IMAGE_PATH . $this->buildImageFileName($id, $format);
+        return static::ROOT_IMAGE_PATH . '/' . $this->buildImageFileName($id, $format);
     }
 
     /**
@@ -88,7 +88,7 @@ class DiskImageManager implements ImageManager
     private function tryToRemoveImageFromDisk($id, $format)
     {
         if (!unlink($this->buildImagePath($id, $format))) {
-            throw new \Exception('Not able to remove the image file');
+            throw new \Exception('Not able to remove the image file:' . $this->buildImagePath($id, $format));
         }
     }
 }

@@ -19,6 +19,7 @@
                  class="Interactor\CommandHandler\DeleteBadge\DeleteBadgeCommandHandler">
             <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
             <argument type="service" id="gamification.domain.entity.image.image_repository" />
+            <argument type="service" id="gamification.domain.service.image_manager" />
         </service>
 
         <service id="gamification.interactor.command_handler.get_badge.get_badge_command_handler"

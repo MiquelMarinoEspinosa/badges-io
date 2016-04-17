@@ -708,10 +708,10 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
      */
     private function validateImageData($image, $imageData)
     {
-        return $image->name() === $imageData->name()
-        && $image->format() === $imageData->format()
-        && $image->width() === $imageData->width()
-        && $image->height() === $imageData->height();
+        return $image->name()   === $imageData->name()
+        && $image->format()     === $imageData->format()
+        && $image->width()      === $imageData->width()
+        && $image->height()     === $imageData->height();
     }
 
     /**
@@ -723,17 +723,6 @@ class UpdateBadgeCommandHandlerTest extends \PHPUnit_Framework_TestCase
     private function isBadgeStillPersisted($badgeRepository, $badge)
     {
         return $badgeRepository->find($badge->id()) instanceof Badge;
-    }
-
-    /**
-     * @param ImageRepository $imageRepository
-     * @param Image $image
-     *
-     * @return bool
-     */
-    private function isImageStillPersisted($imageRepository, $image)
-    {
-        return $imageRepository->find($image->id()) instanceof Image;
     }
 
     private function thisTestFails()

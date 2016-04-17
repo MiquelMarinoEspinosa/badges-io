@@ -6,6 +6,7 @@ use Domain\Entity\Badge\Badge;
 use Domain\Entity\Badge\BadgeRepository;
 use Domain\Entity\Image\Image;
 use Domain\Entity\Image\ImageRepository;
+use Domain\Service\ImageManager;
 use Interactor\CommandHandler\CommandHandler;
 use Interactor\CommandHandler\DeleteBadge\Exception\InvalidDeleteBadgeCommandHandlerException;
 use Interactor\CommandHandler\DeleteBadge\Exception\InvalidDeleteBadgeCommandHandlerExceptionCode;
@@ -21,11 +22,19 @@ class DeleteBadgeCommandHandler implements CommandHandler
      * @var ImageRepository
      */
     private $imageRepository;
+    /**
+     * @var ImageManager
+     */
+    private $imageManager;
 
-    public function __construct(BadgeRepository $badgeRepository, ImageRepository $imageRepository)
-    {
-        $this->badgeRepository = $badgeRepository;
-        $this->imageRepository = $imageRepository;
+    public function __construct(
+        BadgeRepository $badgeRepository,
+        ImageRepository $imageRepository,
+        ImageManager    $imageManager
+    ) {
+        $this->badgeRepository  = $badgeRepository;
+        $this->imageRepository  = $imageRepository;
+        $this->imageManager     = $imageManager;
     }
 
     /**
@@ -101,8 +110,36 @@ class DeleteBadgeCommandHandler implements CommandHandler
      */
     private function tryToRemoveTheImage(Image $image)
     {
+        $this->tryToRemoveImage($image);
+        $this->tryToRemoveImageData($image);
+    }
+
+
+    /**
+     * @param Image $image
+     *
+     * @throws InvalidDeleteBadgeCommandHandlerException
+     */
+    private function tryToRemoveImageData(Image $image)
+    {
         try {
             $this->imageRepository->remove($image);
+        } catch (\Exception $exception) {
+            throw $this->buildDeleteBadgeCommandHandlerException(
+                InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_REMOVED
+            );
+        }
+    }
+
+    /**
+     * @param Image $image
+     *
+     * @throws InvalidDeleteBadgeCommandHandlerException
+     */
+    private function tryToRemoveImage(Image $image)
+    {
+        try {
+            $this->imageManager->remove($image->id(), $image->format());
         } catch (\Exception $exception) {
             throw $this->buildDeleteBadgeCommandHandlerException(
                 InvalidDeleteBadgeCommandHandlerExceptionCode::STATUS_CODE_BADGE_NOT_REMOVED
