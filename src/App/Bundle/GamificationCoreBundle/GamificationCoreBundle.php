@@ -41,7 +41,7 @@ class GamificationCoreBundle extends Bundle
         $finder
             ->files()
             ->in([
-                $rootPath . '/../src/App/Command/GammificationCommand',
+                $rootPath . '/../src/App/Bundle/GammificationCommand',
             ])
             ->name('*Command.php');
 

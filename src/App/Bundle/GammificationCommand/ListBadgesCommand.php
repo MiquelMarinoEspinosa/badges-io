@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command\GammificationCommand;
+namespace App\Bundle\GammificationCommand;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
