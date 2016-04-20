@@ -76,7 +76,7 @@ class BadgeApiController extends FOSRestController
             $createBadgeCommand = $this->buildCreateBadgeCommandByRequest($request);
 
             return $this->container->get(
-                'gamification.interactor.command_handler.create_badge.create_badge_command_handler'
+                'gamification.api.interactor.command_handler.create_badge.create_badge_command_handler'
             )->handle($createBadgeCommand);
         } catch (\Exception $applicationException) {
             throw $this->buildBadgeHttpExceptionManager()
@@ -183,7 +183,7 @@ class BadgeApiController extends FOSRestController
             $createBadgeCommand = $this->buildUpdateBadgeCommandByRequest($request);
 
             return $this->container->get(
-                'gamification.interactor.command_handler.update_badge.update_badge_command_handler'
+                'gamification.api.interactor.command_handler.update_badge.update_badge_command_handler'
             )->handle($createBadgeCommand);
         } catch (\Exception $applicationException) {
             throw $this->buildBadgeHttpExceptionManager()
@@ -259,7 +259,7 @@ class BadgeApiController extends FOSRestController
             $getBadgeCommand = $this->buildGetBadgeCommandByRequest($id, $userId);
 
             return $this->container->get(
-                'gamification.interactor.command_handler.get_badge.get_badge_command_handler'
+                'gamification.api.interactor.command_handler.get_badge.get_badge_command_handler'
             )->handle($getBadgeCommand);
         } catch (\Exception $applicationException) {
             throw $this->buildBadgeHttpExceptionManager()
@@ -301,7 +301,7 @@ class BadgeApiController extends FOSRestController
             $deleteBadgeCommand = $this->buildDeleteBadgeCommandByRequest($id, $userId);
 
             $this->container->get(
-                'gamification.interactor.command_handler.delete_badge.delete_badge_command_handler'
+                'gamification.api.interactor.command_handler.delete_badge.delete_badge_command_handler'
             )->handle($deleteBadgeCommand);
 
             return $this->buildDeleteMessageResponse($id, $userId);
@@ -391,7 +391,7 @@ class BadgeApiController extends FOSRestController
             $listBadgesCommand = $this->buildListBadgesCommandByRequest($userId);
 
             return $this->container->get(
-                'gamification.interactor.command_handler.list_badges.list_badges_command_handler'
+                'gamification.api.interactor.command_handler.list_badges.list_badges_command_handler'
             )->handle($listBadgesCommand);
         } catch (\Exception $applicationException) {
             throw $this->buildBadgeHttpExceptionManager()

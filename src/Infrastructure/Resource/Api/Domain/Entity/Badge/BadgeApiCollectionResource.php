@@ -15,7 +15,7 @@ class BadgeApiCollectionResource
     }
 
     /**
-     * @return BadgeApiResource
+     * @return BadgeApiResource[]
      */
     public function badgeApiResources()
     {

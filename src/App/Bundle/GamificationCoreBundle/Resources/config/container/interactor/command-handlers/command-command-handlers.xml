@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="gamification.command.interactor.command_handler.list_badges.list_badges_command_handler"
+                 class="Interactor\CommandHandler\ListBadges\ListBadgesCommandHandler">
+            <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
+            <argument type="service" id="gamification.domain.entity.user.user_repository" />
+            <argument type="service" id="gamification.command.domain.entity.badge.badge_collection_data_transformer" />
+        </service>
+    </services>
+</container>

@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="gamification.api.interactor.command_handler.create_badge.create_badge_command_handler"
+                 class="Interactor\CommandHandler\CreateBadge\CreateBadgeCommandHandler">
+            <argument type="service" id="gamification.domain.entity.user.user_repository" />
+            <argument type="service" id="gamification.domain.entity.image.image_repository" />
+            <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
+            <argument type="service" id="gamification.domain.service.id_generator" />
+            <argument type="service" id="gamification.domain.service.image_manager" />
+            <argument type="service" id="gamification.api.domain.entity.badge.badge_data_transformer" />
+        </service>
+
+        <service id="gamification.api.interactor.command_handler.delete_badge.delete_badge_command_handler"
+                 class="Interactor\CommandHandler\DeleteBadge\DeleteBadgeCommandHandler">
+            <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
+            <argument type="service" id="gamification.domain.entity.image.image_repository" />
+            <argument type="service" id="gamification.domain.service.image_manager" />
+        </service>
+
+        <service id="gamification.api.interactor.command_handler.get_badge.get_badge_command_handler"
+                 class="Interactor\CommandHandler\GetBadge\GetBadgeCommandHandler">
+            <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
+            <argument type="service" id="gamification.api.domain.entity.badge.badge_data_transformer" />
+        </service>
+
+        <service id="gamification.api.interactor.command_handler.list_badges.list_badges_command_handler"
+                 class="Interactor\CommandHandler\ListBadges\ListBadgesCommandHandler">
+            <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
+            <argument type="service" id="gamification.domain.entity.user.user_repository" />
+            <argument type="service" id="gamification.api.domain.entity.badge.badge_collection_data_transformer" />
+        </service>
+
+        <service id="gamification.api.interactor.command_handler.log_in.log_in_command_handler"
+                 class="Interactor\CommandHandler\LogIn\LogInCommandHandler">
+            <argument type="service" id="gamification.domain.entity.user.user_repository" />
+            <argument type="service" id="gamification.api.domain.entity.user.user_data_transformer" />
+            <argument type="service" id="gamification.domain.service.password_cipher" />
+        </service>
+
+        <service id="gamification.api.interactor.command_handler.sign_up.sign_up_command_handler"
+                 class="Interactor\CommandHandler\SignUp\SignUpCommandHandler">
+            <argument type="service" id="gamification.domain.entity.user.user_repository" />
+            <argument type="service" id="gamification.api.domain.entity.user.user_data_transformer" />
+            <argument type="service" id="gamification.domain.service.id_generator" />
+            <argument type="service" id="gamification.domain.service.password_cipher" />
+        </service>
+
+        <service id="gamification.api.interactor.command_handler.update_badge.update_badge_command_handler"
+                 class="Interactor\CommandHandler\UpdateBadge\UpdateBadgeCommandHandler">
+            <argument type="service" id="gamification.domain.entity.user.user_repository" />
+            <argument type="service" id="gamification.domain.entity.image.image_repository" />
+            <argument type="service" id="gamification.domain.entity.badge.badge_repository" />
+            <argument type="service" id="gamification.domain.service.id_generator" />
+            <argument type="service" id="gamification.domain.service.image_manager" />
+            <argument type="service" id="gamification.api.domain.entity.badge.badge_data_transformer" />
+        </service>
+    </services>
+</container>
