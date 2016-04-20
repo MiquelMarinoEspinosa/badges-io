@@ -1,3 +1,7 @@
+gamification_web:
+    resource: "@GamificationWebBundle/Resources/config/routing.yml"
+    prefix:   /web
+
 main:
     type: rest
     resource: "@GamificationCoreBundle/Resources/config/api-routes/gamification-api-routes.xml"

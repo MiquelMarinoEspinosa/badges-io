@@ -1,0 +1,3 @@
+gamification_web_homepage:
+    path:     /listBadges/{userId}
+    defaults: { _controller: GamificationWebBundle:BadgeWeb:index }

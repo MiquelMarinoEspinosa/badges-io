@@ -21,7 +21,8 @@ class AppKernel extends Kernel
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
 
             new App\Bundle\GamificationApiBundle\GamificationApiBundle(),
-            new App\Bundle\GamificationCoreBundle\GamificationCoreBundle()
+            new App\Bundle\GamificationCoreBundle\GamificationCoreBundle(),
+            new App\Bundle\GamificationWebBundle\GamificationWebBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
