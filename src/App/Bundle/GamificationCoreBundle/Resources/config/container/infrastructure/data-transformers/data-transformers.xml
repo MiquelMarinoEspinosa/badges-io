@@ -3,8 +3,27 @@
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-    <imports>
-        <import resource="data-api-transformers.xml"/>
-        <import resource="data-command-transformers.xml"/>
-    </imports>
+
+    <services>
+        <service id="gamification.infrastructure.data_transformer.resource.domain.entity.user.user_resource_data_transformer"
+                 class="Infrastructure\DataTransformer\Resource\Domain\Entity\User\UserResourceDataTransformer">
+        </service>
+
+        <service id="gamification.infrastructure.data_transformer.resource.domain.entity.image.image_resource_data_transformer"
+                 class="Infrastructure\DataTransformer\Resource\Domain\Entity\Image\ImageResourceDataTransformer">
+            <argument type="service" id="gamification.infrastructure.services.domain.image_manager.disk_image_manager" />
+        </service>
+
+        <service id="gamification.infrastructure.data_transformer.resource.domain.entity.badge.badge_resource_data_transformer"
+                 class="Infrastructure\DataTransformer\Resource\Domain\Entity\Badge\BadgeResourceDataTransformer">
+            <argument type="service" id="gamification.infrastructure.data_transformer.resource.domain.entity.image.image_resource_data_transformer" />
+            <argument type="service" id="gamification.infrastructure.data_transformer.resource.domain.entity.user.user_resource_data_transformer" />
+        </service>
+
+        <service id="gamification.infrastructure.data_transformer.resource.domain.entity.badge.badge_collection_resource_data_transformer"
+                 class="Infrastructure\DataTransformer\Resource\Domain\Entity\Badge\BadgeCollectionResourceDataTransformer">
+            <argument type="service" id="gamification.infrastructure.data_transformer.resource.domain.entity.badge.badge_resource_data_transformer" />
+        </service>
+    </services>
+
 </container>

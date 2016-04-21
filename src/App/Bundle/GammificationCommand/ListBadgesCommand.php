@@ -2,7 +2,7 @@
 
 namespace App\Bundle\GammificationCommand;
 
-use Infrastructure\Resource\Command\Domain\Entity\Badge\BadgeCommandResource;
+use Infrastructure\Resource\Domain\Entity\Badge\BadgeResource;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,7 +32,7 @@ class ListBadgesCommand extends ContainerAwareCommand
         $listBadgesCommand = $this->buildListBadgesCommandByRequest($input->getArgument('userId'));
 
         $badgesResources = $this->getContainer()->get(
-            "gamification.command.interactor.command_handler.list_badges.list_badges_command_handler"
+            "gamification.interactor.command_handler.list_badges.list_badges_command_handler"
         )->handle($listBadgesCommand);
 
         $this->showCommandResult($input->getArgument('userId'), $output, $badgesResources);
@@ -51,7 +51,7 @@ class ListBadgesCommand extends ContainerAwareCommand
     /**
      * @param string $userId
      * @param OutputInterface $output
-     * @param BadgeCommandResource $badgesResources
+     * @param BadgeResource $badgesResources
      */
     private function showCommandResult($userId, OutputInterface $output, $badgesResources)
     {
@@ -65,10 +65,10 @@ class ListBadgesCommand extends ContainerAwareCommand
 
     /**
      * @param OutputInterface $output
-     * @param BadgeCommandResource $badgeResource
+     * @param BadgeResource $badgeResource
      * @param string $userId
      */
-    private function showBadgeResourceFields(OutputInterface $output, BadgeCommandResource $badgeResource, $userId)
+    private function showBadgeResourceFields(OutputInterface $output, BadgeResource $badgeResource, $userId)
     {
         $isMultiUser = ($badgeResource->isMultiUser() == 1) ? 'Yes' : 'No';
         $output->writeln('     |name:        ' . $badgeResource->name() .

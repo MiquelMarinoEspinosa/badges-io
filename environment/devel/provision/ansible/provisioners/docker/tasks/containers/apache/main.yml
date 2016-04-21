@@ -6,8 +6,7 @@
      image: httpd:latest
      state: started
      ports:
-      #- "8443:8443"
-      - "8080:80"
+      - "8443:443"
      links:
        - php
      volumes:

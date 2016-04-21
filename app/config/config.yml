@@ -140,5 +140,5 @@ jms_serializer:
 
         directories:
             Gamification:
-                namespace_prefix: Infrastructure\Resource\Api\Domain\Entity
-                path: "%kernel.root_dir%/../src/Infrastructure/Resource/Api/Jms/Resources/serializer"
+                namespace_prefix: Infrastructure\Resource\Domain\Entity
+                path: "%kernel.root_dir%/../src/Infrastructure/Resource/Jms/Resources/serializer"

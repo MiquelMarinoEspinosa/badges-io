@@ -36,7 +36,7 @@ class UserApiController extends FOSRestController
             $signUpCommand = $this->buildSignUpCommandByRequest($request);
 
             return $this->container->get(
-                'gamification.api.interactor.command_handler.sign_up.sign_up_command_handler'
+                'gamification.interactor.command_handler.sign_up.sign_up_command_handler'
             )->handle($signUpCommand);
         } catch (\Exception $applicationException) {
             throw $this->buildUserHttpExceptionManager()
@@ -83,7 +83,7 @@ class UserApiController extends FOSRestController
             $logInCommand = $this->buildLogInCommandByRequest($request);
 
             return $this->container->get(
-                'gamification.api.interactor.command_handler.log_in.log_in_command_handler'
+                'gamification.interactor.command_handler.log_in.log_in_command_handler'
             )->handle($logInCommand);
         } catch (\Exception $applicationException) {
             throw $this->buildUserHttpExceptionManager()
