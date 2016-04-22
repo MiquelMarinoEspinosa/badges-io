@@ -1,0 +1,9 @@
+Badges for user id {{ userId }}: <br/>
+{% for badge in badges %}
+    --------------------------------------------
+    <li>Name:        {{ badge.name }}</li>
+    <li>Description: {{ badge.description }}</li>
+    <li>IsMultiUser: {{ badge.isMultiUser }}</li>
+    <li>Image Href:  {{ badge.imageHref }}</li>
+    -------------------------------------------
+{% endfor %}
