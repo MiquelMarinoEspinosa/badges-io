@@ -13,6 +13,10 @@ use Interactor\CommandHandler\ListBadges\ListBadgesCommand as InteractorListBadg
 class ListBadgesCommand extends ContainerAwareCommand
 {
     const MAX_BLANK_SIZE = 63;
+    const LEFT_BLANK     = '     ';
+    const TEXT_DELIMITER =
+        self::LEFT_BLANK . '|----------------------------------------------------------------------------|';
+    const IS_MULTI_USER = 1;
 
     protected function configure()
     {
@@ -35,7 +39,7 @@ class ListBadgesCommand extends ContainerAwareCommand
             "gamification.interactor.command_handler.list_badges.list_badges_command_handler"
         )->handle($listBadgesCommand);
 
-        $this->showCommandResult($input->getArgument('userId'), $output, $badgesResources);
+        $this->showCommandResult($output, $input->getArgument('userId'), $badgesResources);
     }
 
     /**
@@ -49,18 +53,27 @@ class ListBadgesCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param string $userId
      * @param OutputInterface $output
+     * @param string $userId
      * @param BadgeResource $badgesResources
      */
-    private function showCommandResult($userId, OutputInterface $output, $badgesResources)
+    private function showCommandResult(OutputInterface $output, $userId, $badgesResources)
     {
-        $output->writeln("     |----------------------------------------------------------------------------|");
-        $output->writeln("     |        <info>BADGES LIST BY USER ID $userId </info>        |");
-        $output->writeln("     |----------------------------------------------------------------------------|");
+        $this->showCommandTitleResult($output, $userId);
         foreach ($badgesResources as $badgeResource) {
             $this->showBadgeResourceFields($output, $badgeResource, $userId);
         }
+    }
+
+    /**
+     * @param OutputInterface $output
+     * @param string $userId
+     */
+    private function showCommandTitleResult(OutputInterface $output, $userId)
+    {
+        $output->writeln(static::TEXT_DELIMITER);
+        $output->writeln(static::LEFT_BLANK . "|        <info>BADGES LIST BY USER ID $userId </info>        |");
+        $output->writeln(static::TEXT_DELIMITER);
     }
 
     /**
@@ -70,16 +83,16 @@ class ListBadgesCommand extends ContainerAwareCommand
      */
     private function showBadgeResourceFields(OutputInterface $output, BadgeResource $badgeResource, $userId)
     {
-        $isMultiUser = ($badgeResource->isMultiUser() == 1) ? 'Yes' : 'No';
-        $output->writeln('     |name:        ' . $badgeResource->name() .
-            $this->computeBlankSizeByStringLength(strlen($badgeResource->name())) . "|");
-        $output->writeln('     |description: ' . $badgeResource->description() .
-            $this->computeBlankSizeByStringLength(strlen($badgeResource->description())) . "|");
-        $output->writeln('     |image href:  ' . $badgeResource->imageResource()->href() .
-            $this->computeBlankSizeByStringLength(strlen($badgeResource->imageResource()->href())) . "|");
-        $output->writeln('     |isMultiuser: ' . $isMultiUser .
-            $this->computeBlankSizeByStringLength(strlen($isMultiUser)) ."|");
-        $output->writeln("     |----------------------------------------------------------------------------|");
+        $isMultiUser = ($badgeResource->isMultiUser() == static::IS_MULTI_USER) ? 'Yes' : 'No';
+        $output->writeln(static::LEFT_BLANK . '|name:        ' . $badgeResource->name() .
+            $this->computeBlankSizeByStringLength(strlen($badgeResource->name())) . '|');
+        $output->writeln(static::LEFT_BLANK . '|description: ' . $badgeResource->description() .
+            $this->computeBlankSizeByStringLength(strlen($badgeResource->description())) . '|');
+        $output->writeln(static::LEFT_BLANK . '|isMultiUser: ' . $isMultiUser .
+            $this->computeBlankSizeByStringLength(strlen($isMultiUser)) .'|');
+        $output->writeln(static::LEFT_BLANK . '|image href:  ' . $badgeResource->imageResource()->href() .
+            $this->computeBlankSizeByStringLength(strlen($badgeResource->imageResource()->href())) . '|');
+        $output->writeln(static::TEXT_DELIMITER);
     }
 
     /**
@@ -90,7 +103,7 @@ class ListBadgesCommand extends ContainerAwareCommand
     private function computeBlankSizeByStringLength($elemSize)
     {
         $blankString = '';
-        for ($blankSize = 0; $blankSize <  self::MAX_BLANK_SIZE - $elemSize; $blankSize++) {
+        for ($blankSize = 0; $blankSize <  static::MAX_BLANK_SIZE - $elemSize; $blankSize++) {
             $blankString .= ' ';
         }
 
