@@ -4,8 +4,8 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
-        <import resource="persistence/repositories/doctrine/repositories.xml"/>
-        <import resource="data-transformers/data-transformers.xml"/>
-        <import resource="domain-services/domain-services.xml"/>
+        <import resource="persistence/repositories/repositories.xml" />
+        <import resource="data-transformers/data-transformers.xml" />
+        <import resource="domain-services/domain-services.xml" />
     </imports>
 </container>

@@ -6,11 +6,9 @@
 
     <services>
         <service id="gamification.app.bundle.gamification_api_bundle.controller.api_http_exception_manager.user_api_http_exception_manager"
-                 class="App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\UserApiHttpExceptionManager">
-        </service>
+                 class="App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\UserApiHttpExceptionManager"/>
         <service id="gamification.app.bundle.gamification_api_bundle.controller.api_http_exception_manager.badge_api_http_exception_manager"
-                 class="App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\BadgeApiHttpExceptionManager">
-        </service>
+                 class="App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\BadgeApiHttpExceptionManager" />
     </services>
 
 </container>

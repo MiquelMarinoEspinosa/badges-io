@@ -2,6 +2,7 @@
 
 namespace App\Bundle\GammificationCommand;
 
+use App\Bundle\GammificationCommand\CommandExceptionManager\BadgeCommandExceptionManager;
 use Infrastructure\Resource\Domain\Entity\Badge\BadgeResource;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,7 +22,7 @@ class ListBadgesCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('gamification:list_badges')
+            ->setName('gamification:list-badges')
             ->setDescription('List multiUser badges and badges owned by the user given a userId')
             ->addArgument(
                 'userId',
@@ -33,13 +34,18 @@ class ListBadgesCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $listBadgesCommand = $this->buildListBadgesCommandByRequest($input->getArgument('userId'));
+        try {
+            $listBadgesCommand = $this->buildListBadgesCommandByRequest($input->getArgument('userId'));
 
-        $badgesResources = $this->getContainer()->get(
-            "gamification.interactor.command_handler.list_badges.list_badges_command_handler"
-        )->handle($listBadgesCommand);
+            $badgesResources = $this->getContainer()->get(
+                "gamification.interactor.command_handler.list_badges.list_badges_command_handler"
+            )->handle($listBadgesCommand);
 
-        $this->showCommandResult($output, $input->getArgument('userId'), $badgesResources);
+            $this->showCommandResult($output, $input->getArgument('userId'), $badgesResources);
+        } catch (\Exception $exception) {
+            $this->buildCommandExceptionManager()
+                 ->applicationListBadgesExceptionShowCommandError($output, $exception);
+        }
     }
 
     /**
@@ -71,8 +77,10 @@ class ListBadgesCommand extends ContainerAwareCommand
      */
     private function showCommandTitleResult(OutputInterface $output, $userId)
     {
+        $title = static::LEFT_BLANK . "|        <info>BADGES LIST BY USER ID $userId </info>        |";
+
         $output->writeln(static::TEXT_DELIMITER);
-        $output->writeln(static::LEFT_BLANK . "|        <info>BADGES LIST BY USER ID $userId </info>        |");
+        $output->writeln($title);
         $output->writeln(static::TEXT_DELIMITER);
     }
 
@@ -108,5 +116,15 @@ class ListBadgesCommand extends ContainerAwareCommand
         }
 
         return $blankString;
+    }
+
+    /**
+     * @return BadgeCommandExceptionManager
+     */
+    private function buildCommandExceptionManager()
+    {
+        return $this->getContainer()->get(
+            "gamification.app.bundle.gammification_command.command_exception_manager.badge_command_exception_manager"
+        );
     }
 }

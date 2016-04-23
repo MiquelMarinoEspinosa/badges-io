@@ -4,9 +4,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
-        <import resource="app/app.xml"/>
-        <import resource="interactor/interactor.xml"/>
-        <import resource="domain/domain.xml"/>
-        <import resource="infrastructure/infrastructure.xml"/>
+        <import resource="http-exception-managers/http-exception-managers.xml"/>
+        <import resource="command-exception-managers/command-exception-managers.xml"/>
     </imports>
 </container>
