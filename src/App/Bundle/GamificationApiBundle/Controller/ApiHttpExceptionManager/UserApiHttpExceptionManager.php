@@ -44,7 +44,7 @@ class UserApiHttpExceptionManager
             $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
-        return new HttpException($statusCode, $applicationException->getMessage());
+        return $this->buildHttpException($applicationException, $statusCode);
     }
 
     /**
@@ -62,6 +62,17 @@ class UserApiHttpExceptionManager
             $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
+        return $this->buildHttpException($applicationException, $statusCode);
+    }
+
+    /**
+     * @param \Exception $applicationException
+     * @param string $statusCode
+     *
+     * @return HttpException
+     */
+    private function buildHttpException(\Exception $applicationException, $statusCode)
+    {
         return new HttpException($statusCode, $applicationException->getMessage());
     }
 }

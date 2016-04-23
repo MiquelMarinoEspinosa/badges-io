@@ -46,7 +46,6 @@ class ListBadgesCommandHandler implements CommandHandler
      */
     public function handle($command)
     {
-//        throw new \Exception('ola k ase? ola k ase?');
         $badgesByUser    = $this->tryToFindBadgesByUser($command->userId());
         $badgesMultiUser = $this->tryToFindMultiUserBadges();
 
