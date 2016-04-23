@@ -30,6 +30,9 @@ class ListBadgesCommandValidator implements Validator
      */
     private function validateUserId()
     {
+//        throw $this->buildInvalidGetCommandException(
+//            InvalidListBadgesCommandExceptionCode::STATUS_CODE_USER_ID_NOT_VALID_PROVIDED
+//        );
         $this->checkUserIdNotNull()
              ->checkUserIdFormat();
 

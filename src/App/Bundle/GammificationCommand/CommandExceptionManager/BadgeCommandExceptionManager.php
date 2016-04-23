@@ -29,7 +29,7 @@ class BadgeCommandExceptionManager
             $message = "Lista Badges Command Handler exception:";
             $errorMessage = $this->applyFormatToMessage($message) ."|\n";
         } else {
-            $message = "Something went worng :_(";
+            $message = "Something went wrong :_(";
             $errorMessage = $this->applyFormatToMessage($message) ."|\n";
 
         }

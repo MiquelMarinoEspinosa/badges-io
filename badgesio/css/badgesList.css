@@ -19,3 +19,7 @@ h1 {
 body {
     background-image: url("/images/background.jpg");
 }
+
+.divError {
+    left: 25%;
+}

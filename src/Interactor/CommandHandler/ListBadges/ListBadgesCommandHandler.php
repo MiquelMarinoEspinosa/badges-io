@@ -10,6 +10,7 @@ use Domain\Entity\User\UserRepository;
 use Interactor\CommandHandler\CommandHandler;
 use Interactor\CommandHandler\ListBadges\Exception\InvalidListBadgesCommandHandlerException;
 use Interactor\CommandHandler\ListBadges\Exception\InvalidListBadgesCommandHandlerExceptionCode;
+use Rhumsaa\Uuid\Console\Exception;
 
 class ListBadgesCommandHandler implements CommandHandler
 {
@@ -45,6 +46,7 @@ class ListBadgesCommandHandler implements CommandHandler
      */
     public function handle($command)
     {
+//        throw new \Exception('ola k ase? ola k ase?');
         $badgesByUser    = $this->tryToFindBadgesByUser($command->userId());
         $badgesMultiUser = $this->tryToFindMultiUserBadges();
 
