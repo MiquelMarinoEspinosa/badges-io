@@ -1,0 +1,9 @@
+---
+- name: install redis container app
+  sudo: yes
+  docker:
+    name: redis
+    image: redis:latest
+    state: started
+    ports:
+      - "6379:6379"

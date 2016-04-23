@@ -4,6 +4,9 @@ namespace Domain\Entity\Image;
 
 interface ImageRepository
 {
+    /**
+     * @param Image $image
+     */
     public function persist(Image $image);
 
     /**

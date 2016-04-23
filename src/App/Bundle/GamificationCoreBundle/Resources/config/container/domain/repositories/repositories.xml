@@ -6,13 +6,16 @@
 
     <services>
         <service id="gamification.domain.entity.badge.badge_repository"
-                 alias="gamification.infrastructure.peristence.domain.entity.badge.doctrine_badge_repository" />
+                 alias="gamification.infrastructure.persistence.redis.domain.entity.badge.redis_badge_repository" />
+                <!-- alias="gamification.infrastructure.peristence.domain.entity.badge.doctrine_badge_repository" -->
 
         <service id="gamification.domain.entity.image.image_repository"
-                 alias="gamification.infrastructure.peristence.domain.entity.image.doctrine_image_repository" />
-
+                 alias="gamification.infrastructure.persistence.redis.domain.entity.image.redis_image_repository" />
+                 <!-- alias="gamification.infrastructure.peristence.domain.entity.image.doctrine_image_repository" -->
         <service id="gamification.domain.entity.user.user_repository"
-                 alias="gamification.infrastructure.peristence.domain.entity.user.doctrine_user_repository" />
+                 alias="gamification.infrastructure.persistence.redis.domain.entity.user.redis_user_repository" />
+                 <!--alias="gamification.infrastructure.peristence.domain.entity.user.doctrine_user_repository"-->
+
     </services>
 
 </container>

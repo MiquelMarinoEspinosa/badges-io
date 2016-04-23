@@ -9,6 +9,7 @@
       - "9000:9000"
     links:
       - mysql
+      - redis
     volumes:
       - /var/deployments/badges-io/releases/1:/var/deployments/badges-io/releases/1
 
