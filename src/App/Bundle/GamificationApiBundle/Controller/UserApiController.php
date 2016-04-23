@@ -3,6 +3,7 @@
 namespace App\Bundle\GamificationApiBundle\Controller;
 
 use App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\UserApiHttpExceptionManager;
+use App\Bundle\GamificationApiBundle\Controller\ApiKeyAuthentication\ApiKeyAuthenticatedController;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\FOSRestController;
 use Interactor\CommandHandler\LogIn\LogInCommand;
@@ -10,7 +11,7 @@ use Interactor\CommandHandler\SignUp\SignUpCommand;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 
-class UserApiController extends FOSRestController
+class UserApiController extends FOSRestController implements ApiKeyAuthenticatedController
 {
     /**
      * @ApiDoc(

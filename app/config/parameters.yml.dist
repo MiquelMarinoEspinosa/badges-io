@@ -5,3 +5,4 @@ parameters:
     database_user: badgesUser
     database_password: badgesUser
     secret: ThisIsNotASecret
+    api_key: 8eb7afb9-af81-4667-a629-74009c600ae0

@@ -3,6 +3,7 @@
 namespace App\Bundle\GamificationApiBundle\Controller;
 
 use App\Bundle\GamificationApiBundle\Controller\ApiHttpExceptionManager\BadgeApiHttpExceptionManager;
+use App\Bundle\GamificationApiBundle\Controller\ApiKeyAuthentication\ApiKeyAuthenticatedController;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
@@ -20,9 +21,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class BadgeApiController extends FOSRestController
+class BadgeApiController extends FOSRestController implements ApiKeyAuthenticatedController
 {
-
     /**
      * @ApiDoc(
      *  description = "Create a new badge",

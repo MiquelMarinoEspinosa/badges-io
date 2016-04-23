@@ -112,10 +112,9 @@ fos_rest:
 nelmio_api_doc:
     name: Badges-io API documentation
     sandbox:
-        #authentication:
-        #name: apikey
-        #delivery: header
-        #enabled:  true
+        authentication:
+            name: apikey
+            delivery: header
         accept_type: application/hal+json
         request_format:
             method: accept_header
