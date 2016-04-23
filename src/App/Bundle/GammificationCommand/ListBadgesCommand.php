@@ -61,13 +61,17 @@ class ListBadgesCommand extends ContainerAwareCommand
     /**
      * @param OutputInterface $output
      * @param string $userId
-     * @param BadgeResource $badgesResources
+     * @param BadgeResource[] $badgesResources
      */
     private function showCommandResult(OutputInterface $output, $userId, $badgesResources)
     {
         $this->showCommandTitleResult($output, $userId);
-        foreach ($badgesResources as $badgeResource) {
-            $this->showBadgeResourceFields($output, $badgeResource, $userId);
+        if (count($badgesResources) == 0) {
+            $this->showNoBadgesWereFound($output);
+        } else {
+            foreach ($badgesResources as $badgeResource) {
+                $this->showBadgeResourceFields($output, $badgeResource, $userId);
+            }
         }
     }
 
@@ -81,6 +85,15 @@ class ListBadgesCommand extends ContainerAwareCommand
 
         $output->writeln(static::TEXT_DELIMITER);
         $output->writeln($title);
+        $output->writeln(static::TEXT_DELIMITER);
+    }
+
+    private function showNoBadgesWereFound(OutputInterface $output)
+    {
+        $badgesNotFoundMessage = "There is not badges for you yet! ;)";
+        $output->writeln(static::LEFT_BLANK . "<comment>|             " .
+            $badgesNotFoundMessage . "</comment>" .
+            $this->computeBlankSizeByStringLength(strlen($badgesNotFoundMessage)) . '|');
         $output->writeln(static::TEXT_DELIMITER);
     }
 

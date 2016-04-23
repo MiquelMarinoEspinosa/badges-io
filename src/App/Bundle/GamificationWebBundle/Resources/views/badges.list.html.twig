@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Badges IO - List Badges</title>
         <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/css/badgesList.css" />
     </head>
     <body>
         <h1 align="center">Badges List</h1>
-        <table class="table-bordered table-hover table-condensed badgesList" width="80%" align="center">
-            <thead class="panel panel-primary">
-                <tr>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Description</th>
-                    <th class="text-center">IsMultiUser</th>
-                    <th class="text-center">Image</th>
-                </tr>
-            </thead>
-            {% for badge in badges %}
-                <tr>
-                    <td class="text-center">
-                        {{ badge.name }}
-                    </td>
-                    <td class="text-center">
-                        {{ badge.description }}
-                    </td>
-                    <td class="text-center">
-                        {{ badge.isMultiUser }}
-                    </td>
-                    <td class="text-center">
-                        <img height="90" width="80" src="{{ badge.imageHref }}"/>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+        {% if badges | length == 0 %}
+            <div class="alert alert-warning col-md-6 divCenter"  align="center">
+                <strong>There is not badges for you yet! ;) </strong> <br/>
+            </div>
+        {% else %}
+            <table class="table-bordered table-hover table-condensed badgesList" width="80%" align="center">
+                <thead class="panel panel-primary">
+                    <tr>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">IsMultiUser</th>
+                        <th class="text-center">Image</th>
+                    </tr>
+                </thead>
+                {% for badge in badges %}
+                    <tr>
+                        <td class="text-center">
+                            {{ badge.name }}
+                        </td>
+                        <td class="text-center">
+                            {{ badge.description }}
+                        </td>
+                        <td class="text-center">
+                            {{ badge.isMultiUser }}
+                        </td>
+                        <td class="text-center">
+                            <img height="90" width="80" src="{{ badge.imageHref }}"/>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
     </body>
 </html>
