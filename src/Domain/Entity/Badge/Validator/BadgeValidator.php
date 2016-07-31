@@ -15,9 +15,9 @@ class BadgeValidator implements Validator
      */
     private $badge;
 
-    public function __construct(Badge $createBadgeCommand)
+    public function __construct(Badge $badge)
     {
-        $this->badge = $createBadgeCommand;
+        $this->badge = $badge;
     }
 
     public function validate()
@@ -48,7 +48,7 @@ class BadgeValidator implements Validator
     {
         $aNullId = null;
         if ($this->badge->id() === $aNullId) {
-            throw $this->buildInvalidCreateCommandException(
+            throw $this->buildInvalidBadgeException(
                 InvalidBadgeExceptionCode::STATUS_CODE_ID_NOT_PROVIDED
             );
         }
@@ -63,7 +63,7 @@ class BadgeValidator implements Validator
     private function checkIdFormat()
     {
         if ($this->notValidIdFormat($this->badge->id())) {
-            throw $this->buildInvalidCreateCommandException(
+            throw $this->buildInvalidBadgeException(
                 InvalidBadgeExceptionCode::STATUS_CODE_ID_NOT_VALID_PROVIDED
             );
         }
@@ -101,7 +101,7 @@ class BadgeValidator implements Validator
     {
         $aNullName = null;
         if ($this->badge->name() === $aNullName) {
-            throw $this->buildInvalidCreateCommandException(
+            throw $this->buildInvalidBadgeException(
                 InvalidBadgeExceptionCode::STATUS_CODE_NAME_NOT_PROVIDED
             );
         }
@@ -116,7 +116,7 @@ class BadgeValidator implements Validator
     private function checkNameFormat()
     {
         if ($this->notValidNameFormat($this->badge->name())) {
-            throw $this->buildInvalidCreateCommandException(
+            throw $this->buildInvalidBadgeException(
                 InvalidBadgeExceptionCode::STATUS_CODE_NAME_NOT_VALID_PROVIDED
             );
         }
@@ -154,7 +154,7 @@ class BadgeValidator implements Validator
     {
         $aNullDescription = null;
         if ($this->badge->description() === $aNullDescription) {
-            throw $this->buildInvalidCreateCommandException(
+            throw $this->buildInvalidBadgeException(
                 InvalidBadgeExceptionCode::STATUS_CODE_DESCRIPTION_NOT_PROVIDED
             );
         }
@@ -169,7 +169,7 @@ class BadgeValidator implements Validator
     private function checkDescriptionFormat()
     {
         if ($this->notValidDescriptionFormat($this->badge->description())) {
-            throw $this->buildInvalidCreateCommandException(
+            throw $this->buildInvalidBadgeException(
                 InvalidBadgeExceptionCode::STATUS_CODE_DESCRIPTION_NOT_VALID_PROVIDED
             );
         }
@@ -207,7 +207,7 @@ class BadgeValidator implements Validator
     {
         $aNullIsMultiUser = null;
         if ($this->badge->isMultiUser() === $aNullIsMultiUser) {
-            throw $this->buildInvalidCreateCommandException(
+            throw $this->buildInvalidBadgeException(
                 InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_PROVIDED
             );
         }
@@ -222,7 +222,7 @@ class BadgeValidator implements Validator
     private function checkIsMultiUserFormat()
     {
         if ($this->notValidIsMultiUserFormat($this->badge->isMultiUser())) {
-            throw $this->buildInvalidCreateCommandException(
+            throw $this->buildInvalidBadgeException(
                 InvalidBadgeExceptionCode::STATUS_CODE_IS_MULTI_USER_NOT_VALID_PROVIDED
             );
         }
@@ -245,7 +245,7 @@ class BadgeValidator implements Validator
      *
      * @return InvalidBadgeException
      */
-    private function buildInvalidCreateCommandException($statusCode)
+    private function buildInvalidBadgeException($statusCode)
     {
         return new InvalidBadgeException($statusCode);
     }
