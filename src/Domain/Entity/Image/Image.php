@@ -127,9 +127,14 @@ class Image
         return $this;
     }
 
+    /**
+     * @return Image
+     */
     private function validate()
     {
         $this->buildValidator()->validate();
+
+        return $this;
     }
 
     /**

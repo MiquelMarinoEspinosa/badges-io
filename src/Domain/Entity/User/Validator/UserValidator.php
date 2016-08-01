@@ -47,7 +47,9 @@ class UserValidator implements Validator
     {
         $aNullId = null;
         if ($aNullId === $this->user->id()) {
-            throw $this->buildInvalidUserException(InvalidUserExceptionCode::STATUS_CODE_ID_NOT_PROVIDED);
+            throw $this->buildInvalidUserException(
+                InvalidUserExceptionCode::STATUS_CODE_ID_NOT_PROVIDED
+            );
         }
 
         return $this;

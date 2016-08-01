@@ -152,9 +152,14 @@ class Badge
         return $this;
     }
 
+    /**
+     * @return Badge
+     */
     private function validate()
     {
         $this->buildValidator()->validate();
+
+        return $this;
     }
 
     /**
