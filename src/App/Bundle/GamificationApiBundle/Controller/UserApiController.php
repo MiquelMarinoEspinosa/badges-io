@@ -16,7 +16,9 @@ class UserApiController extends FOSRestController implements ApiKeyAuthenticated
     /**
      * @ApiDoc(
      *  description = "Create a new user",
-     *  output = "Infrastructure\Resource\Api\Domain\Entity\User\UserApiResource",
+     *  output = {
+     *      "class"="Infrastructure\Resource\Domain\Entity\User\UserResource"
+     *  },
      *  parameters={
      *    {"name"="username", "dataType"="string", "format"="\s+", "description"=" User's Name", "required"="true"},
      *    {"name"="email", "dataType"="string", "format"="\s+", "description"=" User's Mail", "required"="true"},
@@ -63,7 +65,9 @@ class UserApiController extends FOSRestController implements ApiKeyAuthenticated
     /**
      * @ApiDoc(
      *  description = "Login into the system",
-     *  output = "Infrastructure\Resource\Api\Domain\Entity\User\UserApiResource",
+     *  output = {
+     *      "class"="Infrastructure\Resource\Domain\Entity\User\UserResource"
+     *  },
      *  parameters={
      *    {"name"="username", "dataType"="string", "format"="\s+", "description"=" User's Name", "required"="true"},
      *    {"name"="email", "dataType"="string", "format"="\s+", "description"=" User's Mail", "required"="true"},

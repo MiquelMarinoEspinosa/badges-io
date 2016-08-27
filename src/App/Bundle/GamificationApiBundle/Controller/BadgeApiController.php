@@ -26,6 +26,9 @@ class BadgeApiController extends FOSRestController implements ApiKeyAuthenticate
     /**
      * @ApiDoc(
      *  description = "Create a new badge",
+     *  output = {
+     *      "class"="Infrastructure\Resource\Domain\Entity\Badge\BadgeResource"
+     *  },
      *  parameters={
      *    {"name"="name", "dataType"="string", "format"="\s+", "description"=" Badge name", "required"="true"},
      *    {
@@ -131,6 +134,9 @@ class BadgeApiController extends FOSRestController implements ApiKeyAuthenticate
     /**
      * @ApiDoc(
      *  description = "Update a previous badge",
+     *  output = {
+     *      "class"="Infrastructure\Resource\Domain\Entity\Badge\BadgeResource"
+     *  },
      *  parameters={
      *    {"name"="id", "dataType"="string", "format"="\s+", "description"=" Badge id", "required"="true"},
      *    {"name"="name", "dataType"="string", "format"="\s+", "description"=" Badge name", "required"="true"},
@@ -239,6 +245,9 @@ class BadgeApiController extends FOSRestController implements ApiKeyAuthenticate
     /**
      * @ApiDoc(
      *  description = "Get a badge by Badge Id",
+     *  output = {
+     *      "class"="Infrastructure\Resource\Domain\Entity\Badge\BadgeResource"
+     *  },
      *  requirements={
      *    {"name"="id", "dataType"="string", "format"="\s+", "description"=" Badge id", "required"="true"},
      *    {"name"="userId", "dataType"="string", "format"="\s+", "description"=" User id", "required"="true"},
@@ -373,6 +382,9 @@ class BadgeApiController extends FOSRestController implements ApiKeyAuthenticate
     /**
      * @ApiDoc(
      *  description = "Get a list of badges by User Id",
+     *  output = {
+     *      "class"="Infrastructure\Resource\Domain\Entity\Badge\BadgeResource"
+     *  },
      *  requirements={
      *    {"name"="userId", "dataType"="string", "format"="\s+", "description"=" User id", "required"="true"}
      * },
