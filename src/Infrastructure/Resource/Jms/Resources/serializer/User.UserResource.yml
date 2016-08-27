@@ -29,3 +29,19 @@ Infrastructure\Resource\Domain\Entity\User\UserResource:
             href:
                 route: put_user_sign_up
                 absolute: true
+
+        -
+            rel: list_badges
+            title: Get the badges list by User Id
+            href:
+                route: get_badges_list
+                absolute: true
+                parameters:
+                    userId: expr(object.id())
+
+        -
+            rel: create_badge
+            title: Create a new badge
+            href:
+                route: post_badge_create
+                absolute: true
